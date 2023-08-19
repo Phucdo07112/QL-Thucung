@@ -7,3 +7,4 @@ const thucung2=3;
 const main= 1;
 const phuc= 1;
 const concac= 2;
+const mai4 = 4;
