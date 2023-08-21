@@ -4,10 +4,10 @@ import HomePage from "./page/HomePage";
 
 function App() {
   return (
-    <h1>cc</h1>
-    // <Routes>
-    //   <Route path="/" element={<HomePage />} />
-    //     <Route path="/" element={<HomePage />} />
+    // <h1>cc</h1>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+    {/* //     <Route path="/" element={<HomePage />} />
     //     <Route path="/product/:slug" element={<ProductDetails />} />
     //     <Route path="/categories" element={<Categories />} />
     //     <Route path="/cart" element={<CartPage />} />
@@ -33,8 +33,8 @@ function App() {
     //     <Route path="/about" element={<About />} />
     //     <Route path="/contact" element={<Contact />} />
     //     <Route path="/policy" element={<Policy />} />
-    //     <Route path="*" element={<Pagenotfound />} />
-    //   </Routes>
+    //     <Route path="*" element={<Pagenotfound />} /> */}
+   </Routes>
   );
 }
 
