@@ -6,18 +6,7 @@ const PetSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    age: {
-      type: String,
-      required: true,
-    },
-    color: {
-      type: String,
-      required: true,
-    },
     description: {
-      type: String,
-    },
-    breed: {
       type: String,
     },
     imageLabel: {
@@ -31,12 +20,6 @@ const PetSchema = new mongoose.Schema(
     image: {
       type: String,
     },
-    additionalImages: [{ type: String }],
-    adoptionStatus: {
-      type: String,
-      enum: ["open", "pending", "closed"],
-      default: "open",
-    },
     price: {
       type: String,
       required: true,
@@ -47,4 +30,4 @@ const PetSchema = new mongoose.Schema(
   }
 );
 
-module.exports = Pet = mongoose.model("Pet", PetSchema);
+module.exports = Pet = mongoose.model("Accessory", PetSchema);
