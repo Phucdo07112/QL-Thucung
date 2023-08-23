@@ -1,12 +1,14 @@
 import { Routes, Route } from "react-router-dom";
 import './App.css';
 import HomePage from "./page/HomePage";
+import Cart from "./page/cart";
 
 function App() {
   return (
     // <h1>cc</h1>
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route path="/cart" element={<Cart />} />
     {/* //     <Route path="/" element={<HomePage />} />
     //     <Route path="/product/:slug" element={<ProductDetails />} />
     //     <Route path="/categories" element={<Categories />} />
