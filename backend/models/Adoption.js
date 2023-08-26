@@ -24,7 +24,7 @@ const AdoptionSchema = new mongoose.Schema(
     },
     pet: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Category",
+      ref: "Pet",
     },
   },
   {

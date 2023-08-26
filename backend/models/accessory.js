@@ -8,6 +8,7 @@ const PetSchema = new mongoose.Schema(
     },
     description: {
       type: String,
+      required: true,
     },
     imageLabel: {
       type: String,
@@ -19,6 +20,7 @@ const PetSchema = new mongoose.Schema(
     },
     image: {
       type: String,
+      required: true,
     },
     price: {
       type: String,
