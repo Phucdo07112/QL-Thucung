@@ -1,0 +1,33 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#footer{
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+#footer{
+    padding: 64px 16px;
+    text-align: center;
+}
+#footer .footer-list a{
+    text-decoration: none;
+    color:white;
+    float: left;
+
+}
+#footer .footer-list a:hover{
+    opacity: 0.6;
+}
+#footer .copyright {
+    font-size: 15px;
+    color: cadetblue;
+    margin-top: 15px;
+}
+#footer .copyright:hover{
+    opacity: 0.6;
+}
