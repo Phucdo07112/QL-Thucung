@@ -35,8 +35,8 @@ header li a:hover
 header #login a
 {
     color: #fff;
-    background-color: royalblue;
-    border-radius: 30px;
+    background-color: #FF642F;
+    border-radius: 10px;
     float: right;
     position: relative;
     top: -1px;

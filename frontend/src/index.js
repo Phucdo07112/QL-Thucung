@@ -9,11 +9,11 @@ import Layout from "./components/Layout/Layout";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Layout>
       <BrowserRouter>
-        <App />
+        <Layout>
+            <App />
+        </Layout>
       </BrowserRouter>
-    </Layout>
   </React.StrictMode>
 );
 

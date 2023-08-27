@@ -6,6 +6,7 @@ import Cart from "./page/cart";
 function App() {
   return (
     // <h1>cc</h1>
+
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/cart" element={<Cart />} />
@@ -36,7 +37,8 @@ function App() {
     //     <Route path="/contact" element={<Contact />} />
     //     <Route path="/policy" element={<Policy />} />
     //     <Route path="*" element={<Pagenotfound />} /> */}
-   </Routes>
+    </Routes>
+
   );
 }
 
