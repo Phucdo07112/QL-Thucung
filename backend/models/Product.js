@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const PetSchema = new mongoose.Schema(
+const ProductSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -25,11 +25,20 @@ const PetSchema = new mongoose.Schema(
     price: {
       type: String,
       required: true,
-    }
+    },
+    reviews: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "Review",
+      },
+    ],
   },
   {
     timestamps: true,
   }
 );
 
-module.exports = Pet = mongoose.model("Accessory", PetSchema);
+
+module.exports = Product = mongoose.model("Product", ProductSchema);
+
+

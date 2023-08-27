@@ -1,5 +1,5 @@
 const express = require("express");
-const accessoryController = require("../controllers/accessoryController");
+const productController = require("../controllers/productController");
 
 const router = express.Router();
 
@@ -7,7 +7,7 @@ const router = express.Router();
 // router.get("/all", accessoryController.getAll);
 
 //post create new media
-router.post("/create", accessoryController.create);
+router.post("/create", productController.create);
 
 // //post create new media
 // router.put("/update/:id", categoryController.create);

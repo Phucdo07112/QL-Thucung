@@ -1,28 +1,24 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 const cors = require("cors");
 const morgan = require("morgan");
 const path = require("path");
-
+const routes = require("./routes");
+const bodyParser = require("body-parser"); // nhận req.body từ client gửi lên
+const cookieParser = require("cookie-parser"); // nhận req.body từ client gửi lên
 const app = express();
-
+dotenv.config();
 app.use(cors());
 
-app.use(express.json());
-
-app.use(morgan("tiny"));
-
-const petRoutes = require("./routes/petRotues");
-const categoryRoutes = require("./routes/categoryRoutes");
-const adoptionRoutes = require("./routes/adoptionRoutes");
-const accessoryRoutes = require("./routes/accessoryRoutes");
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb'}));
+app.use(bodyParser.json());
+app.use(morgan("tiny")); // ghi log
+app.use(cookieParser())
 
 app.use("/public", express.static(path.join(__dirname, "public")));
-
-app.use("/api/pets", petRoutes);
-app.use("/api/category", categoryRoutes);
-app.use("/api/adoption", adoptionRoutes);
-app.use("/api/accessory", accessoryRoutes);
+routes(app)
 
 const mongodbUri = "mongodb+srv://qlthucung1:2Kwhm2YTFYnPwkz7@cluster0.d0zaumm.mongodb.net/?retryWrites=true&w=majority";
 

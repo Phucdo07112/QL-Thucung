@@ -40,7 +40,13 @@ const PetSchema = new mongoose.Schema(
     price: {
       type: String,
       required: true,
-    }
+    },
+    reviews: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "Review",
+      },
+    ],
   },
   {
     timestamps: true,
