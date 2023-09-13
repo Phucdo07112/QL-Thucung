@@ -2,14 +2,30 @@ import { Routes, Route } from "react-router-dom";
 import './App.css';
 import HomePage from "./page/HomePage";
 import Cart from "./page/cart";
+import Login from "./page/auth/Login";
+import { routes } from "./routes";
+import DefaultComponent from "./components/Layout/Default"
+import Layout from "./components/Layout/Layout";
 
 function App() {
   return (
     // <h1>cc</h1>
-
+    
     <Routes>
-      <Route path="/" element={<HomePage />} />
+      {routes.map((route) => {
+      const Page = route.page
+      const Layouts = route.isShowHeader ? Layout : DefaultComponent
+      return (
+        <Route key={route.path} path={route.path} element={
+          <Layouts>
+            <Page />
+          </Layouts>
+        } />
+      )
+    })}
+      {/* <Route path="/" element={<HomePage />} />
       <Route path="/cart" element={<Cart />} />
+      <Route path="/login" element={<Login />} /> */}
     {/* //     <Route path="/" element={<HomePage />} />
     //     <Route path="/product/:slug" element={<ProductDetails />} />
     //     <Route path="/categories" element={<Categories />} />
