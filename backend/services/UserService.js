@@ -1,4 +1,4 @@
-const User = require("../models/UserModel");
+const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const { genneralAccessToken, genneralRefreshToken } = require("./JwtService");
 const createUser = (newUser) => {
@@ -38,6 +38,7 @@ const createUser = (newUser) => {
 const loginUser = (userLogin) => {
   return new Promise(async (resolve, reject) => {
     const {email, password } = userLogin;
+    console.log('email, password',email, password);
     try {
       const checkUser = await User.findOne({
         email: email,

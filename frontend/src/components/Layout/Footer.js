@@ -12,9 +12,9 @@ import { FiMail} from 'react-icons/fi';
 
 const Footer = () => {
   return (
-    <div class='w-full bg-black text-white'>
+    <div className='w-full bg-black text-white'>
             <div className='flex justify-between container py-8 '>
-              <div class="footer-list w-36"> 
+              <div className="footer-list w-36"> 
                 <img src="/images/Logo2.png"></img>
                 <p className='leading-6'>Cửa hàng thú cưng hân hạnh được phục vụ bạn</p>
                 <a target='_blank' href='https://www.facebook.com/profile.php?id=100028583903010'>  <BiLogoFacebookCircle /> </a>

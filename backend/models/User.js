@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema(
         isAdmin: { type: Boolean, default: false, required: true },
         phone: { type: Number },
         address: { type: String },
-        avatar: { type: String },
+        avatar: { type: String, default: 'https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev\u003d2540745' },
         city: {type: String}
     },
     {

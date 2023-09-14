@@ -25,7 +25,6 @@ const mongodbUri = "mongodb+srv://qlthucung1:2Kwhm2YTFYnPwkz7@cluster0.d0zaumm.m
 mongoose.connect(mongodbUri, {
   useNewUrlParser: true,
 });
-``;
 
 mongoose.connection.on("connected", () => {
   console.log("Connected to mongodb...");

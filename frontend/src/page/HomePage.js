@@ -2,7 +2,7 @@ import React from 'react'
 
 const HomePage = () => {
   return (
-    <h1>tien</h1>
+    <div className='h-[2000px]'>tien</div>
   )
 }
 
