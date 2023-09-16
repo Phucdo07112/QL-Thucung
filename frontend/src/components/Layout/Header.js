@@ -5,7 +5,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import * as UserService from "../../services/UserService";
-import { Image, Popover } from "antd";
+import { Badge, Image, Popover } from "antd";
 import { resetUser } from "../../redux/slides/userSlice";
 const Header = ({ isHiddenSearch, isHiddenCart, isHiddenNav }) => {
   const user = useSelector((state) => state.user);
@@ -81,9 +81,25 @@ const Header = ({ isHiddenSearch, isHiddenCart, isHiddenNav }) => {
           </ul>
         )}
 
-        <div className="flex items-center gap-4">
-          {!isHiddenSearch && <AiOutlineSearch />}
-          {!isHiddenCart && <AiOutlineShoppingCart />}
+        <div className="flex items-center gap-4 border-l-2 pl-7">
+          {!isHiddenSearch && (
+            <div className="cursor-pointer">
+              <AiOutlineSearch style={{ fontSize: "30px" }} />
+            </div>
+          )}
+          {!isHiddenCart && (
+            <Link to="/order" className="cursor-pointer">
+              <Badge count={1}>
+                <AiOutlineShoppingCart
+                  style={{
+                    fontSize: "30px",
+                    marginRight: "8px",
+                    marginLeft: "10px",
+                  }}
+                />
+              </Badge>
+            </Link>
+          )}
           <div className=" flex items-center gap-2">
             {user?.access_token ? (
               <>

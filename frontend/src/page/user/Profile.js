@@ -79,35 +79,34 @@ const Profile = () => {
     });
   };
   return (
-    <div className="container ">
-      <div className="bg-white p-6 my-4 rounded-2xl max-w-[700px] mx-auto">
+    <div className="container pt-2">
+      <div className="bg-white p-6 my-4 rounded-2xl max-w-[700px] mx-auto border-2">
         <div className="bg-[#FF642F] w-[280px] flex items-center justify-center p-2 rounded-lg mb-4">
           <h1 className="text-lg font-bold ">Thông tin người dùng</h1>
         </div>
         <Loading isLoading={isLoading}>
           <div className="flex flex-col items-center gap-2">
-          <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2">
               <label className="font-semibold " htmlFor="Avatar">
                 Avatar
               </label>
               {avatar && (
-                  <Image
-                    src={avatar}
-                    className="mx-auto"
-                    style={{
-                      height: "100px",
-                      width: "100px",
-                      borderRadius: "50%",
-                      objectFit: "cover",
-                    }}
-                    alt="avatar"
-                  />
-                )}
+                <Image
+                  src={avatar}
+                  className="mx-auto"
+                  style={{
+                    height: "100px",
+                    width: "100px",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                  }}
+                  alt="avatar"
+                />
+              )}
               <div className="flex items-center justify-between w-[300px]">
                 <Upload onChange={handleOnchangeAvatar} maxCount={1}>
                   <Button icon={<UploadOutlined />}>Upload</Button>
                 </Upload>
-                
               </div>
               {/* <InputForm
                       style={{ width: '300px',marginBottom: "10px" }}
@@ -127,77 +126,84 @@ const Profile = () => {
               <label className="font-semibold " htmlFor="name">
                 Name
               </label>
-              <InputForm
-                style={{ width: "300px", marginBottom: "10px" }}
-                id="name"
-                value={name}
-                onChange={(e) => handleOnchangeName(e)}
-              />
-              <ButtonComponent
-                onClick={handleUpdate}
-                size={40}
-                className="bg-yellow-300 text-white font-semibold"
-                textButton={"Cập nhật"}
-                classNameText=""
-              ></ButtonComponent>
+              <div className="flex items-center gap-2">
+                <InputForm
+                  style={{ width: "300px" }}
+                  id="name"
+                  value={name}
+                  onChange={(e) => handleOnchangeName(e)}
+                />
+                <ButtonComponent
+                  onClick={handleUpdate}
+                  size={40}
+                  className="bg-yellow-300 h-10 text-white font-semibold"
+                  textButton={"Cập nhật"}
+                  classNameText=""
+                ></ButtonComponent>
+              </div>
             </div>
             <div className="flex flex-col gap-2">
               <label className="font-semibold " htmlFor="email">
                 Email
               </label>
-              <InputForm
-                style={{ width: "300px", marginBottom: "10px" }}
-                id="email"
-                placeholder="abc@gmail.com"
-                type="email"
-                value={email}
-                onChange={(e) => handleOnchangeEmail(e)}
-              />
-              <ButtonComponent
-                onClick={handleUpdate}
-                size={40}
-                className="bg-yellow-300 text-white font-semibold"
-                textButton={"Cập nhật"}
-                classNameText=""
-              ></ButtonComponent>
+              <div className="flex items-center gap-2">
+                <InputForm
+                  style={{ width: "300px" }}
+                  id="email"
+                  placeholder="abc@gmail.com"
+                  type="email"
+                  value={email}
+                  onChange={(e) => handleOnchangeEmail(e)}
+                />
+                <ButtonComponent
+                  onClick={handleUpdate}
+                  size={40}
+                  className="bg-yellow-300 h-10 text-white font-semibold"
+                  textButton={"Cập nhật"}
+                  classNameText=""
+                ></ButtonComponent>
+              </div>
             </div>
             <div className="flex flex-col gap-2">
               <label className="font-semibold " htmlFor="Phone">
                 Phone
               </label>
-              <InputForm
-                style={{ width: "300px", marginBottom: "10px" }}
-                id="Phone"
-                value={phone}
-                onChange={(e) => handleOnchangePhone(e)}
-              />
-              <ButtonComponent
-                onClick={handleUpdate}
-                size={40}
-                className="bg-yellow-300 text-white font-semibold"
-                textButton={"Cập nhật"}
-                classNameText=""
-              ></ButtonComponent>
+              <div className="flex items-center gap-2">
+                <InputForm
+                  style={{ width: "300px" }}
+                  id="Phone"
+                  value={phone}
+                  onChange={(e) => handleOnchangePhone(e)}
+                />
+                <ButtonComponent
+                  onClick={handleUpdate}
+                  size={40}
+                  className="bg-yellow-300 h-10 text-white font-semibold"
+                  textButton={"Cập nhật"}
+                  classNameText=""
+                ></ButtonComponent>
+              </div>
             </div>
             <div className="flex flex-col gap-2">
               <label className="font-semibold " htmlFor="Address">
                 Address
               </label>
-              <InputForm
-                style={{ width: "300px", marginBottom: "10px" }}
-                id="Address"
-                value={address}
-                onChange={(e) => handleOnchangeAddress(e)}
-              />
-              <ButtonComponent
-                onClick={handleUpdate}
-                size={40}
-                className="bg-yellow-300 text-white font-semibold"
-                textButton={"Cập nhật"}
-                classNameText=""
-              ></ButtonComponent>
+              <div className="flex items-center gap-2">
+                <InputForm
+                  style={{ width: "300px" }}
+                  id="Address"
+                  value={address}
+                  onChange={(e) => handleOnchangeAddress(e)}
+                />
+                <ButtonComponent
+                  onClick={handleUpdate}
+                  size={40}
+                  className="bg-yellow-300 h-10 text-white font-semibold"
+                  textButton={"Cập nhật"}
+                  classNameText=""
+                ></ButtonComponent>
+              </div>
             </div>
-            
           </div>
         </Loading>
       </div>

@@ -1,6 +1,6 @@
 body
 {
-    background-color: #f1f1f1;
+    /* background-color: #f1f1f1; */
     padding: 0;
     margin: 0;
     overflow: hidden;
@@ -11,6 +11,12 @@ header
     background-color: #fff;
     padding: 15px;
     box-shadow: 0 0 3px #000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 100;
 }
 
 header li
@@ -29,7 +35,7 @@ header li a
 
 header li a:hover
 {
-    color: royalblue;
+    color: rgb(225, 156, 65);
 }
 
 header #login a
@@ -50,5 +56,6 @@ header #login a:hover
 
 .active
 {
-    color: royalblue;
+    color: #FF642F;
+    font-weight: 600;
 }

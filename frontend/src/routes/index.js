@@ -4,6 +4,7 @@ import AdminDashboard from "../page/admin/AdminDashboard";
 import Login from "../page/auth/Login";
 import Register from "../page/auth/Register";
 import Profile from "../page/user/Profile";
+import Orders from "../page/user/Orders";
 
 export const routes = [
   {
@@ -31,6 +32,11 @@ export const routes = [
     page: AdminDashboard,
     isShowHeader: false,
     isPrivated: true,
+  },
+  {
+    path: "/order",
+    page: Orders,
+    isShowHeader: true,
   },
   {
     path: "*",

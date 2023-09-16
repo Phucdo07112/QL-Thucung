@@ -11,6 +11,7 @@ import { useQueries } from "@tanstack/react-query";
 import AdminUser from "../../components/AdminUser/AdminUser";
 import { Menu } from "antd";
 import Header from "../../components/Layout/Header";
+import NotFoundPage from "../NotFoundPage/NotFoundPage";
 const AdminDashboard = () => {
   const user = useSelector((state) => state?.user);
 
@@ -86,24 +87,30 @@ const AdminDashboard = () => {
   };
   return (
     <>
-      <Header isHiddenSearch isHiddenCart isHiddenNav />
-      <div style={{ display: "flex" }}>
-        <Menu
-          mode="inline"
-          // openKeys={openKeys}
-          // onOpenChange={onOpenChange}
-          style={{
-            width: 256,
-            boxShadow: "1px 1px 2px #ccc",
-            height: "100vh",
-          }}
-          items={items}
-          onClick={handleOnClick}
-        />
-        <div style={{ flex: "1", padding: "15px" }}>
-          {renderPage(keySelected)}
+      {user.isAdmin ? (
+        <div className="mt-24">
+          <Header isHiddenSearch isHiddenCart isHiddenNav />
+          <div style={{ display: "flex" }}>
+            <Menu
+              mode="inline"
+              // openKeys={openKeys}
+              // onOpenChange={onOpenChange}
+              style={{
+                width: 256,
+                boxShadow: "1px 1px 2px #ccc",
+                height: "100vh",
+              }}
+              items={items}
+              onClick={handleOnClick}
+            />
+            <div style={{ flex: "1", padding: "15px" }}>
+              {renderPage(keySelected)}
+            </div>
+          </div>
         </div>
-      </div>
+      ) : (
+        <NotFoundPage />
+      )}
     </>
   );
 };

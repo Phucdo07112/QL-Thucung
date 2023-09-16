@@ -51,6 +51,9 @@ body {
 .login-bg {
   background-image: url("../public/images/BgLogin.jpg");
 }
+.footer-bg {
+  background-image: url("../public/images/base.png");
+}
 .blur-css {
   background-color: rgb(255, 255, 255); /* Fallback color */
   background-color: rgba(255, 255, 255, 0.4); /* Black w/opacity/see-through */
@@ -68,4 +71,7 @@ body {
   padding: 40px;
   text-align: center;
   border-radius: 20px;
+}
+.ant-input-number-handler-wrap {
+  opacity: 1 !important;
 }

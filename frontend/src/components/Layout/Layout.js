@@ -14,7 +14,7 @@ const Layout = ({ children, title, description, keywords, author }) => {
         <title>{title}</title>
       </Helmet>
       <Header />
-      <main className="">
+      <main className="mt-24">
         {/* <Toaster /> */}
         {children}
       </main>
