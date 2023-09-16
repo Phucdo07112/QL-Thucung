@@ -94,8 +94,9 @@ const Login = () => {
                     style={{
                       zIndex: 10,
                       position: "absolute",
-                      top: "4px",
-                      right: "8px",
+                      top: "13px",
+                      right: "13px",
+                      cursor: "pointer"
                     }}
                   >
                     {isShowPassword ? <EyeFilled /> : <EyeInvisibleFilled />}
@@ -104,7 +105,7 @@ const Login = () => {
                   <InputForm
                     placeholder="Enter Password"
                     value={password}
-                    type="password"
+                    type={isShowPassword ? 'text':'password'}
                     onChange={(e) => handleOnchangePassword(e)}
                   />
                 </div>

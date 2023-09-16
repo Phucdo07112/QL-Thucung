@@ -4,6 +4,7 @@ import * as useService from "../../services/UserService";
 import { useNavigate } from "react-router-dom";
 import * as message from "../../components/Message/Message";
 import InputForm from "../../components/InputForm/InputForm";
+import { EyeFilled, EyeInvisibleFilled } from "@ant-design/icons";
 const Register = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isShowConfirmPassword, setIsShowComfirmPassword] = useState(false);
@@ -37,7 +38,7 @@ const Register = () => {
   };
 
   const handleSignUp = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     mutation.mutate({
       email,
       password,
@@ -73,21 +74,55 @@ const Register = () => {
                   type="email"
                   onChange={(e) => handleOnchangeEmail(e)}
                 />
-                <InputForm
-                  placeholder="Password"
-                  type={isShowPassword ? "text" : "password"}
-                  value={password}
-                  onChange={handleOnchangePassword}
-                />
-                <InputForm
-                  placeholder="Comfirm Password"
-                  type={isShowConfirmPassword ? "text" : "password"}
-                  value={confirmPassword}
-                onChange={handleOnchangeconfirmPassword}
-                />
+                <div style={{ position: "relative" }}>
+                  <span
+                    onClick={() => setIsShowPassword(!isShowPassword)}
+                    style={{
+                      zIndex: 10,
+                      position: "absolute",
+                      top: "13px",
+                      right: "13px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    {isShowPassword ? <EyeFilled /> : <EyeInvisibleFilled />}
+                  </span>
+
+                  <InputForm
+                    placeholder="Password"
+                    type={isShowPassword ? "text" : "password"}
+                    value={password}
+                    onChange={handleOnchangePassword}
+                  />
+                </div>
+
+                <div style={{ position: "relative" }}>
+                  <span
+                    onClick={() => setIsShowComfirmPassword(!isShowConfirmPassword)}
+                    style={{
+                      zIndex: 10,
+                      position: "absolute",
+                      top: "13px",
+                      right: "13px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    {isShowConfirmPassword ? <EyeFilled /> : <EyeInvisibleFilled />}
+                  </span>
+
+                  <InputForm
+                    placeholder="Comfirm Password"
+                    type={isShowConfirmPassword ? "text" : "password"}
+                    value={confirmPassword}
+                    onChange={handleOnchangeconfirmPassword}
+                  />
+                </div>
               </div>
               <p className="text-end text-gray-600">Recovery Password</p>
-              <button type="submit" className="bg-[#FF642F] text-white py-2 text-xl rounded-lg w-full mt-4 font-semibold">
+              <button
+                type="submit"
+                className="bg-[#FF642F] text-white py-2 text-xl rounded-lg w-full mt-4 font-semibold"
+              >
                 Sign Up
               </button>
             </div>

@@ -6,9 +6,9 @@ const reviewSchema = new mongoose.Schema(
       type: mongoose.Types.ObjectId,
       ref: "Pet",
     },
-    accessoryId: {
+    productId: {
         type: mongoose.Types.ObjectId,
-        ref: "Accessory",
+        ref: "Product",
     },
     username: {
       type: String,
