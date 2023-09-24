@@ -9,6 +9,9 @@ module.exports = {
       colors: {
         'orange': '#FF642F',
       },
+      flex: {
+        '2': '2 2 0%'
+      }
     },
   },
   plugins: [

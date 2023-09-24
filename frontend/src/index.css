@@ -44,6 +44,30 @@ body {
   font-size: 16px;
   line-height: 1;
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #dfcd05; 
+  border-radius: 10px;
+
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #FF642F; 
+}
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -74,4 +98,7 @@ body {
 }
 .ant-input-number-handler-wrap {
   opacity: 1 !important;
+}
+:where(.css-dev-only-do-not-override-190m0jy).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #BA0001 !important;
 }
