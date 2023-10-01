@@ -1,5 +1,6 @@
 import { InputNumber } from "antd";
 import React from "react";
+import Banner from "../../components/Banner";
 
 const Orders = () => {
   const onChange = (value) => {
@@ -7,13 +8,7 @@ const Orders = () => {
   };
   return (
     <div className="pb-10 bg-white">
-      <div className="relative">
-        <img className="w-full" src="./images/image-card.png" alt="" />
-        <div className="absolute left-[50%] top-[50%] -translate-x-6 -translate-y-6 text-white">
-          <h3 className="text-2xl font-semibold">CART</h3>
-          <p>Home - Cart</p>
-        </div>
-      </div>
+      <Banner title="Cart" link="Home-cart" />
       <div className="container">
         <div className="relative overflow-x-auto mt-10">
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">

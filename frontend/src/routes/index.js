@@ -5,6 +5,8 @@ import Login from "../page/auth/Login";
 import Register from "../page/auth/Register";
 import Profile from "../page/user/Profile";
 import Orders from "../page/user/Orders";
+import Product from "../page/Product";
+import ProductDetails from "../page/ProductDetails";
 
 export const routes = [
   {
@@ -36,6 +38,16 @@ export const routes = [
   {
     path: "/order",
     page: Orders,
+    isShowHeader: true,
+  },
+  {
+    path: "/product",
+    page: Product,
+    isShowHeader: true,
+  },
+  {
+    path: "/productDetails",
+    page: ProductDetails,
     isShowHeader: true,
   },
   {

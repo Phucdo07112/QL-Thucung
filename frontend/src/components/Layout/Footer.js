@@ -13,7 +13,7 @@ import {HiPaperAirplane} from "react-icons/hi"
 
 const Footer = () => {
   return (
-    <footer className="footer-bg w-full h-[550px] text-white">
+    <footer className="footer-bg w-full h-[550px] text-white bg-white">
       <div className="h-full relative">
         <div className="flex items-center w-[700px] bg-[#ffbc3e] m-auto rounded-lg p-4">
           <div className="flex flex-1 items-center gap-3">
