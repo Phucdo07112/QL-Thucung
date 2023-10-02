@@ -103,7 +103,7 @@ const Profile = () => {
                   alt="avatar"
                 />
               )}
-              <div className="flex items-center justify-between w-[300px]">
+              <div className="flex items-center justify-between w-[400px]">
                 <Upload onChange={handleOnchangeAvatar} maxCount={1}>
                   <Button icon={<UploadOutlined />}>Upload</Button>
                 </Upload>
@@ -114,13 +114,13 @@ const Profile = () => {
                       value={avatar}
                       onChange={(e) => handleOnchangeAvatar(e)}
                   /> */}
-              <ButtonComponent
+              {/* <ButtonComponent
                 onClick={handleUpdate}
                 size={40}
                 className="bg-yellow-300 text-white font-semibold"
                 textButton={"Cập nhật"}
                 classNameText=""
-              ></ButtonComponent>
+              ></ButtonComponent> */}
             </div>
             <div className="flex flex-col gap-2">
               <label className="font-semibold " htmlFor="name">
@@ -128,18 +128,18 @@ const Profile = () => {
               </label>
               <div className="flex items-center gap-2">
                 <InputForm
-                  style={{ width: "300px" }}
+                  style={{ width: "400px" }}
                   id="name"
                   value={name}
                   onChange={(e) => handleOnchangeName(e)}
                 />
-                <ButtonComponent
+                {/* <ButtonComponent
                   onClick={handleUpdate}
                   size={40}
                   className="bg-yellow-300 h-10 text-white font-semibold"
                   textButton={"Cập nhật"}
                   classNameText=""
-                ></ButtonComponent>
+                ></ButtonComponent> */}
               </div>
             </div>
             <div className="flex flex-col gap-2">
@@ -148,20 +148,20 @@ const Profile = () => {
               </label>
               <div className="flex items-center gap-2">
                 <InputForm
-                  style={{ width: "300px" }}
+                  style={{ width: "400px" }}
                   id="email"
                   placeholder="abc@gmail.com"
                   type="email"
                   value={email}
                   onChange={(e) => handleOnchangeEmail(e)}
                 />
-                <ButtonComponent
+                {/* <ButtonComponent
                   onClick={handleUpdate}
                   size={40}
                   className="bg-yellow-300 h-10 text-white font-semibold"
                   textButton={"Cập nhật"}
                   classNameText=""
-                ></ButtonComponent>
+                ></ButtonComponent> */}
               </div>
             </div>
             <div className="flex flex-col gap-2">
@@ -170,27 +170,27 @@ const Profile = () => {
               </label>
               <div className="flex items-center gap-2">
                 <InputForm
-                  style={{ width: "300px" }}
+                  style={{ width: "400px" }}
                   id="Phone"
                   value={phone}
                   onChange={(e) => handleOnchangePhone(e)}
                 />
-                <ButtonComponent
+                {/* <ButtonComponent
                   onClick={handleUpdate}
                   size={40}
                   className="bg-yellow-300 h-10 text-white font-semibold"
                   textButton={"Cập nhật"}
                   classNameText=""
-                ></ButtonComponent>
+                ></ButtonComponent> */}
               </div>
             </div>
             <div className="flex flex-col gap-2">
               <label className="font-semibold " htmlFor="Address">
                 Address
               </label>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-col items-center gap-2">
                 <InputForm
-                  style={{ width: "300px" }}
+                  style={{ width: "400px" }}
                   id="Address"
                   value={address}
                   onChange={(e) => handleOnchangeAddress(e)}
@@ -198,7 +198,7 @@ const Profile = () => {
                 <ButtonComponent
                   onClick={handleUpdate}
                   size={40}
-                  className="bg-yellow-300 h-10 text-white font-semibold"
+                  className="bg-yellow-300 h-10 text-white font-semibold w-full mt-5"
                   textButton={"Cập nhật"}
                   classNameText=""
                 ></ButtonComponent>
