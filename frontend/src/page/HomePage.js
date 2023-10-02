@@ -32,6 +32,24 @@ const HomePage = () => {
             {
               image: "./images/choha.jpg",
             },
+            {
+              image: "./images/choha.jpg",
+            },
+            {
+              image: "./images/choha.jpg",
+            },
+            {
+              image: "./images/choha.jpg",
+            },
+            {
+              image: "./images/choha.jpg",
+            },
+            {
+              image: "./images/choha.jpg",
+            },
+            {
+              image: "./images/choha.jpg",
+            },
           ]
         },
       ]
@@ -139,7 +157,7 @@ const HomePage = () => {
             <img className="rounded-lg" src="./images/banner-pet3.jpg" alt="" />
           </div>
         </div>
-        <div className="flex w-full bg-white mt-10 rounded-lg overflow-hidden">
+        <div className="flex w-full bg-white mt-10 rounded-lg overflow-hidden ">
           <div className="flex-1">
             <div className="w-full p-4 font-semibold text-white bg-[#BA0001]">
               Chó
@@ -164,10 +182,10 @@ const HomePage = () => {
                   label: <div className="px-4 font-semibold">{items.label}</div>,
                   key: id,
                   children: (
-                    <div className="pl-4 flex flex-wrap gap-6 overflow-auto h-[500px]">
+                    <div className="pl-4 flex flex-wrap gap-6 overflow-auto h-[500px] pb-5">
                         {items.children.map((item) => (
                           <img
-                            className="w-[200px] h-[400px] object-cover rounded-lg"
+                            className="w-[200px] h-[350px] object-cover rounded-lg"
                             src={item.image}
                             alt=""
                           />
@@ -179,7 +197,7 @@ const HomePage = () => {
             />
           </div>
         </div>
-        <div className="flex w-full bg-white mt-10 rounded-lg overflow-hidden">
+        <div className="flex w-full bg-white mt-10 rounded-lg overflow-hidden ">
           <div className="flex-1">
             <div className="w-full p-4 font-semibold text-white bg-[#BA0001]">
               Mèo
@@ -204,7 +222,7 @@ const HomePage = () => {
                   label: <div className="px-4 font-semibold">{items.label}</div>,
                   key: id,
                   children: (
-                    <div className="pl-4 flex flex-wrap gap-6 overflow-auto h-[500px]">
+                    <div className="pl-4 flex flex-wrap gap-6 overflow-auto h-[500px] pb-5">
                         {items.children.map((item) => (
                           <img
                             className="w-[200px] h-[400px] object-cover rounded-lg"
