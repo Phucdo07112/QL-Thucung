@@ -147,7 +147,7 @@ const ProductDetails = () => {
             <hr />
           </div>
         </div>
-        <div className="pb-10">
+        <div className="">
           <h4 className="text-[30px] font-bold text-gray-700 my-8">Add a review</h4>
           <div className="flex items-center gap-4"><p>Rate this Product?</p> <Rate /></div>
           <form className="w-full flex flex-col gap-8 mt-5">
