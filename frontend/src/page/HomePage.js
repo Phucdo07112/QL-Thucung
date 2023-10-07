@@ -1,8 +1,22 @@
 import React, { useState } from "react";
 import { Radio, Tabs } from "antd";
+import { useQuery } from "@tanstack/react-query";
+import * as CategoryService from "../services/CategoryService"
+import {useNavigate} from "react-router-dom"
 const HomePage = () => {
+  const navigate = useNavigate()
   const [mode, setMode] = useState("top");
+  const getAllCategory = async () => {
+    const res = await CategoryService.getAllCategory()
+    return res
+  }
 
+  const queryCategory = useQuery({ queryKey: ['category'], queryFn: getAllCategory })
+  const { isLoading: isLoadingCategory, data: categorys } = queryCategory
+  console.log('categorys',queryCategory);
+  const handleClickCategory = (id) => {
+    navigate(`/product/${id}`)
+  }
   const data = [
     {
       dog: [
@@ -92,62 +106,17 @@ const HomePage = () => {
       <div className="container">
         <div className="flex items-center pt-2 w-full gap-2 mb-6">
           <div className="flex-1 bg-white rounded-lg h-[345px] overflow-y-auto">
-            <div className="flex items-center gap-3 border-b p-3 cursor-pointer">
-              <img
-                className="w-[50px] h-[50px] rounded-full object-contain"
-                src="./images/Logo.png"
-                alt=""
-              />
-              <p className="text-lg">Giống chó cảnh</p>
-            </div>
-            <div className="flex items-center gap-3 border-b p-3 cursor-pointer">
-              <img
-                className="w-[50px] h-[50px] rounded-full object-contain"
-                src="./images/Logo.png"
-                alt=""
-              />
-              <p className="text-lg">Giống chó cảnh</p>
-            </div>
-            <div className="flex items-center gap-3 border-b p-3 cursor-pointer">
-              <img
-                className="w-[50px] h-[50px] rounded-full object-contain"
-                src="./images/Logo.png"
-                alt=""
-              />
-              <p className="text-lg">Giống chó cảnh</p>
-            </div>
-            <div className="flex items-center gap-3 border-b p-3 cursor-pointer">
-              <img
-                className="w-[50px] h-[50px] rounded-full object-contain"
-                src="./images/Logo.png"
-                alt=""
-              />
-              <p className="text-lg">Giống chó cảnh</p>
-            </div>
-            <div className="flex items-center gap-3 border-b p-3 cursor-pointer">
-              <img
-                className="w-[50px] h-[50px] rounded-full object-contain"
-                src="./images/Logo.png"
-                alt=""
-              />
-              <p className="text-lg">Giống chó cảnh</p>
-            </div>
-            <div className="flex items-center gap-3 border-b p-3 cursor-pointer">
-              <img
-                className="w-[50px] h-[50px] rounded-full object-contain"
-                src="./images/Logo.png"
-                alt=""
-              />
-              <p className="text-lg">Giống chó cảnh</p>
-            </div>
-            <div className="flex items-center gap-3 border-b p-3 cursor-pointer">
-              <img
-                className="w-[50px] h-[50px] rounded-full object-contain"
-                src="./images/Logo.png"
-                alt=""
-              />
-              <p className="text-lg">Giống chó cảnh</p>
-            </div>
+            {categorys?.map((category) => (
+              <div className="flex items-center gap-3 border-b p-3 cursor-pointer" key={category._id} onClick={() => handleClickCategory(category._id)}>
+                <img
+                  className="w-[50px] h-[50px] rounded-full object-contain"
+                  src="./images/Logo.png"
+                  alt=""
+                />
+                <p className="text-lg">{category.name}</p>
+              </div>
+            ))}
+            
           </div>
           <div className="flex-2">
             <img className="rounded-lg" src="./images/banner-pet1.jpg" alt="" />

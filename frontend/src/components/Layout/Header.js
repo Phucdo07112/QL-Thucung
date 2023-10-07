@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import "./headercss/header.css";
 import { AiOutlineSearch } from "react-icons/ai";
-import { AiOutlineShoppingCart } from "react-icons/ai";
+import { AiOutlineShoppingCart,AiOutlineHeart } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import * as UserService from "../../services/UserService";
 import { Badge, Image, Popover } from "antd";
@@ -60,31 +60,20 @@ const Header = ({ isHiddenSearch, isHiddenCart, isHiddenNav }) => {
         </Link>
 
         {!isHiddenNav && (
-          <ul>
-            <li>
-              <NavLink to="/" activeclassname="active">
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/about">About</NavLink>
-            </li>
-            <li>
-              <NavLink to="/blog">Blog</NavLink>
-            </li>
-            <li>
-              <NavLink to="/g">Gallery</NavLink>
-            </li>
-            <li>
-              <NavLink to="/contact">Contact</NavLink>
-            </li>
-          </ul>
+          <form>
+            <div className="flex items-center">
+              <input className="w-[400px] h-[46px] text-gray-600 rounded-l-lg bg-[#faf6f1] px-4" placeholder="Tìm kiếm thú cưng"/>
+              <button type="submit" className="btn-search-bf cursor-pointer  px-3 py-2 bg-[#ffbc3e] rounded-r-lg relative">
+                <AiOutlineSearch style={{ fontSize: "30px" }} />
+              </button>
+            </div>
+          </form>
         )}
 
         <div className="flex items-center gap-4 border-l-2 pl-7">
           {!isHiddenSearch && (
             <div className="cursor-pointer">
-              <AiOutlineSearch style={{ fontSize: "30px" }} />
+              <AiOutlineHeart style={{ fontSize: "30px" }} />
             </div>
           )}
           {!isHiddenCart && (

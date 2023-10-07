@@ -124,3 +124,13 @@ textarea:focus
     -o-box-shadow: none;
     box-shadow: 0px 0px 1px 1px #FF642F;
 }
+.btn-search-bf::before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #ffbc3e;
+  top: 12px;
+  left: -10px;
+  transform:rotate(45deg);
+}
