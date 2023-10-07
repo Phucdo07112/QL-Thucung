@@ -39,19 +39,19 @@ exports.getByCategory = async (req, res) => {
 
 exports.create = async (req, res) => {
   try {
-    const { name, age, breed, color, description, imageLabel, category } =
+    const { name, age, breed, color, description, imageLabel, category,price } =
       req.body;
-    const { image, additionalImages } = req.files;
+    // const { image, additionalImages } = req.files;
 
-    let imagePath = "";
-    let additionalImagesPaths = [];
-    if (req.files.image && req.files.image.length > 0) {
-      imagePath = image[0].path;
-    }
+    // let imagePath = "";
+    // let additionalImagesPaths = [];
+    // if (req.files.image && req.files.image.length > 0) {
+    //   imagePath = image[0].path;
+    // }
 
-    if (req.files.additionalImages && req.files.additionalImages.length > 0) {
-      additionalImagesPaths = additionalImages.map((file) => file.path);
-    }
+    // if (req.files.additionalImages && req.files.additionalImages.length > 0) {
+    //   additionalImagesPaths = additionalImages.map((file) => file.path);
+    // }
 
     const createdPet = await Pet.create({
       name,
@@ -61,14 +61,15 @@ exports.create = async (req, res) => {
       description,
       imageLabel,
       category,
-      image: imagePath,
-      additionalImages: additionalImagesPaths,
+      price
+      // image: imagePath,
+      // additionalImages: additionalImagesPaths,
     });
 
     res.json({ message: "Pet created successfully.", createdPet });
   } catch (error) {
     console.log(error);
-    res.status(400).json(error);
+    res.status(404).json(error);
   }
 };
 

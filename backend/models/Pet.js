@@ -42,9 +42,9 @@ const PetSchema = new mongoose.Schema(
     },
     price: {
       type: String,
-      required: true,
+      // required: true,
     },
-    type: { type: String, required: true },
+    type: { type: String },
     reviews: [
       {
         type: mongoose.Types.ObjectId,

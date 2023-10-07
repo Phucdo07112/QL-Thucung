@@ -1,8 +1,22 @@
 import React, { useState } from "react";
 import { Radio, Tabs } from "antd";
+import { useQuery } from "@tanstack/react-query";
+import * as CategoryService from "../services/CategoryService"
+import {useNavigate} from "react-router-dom"
 const HomePage = () => {
+  const navigate = useNavigate()
   const [mode, setMode] = useState("top");
+  const getAllCategory = async () => {
+    const res = await CategoryService.getAllCategory()
+    return res
+  }
 
+  const queryCategory = useQuery({ queryKey: ['category'], queryFn: getAllCategory })
+  const { isLoading: isLoadingCategory, data: categorys } = queryCategory
+  console.log('categorys',queryCategory);
+  const handleClickCategory = (id) => {
+    navigate(`/product/${id}`)
+  }
   const data = [
     {
       dog: [
@@ -23,6 +37,24 @@ const HomePage = () => {
         {
           label: "cho den",
           children: [
+            {
+              image: "./images/choha.jpg",
+            },
+            {
+              image: "./images/choha.jpg",
+            },
+            {
+              image: "./images/choha.jpg",
+            },
+            {
+              image: "./images/choha.jpg",
+            },
+            {
+              image: "./images/choha.jpg",
+            },
+            {
+              image: "./images/choha.jpg",
+            },
             {
               image: "./images/choha.jpg",
             },
@@ -74,62 +106,17 @@ const HomePage = () => {
       <div className="container">
         <div className="flex items-center pt-2 w-full gap-2 mb-6">
           <div className="flex-1 bg-white rounded-lg h-[345px] overflow-y-auto">
-            <div className="flex items-center gap-3 border-b p-3 cursor-pointer">
-              <img
-                className="w-[50px] h-[50px] rounded-full object-contain"
-                src="./images/Logo.png"
-                alt=""
-              />
-              <p className="text-lg">Giống chó cảnh</p>
-            </div>
-            <div className="flex items-center gap-3 border-b p-3 cursor-pointer">
-              <img
-                className="w-[50px] h-[50px] rounded-full object-contain"
-                src="./images/Logo.png"
-                alt=""
-              />
-              <p className="text-lg">Giống chó cảnh</p>
-            </div>
-            <div className="flex items-center gap-3 border-b p-3 cursor-pointer">
-              <img
-                className="w-[50px] h-[50px] rounded-full object-contain"
-                src="./images/Logo.png"
-                alt=""
-              />
-              <p className="text-lg">Giống chó cảnh</p>
-            </div>
-            <div className="flex items-center gap-3 border-b p-3 cursor-pointer">
-              <img
-                className="w-[50px] h-[50px] rounded-full object-contain"
-                src="./images/Logo.png"
-                alt=""
-              />
-              <p className="text-lg">Giống chó cảnh</p>
-            </div>
-            <div className="flex items-center gap-3 border-b p-3 cursor-pointer">
-              <img
-                className="w-[50px] h-[50px] rounded-full object-contain"
-                src="./images/Logo.png"
-                alt=""
-              />
-              <p className="text-lg">Giống chó cảnh</p>
-            </div>
-            <div className="flex items-center gap-3 border-b p-3 cursor-pointer">
-              <img
-                className="w-[50px] h-[50px] rounded-full object-contain"
-                src="./images/Logo.png"
-                alt=""
-              />
-              <p className="text-lg">Giống chó cảnh</p>
-            </div>
-            <div className="flex items-center gap-3 border-b p-3 cursor-pointer">
-              <img
-                className="w-[50px] h-[50px] rounded-full object-contain"
-                src="./images/Logo.png"
-                alt=""
-              />
-              <p className="text-lg">Giống chó cảnh</p>
-            </div>
+            {categorys?.map((category) => (
+              <div className="flex items-center gap-3 border-b p-3 cursor-pointer" key={category._id} onClick={() => handleClickCategory(category._id)}>
+                <img
+                  className="w-[50px] h-[50px] rounded-full object-contain"
+                  src="./images/Logo.png"
+                  alt=""
+                />
+                <p className="text-lg">{category.name}</p>
+              </div>
+            ))}
+            
           </div>
           <div className="flex-2">
             <img className="rounded-lg" src="./images/banner-pet1.jpg" alt="" />
@@ -139,7 +126,7 @@ const HomePage = () => {
             <img className="rounded-lg" src="./images/banner-pet3.jpg" alt="" />
           </div>
         </div>
-        <div className="flex w-full bg-white mt-10 rounded-lg overflow-hidden">
+        <div className="flex w-full bg-white mt-10 rounded-lg overflow-hidden ">
           <div className="flex-1">
             <div className="w-full p-4 font-semibold text-white bg-[#BA0001]">
               Chó
@@ -164,10 +151,10 @@ const HomePage = () => {
                   label: <div className="px-4 font-semibold">{items.label}</div>,
                   key: id,
                   children: (
-                    <div className="pl-4 flex flex-wrap gap-6 overflow-auto h-[500px]">
+                    <div className="pl-4 flex flex-wrap gap-6 overflow-auto h-[500px] pb-5">
                         {items.children.map((item) => (
                           <img
-                            className="w-[200px] h-[400px] object-cover rounded-lg"
+                            className="w-[200px] h-[350px] object-cover rounded-lg"
                             src={item.image}
                             alt=""
                           />
@@ -179,7 +166,7 @@ const HomePage = () => {
             />
           </div>
         </div>
-        <div className="flex w-full bg-white mt-10 rounded-lg overflow-hidden">
+        <div className="flex w-full bg-white mt-10 rounded-lg overflow-hidden ">
           <div className="flex-1">
             <div className="w-full p-4 font-semibold text-white bg-[#BA0001]">
               Mèo
@@ -204,7 +191,7 @@ const HomePage = () => {
                   label: <div className="px-4 font-semibold">{items.label}</div>,
                   key: id,
                   children: (
-                    <div className="pl-4 flex flex-wrap gap-6 overflow-auto h-[500px]">
+                    <div className="pl-4 flex flex-wrap gap-6 overflow-auto h-[500px] pb-5">
                         {items.children.map((item) => (
                           <img
                             className="w-[200px] h-[400px] object-cover rounded-lg"

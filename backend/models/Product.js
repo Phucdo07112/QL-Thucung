@@ -12,7 +12,7 @@ const ProductSchema = new mongoose.Schema(
     },
     imageLabel: {
       type: String,
-      required: true,
+      // required: true,
     },
     category: {
       type: mongoose.Schema.Types.ObjectId,
@@ -26,7 +26,11 @@ const ProductSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    rating: { type: Number, required: true },
     type: { type: String, required: true },
+    discount: { type: Number },
+    selled: { type: Number },
+    countInStock: { type: Number, required: true },
     reviews: [
       {
         type: mongoose.Types.ObjectId,
@@ -39,7 +43,4 @@ const ProductSchema = new mongoose.Schema(
   }
 );
 
-
 module.exports = Product = mongoose.model("Product", ProductSchema);
-
-
