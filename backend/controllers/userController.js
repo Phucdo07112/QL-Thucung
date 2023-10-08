@@ -55,7 +55,7 @@ const loginUser = async (req, res) => {
     const response = await UserService.loginUser(req.body);
     const { refresh_token, ...newResponse } = response
     console.log('refresh_token', refresh_token);
-    res.cookie('refreshToken-dog', refresh_token, {
+    res.cookie('refreshToken_dog', refresh_token, {
       httpOnly: true, // chỉ lấy only này qua thằng cookie và ko lấy được bằng js
       secure: false, // kiêm những cái bảo mật ở phải client
       samesite: 'strict'
@@ -160,7 +160,8 @@ const getDetailsUser = async (req, res) => {
 
 const refreshToken = async (req, res) => {
   try {
-    const token = req.cookies.refresh_token
+    const token = req.cookies.refreshToken_dog
+    console.log('token',token);
     if(!token) {
       return res.status(200).json({
         status: "ERR",
@@ -180,7 +181,7 @@ const refreshToken = async (req, res) => {
 
 const logoutUser = async (req, res) => {
   try {
-    res.clearCookie('refreshToken-dog')
+    res.clearCookie('refreshToken_dog')
     return res.status(200).json({
       status: 'OK',
       message: 'Logout successfully'
