@@ -55,7 +55,7 @@ const loginUser = async (req, res) => {
     const response = await UserService.loginUser(req.body);
     const { refresh_token, ...newResponse } = response
     console.log('refresh_token', refresh_token);
-    res.cookie('refresh_token', refresh_token, {
+    res.cookie('refreshToken-dog', refresh_token, {
       httpOnly: true, // chỉ lấy only này qua thằng cookie và ko lấy được bằng js
       secure: false, // kiêm những cái bảo mật ở phải client
       samesite: 'strict'
@@ -99,6 +99,26 @@ const deleteUser = async (req, res) => {
     }
 
     const response = await UserService.deleteUser(userID);
+    return res.status(200).json(response);
+  } catch (e) {
+    return res.status(404).json({
+      message: e,
+    });
+  }
+};
+
+const deleteManyUser = async (req, res) => {
+  try {
+    const userIDs = req.body.ids;
+
+    if(!userIDs) {
+      return res.status(200).json({
+        status: "ERR",
+        message: "The userId is required",
+      });
+    }
+
+    const response = await UserService.deleteManyUser(userIDs);
     return res.status(200).json(response);
   } catch (e) {
     return res.status(404).json({
@@ -160,7 +180,7 @@ const refreshToken = async (req, res) => {
 
 const logoutUser = async (req, res) => {
   try {
-    res.clearCookie('refresh_token-pet')
+    res.clearCookie('refreshToken-dog')
     return res.status(200).json({
       status: 'OK',
       message: 'Logout successfully'
@@ -180,5 +200,6 @@ module.exports = {
   deleteUser,
   getAllUser,
   getDetailsUser,
-  refreshToken
+  refreshToken,
+  deleteManyUser
 };

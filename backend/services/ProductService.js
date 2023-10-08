@@ -12,6 +12,7 @@ const createProduct = (newProduct) => {
       description,
       discount,
       selled,
+      category
     } = newProduct;
     try {
       const checkProduct = await Product.findOne({
@@ -34,6 +35,7 @@ const createProduct = (newProduct) => {
         description,
         discount,
         selled,
+        category
       });
       if (createProduct) {
         resolve({
