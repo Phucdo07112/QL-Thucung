@@ -87,7 +87,7 @@ const ProductDetails = () => {
               <div>
                 <img
                   className="w-[150px] rounded-full"
-                  src="./images/dogvang.jpg"
+                  src="./images/cauvang1.jpg"
                   alt=""
                 />
               </div>
@@ -95,7 +95,7 @@ const ProductDetails = () => {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-lg font-bold text-gray-700">
-                      Kevin martin
+                    tiến bùi
                     </p>
                     <p className="text-red-600 font-medium">
                       20 April, 2022 . 4:00 pm
@@ -106,10 +106,7 @@ const ProductDetails = () => {
                   </div>
                 </div>
                 <p>
-                  Lorem Chỉ đơn giản rằng Chang chia sẻ các bài hát mà có thể
-                  bạn chưa bao giờ được nghe. * Nhận phát hành các bản lo-fi,
-                  Indie, nhạc chill... chỉ cần phù hợp với channel là Support
-                  liền ^^ 💛 Follow Chang:
+                  chó đắt vl
                 </p>
               </div>
             </div>
@@ -118,7 +115,7 @@ const ProductDetails = () => {
               <div>
                 <img
                   className="w-[150px] rounded-full"
-                  src="./images/dogvang.jpg"
+                  src="./images/cauvang.jpg"
                   alt=""
                 />
               </div>
@@ -126,7 +123,7 @@ const ProductDetails = () => {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-lg font-bold text-gray-700">
-                      Kevin martin
+                      phúc đõ
                     </p>
                     <p className="text-red-600 font-medium">
                       20 April, 2022 . 4:00 pm
@@ -137,10 +134,7 @@ const ProductDetails = () => {
                   </div>
                 </div>
                 <p>
-                  Lorem Chỉ đơn giản rằng Chang chia sẻ các bài hát mà có thể
-                  bạn chưa bao giờ được nghe. * Nhận phát hành các bản lo-fi,
-                  Indie, nhạc chill... chỉ cần phù hợp với channel là Support
-                  liền ^^ 💛 Follow Chang:
+                  chó này biết nấu ăn ko???
                 </p>
               </div>
             </div>
