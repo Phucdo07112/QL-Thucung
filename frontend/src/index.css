@@ -134,3 +134,10 @@ textarea:focus
   left: -10px;
   transform:rotate(45deg);
 }
+:where(.css-dev-only-do-not-override-190m0jy).ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover {
+  color: #fff;
+  background-color: #FF642F;
+}
+:where(.css-dev-only-do-not-override-190m0jy).ant-btn-primary{
+  background-color: #FF642F;
+}

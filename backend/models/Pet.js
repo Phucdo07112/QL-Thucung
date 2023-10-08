@@ -44,6 +44,7 @@ const PetSchema = new mongoose.Schema(
       type: String,
       // required: true,
     },
+    rating: { type: Number, required: true },
     type: { type: String },
     reviews: [
       {

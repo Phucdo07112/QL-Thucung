@@ -6,6 +6,7 @@ import { AiOutlineRight,AiOutlineHeart,AiOutlineEye } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import * as CategoryService from "../services/CategoryService"
 import * as PetsService from "../services/PetsService"
+import * as ProductService from "../services/ProductService"
 import { useParams } from 'react-router-dom';
 const Product = () => {
   const navigate = useNavigate()
@@ -23,11 +24,20 @@ const Product = () => {
     return res
   }
 
+  const getAllProductByCategory = async (context) => {
+    const id = context.queryKey && context.queryKey[1]
+    const res = await ProductService.getProductByCategory(id)
+    return res
+  }
+
   const queryCategory = useQuery({ queryKey: ['category'], queryFn: getAllCategory })
-  const queryPetByCategory = useQuery({ queryKey: ['petCategort', categoryId], queryFn: getAllPetByCategory })
+  const queryPetByCategory = useQuery({ queryKey: ['petCategory', categoryId], queryFn: getAllPetByCategory })
+  const queryProductByCategory = useQuery({ queryKey: ['productCategory', categoryId], queryFn: getAllProductByCategory })
+
   const { isLoading: isLoadingCategory, data: categorys } = queryCategory
   const { isLoading: isLoadingPetCategory, data: petCategorys } = queryPetByCategory
-  console.log('petCategorys',petCategorys);
+  const { isLoading: isLoadingProductCategory, data: productCategorys } = queryProductByCategory
+  console.log('productCategorys ',productCategorys);
   const handleChange = (value) => {
     console.log(`selected ${value}`);
   };
@@ -72,6 +82,7 @@ const Product = () => {
                     </div>
                   ))
                 }
+
               </div>
             </div>
           </div>
@@ -101,10 +112,10 @@ const Product = () => {
               />
             </div>
             <div className="mt-5">
-                <Link to="/productDetails" className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-5">
+                <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-5">
                     {
                       petCategorys?.map((pets) => (
-                        <div className=" cursor-pointer group relative h-[380px] w-[300px] " key={pets?._id}>
+                        <Link to="/productDetails" className=" cursor-pointer group relative h-[380px] w-[300px] " key={pets?._id}>
                             <div className="transition-all duration-300 ease-in-out w-full h-[79%] bg-[#FAF7F2] rounded-lg p-3 absolute top-0 left-0 group-hover:top-[-15px] ">
                                 <img className="rounded-lg w-full h-full" src={`${pets.image ? pets.image : '../images/dogvang.jpg'}`} alt="" />
                             </div>
@@ -116,10 +127,27 @@ const Product = () => {
                                 <p className="text-lg font-medium">{pets.name}</p>
                                 <p className="text-red-700 font-medium">$25.00</p>
                             </div>
-                        </div>
+                        </Link>
                       ))
                     }
-                </Link>
+                    {
+                      productCategorys?.map((products) => (
+                        <Link to="/productDetails" className=" cursor-pointer group relative h-[380px] w-[300px] " key={products?._id}>
+                            <div className="transition-all duration-300 ease-in-out w-full h-[79%] bg-[#FAF7F2] rounded-lg p-3 absolute top-0 left-0 group-hover:top-[-15px] ">
+                                <img className="rounded-lg w-full h-full" src={`${products.image ? products.image : '../images/dogvang.jpg'}`} alt="" />
+                            </div>
+                            <div className="transition duration-300 ease-in-out absolute right-5 top-1 bg-[#ff642f] text-white p-3 rounded-full opacity-0 group-hover:opacity-100"><AiOutlineHeart size={22}/></div>
+                            <div  className="transition duration-300 ease-in-out absolute right-5 top-[60px] bg-[#0090AE] text-white p-3 rounded-full opacity-0 group-hover:opacity-100"><AiOutlineEye size={22} /></div>
+                            <button className="transition duration-300 ease-in-out bg-black px-11 py-[14px] rounded-full text-[12px] font-medium text-white absolute top-[265px] z-10 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100">Add to cart</button>
+                            <div className="flex flex-col items-center absolute bottom-0 left-1/2 transform -translate-x-1/2">
+                                <Rate disabled defaultValue={2} />
+                                <p className="text-lg font-medium">{products.name}</p>
+                                <p className="text-red-700 font-medium">$25.00</p>
+                            </div>
+                        </Link>
+                      ))
+                    }
+                </div>
             </div>
           </div>
         </div>

@@ -8,7 +8,8 @@ const router = express.Router();
 
 //post create new media
 router.post("/create", productController.createProduct);
-router.get('/get-all', productController.getAllProduct)
+router.get('/get-all', productController.getAllProduct);
+router.get("/category/:categoryId", productController.getProductByCategory);
 
 // //post create new media
 // router.put("/update/:id", categoryController.create);
