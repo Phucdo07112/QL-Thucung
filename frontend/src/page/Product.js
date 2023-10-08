@@ -101,12 +101,12 @@ const Product = () => {
                     label: "Sort by Popular",
                   },
                   {
-                    value: "Sort by 2",
-                    label: "Sort by 2",
+                    value: "Bubble Sort",
+                    label: "Bubble Sort",
                   },
                   {
-                    value: "Sort by 1",
-                    label: "Sort by 1",
+                    value: "Selection Sort",
+                    label: "Selection Sort",
                   },
                 ]}
               />
