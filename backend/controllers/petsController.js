@@ -1,15 +1,39 @@
 const Pet = require("../models/Pet");
 const fs = require("fs");
 const path = require("path");
+const PetService = require("../services/petService");
 
 exports.getAll = async (req, res) => {
   try {
     const pets = await Pet.find().populate("category");
 
-    res.json(pets);
+    res.json({
+      status: "OK",
+      message: "Success",
+      data: pets,
+    });
   } catch (error) {
     console.log(error);
     res.status(400).json(error);
+  }
+};
+
+exports.getDetailPet = async (req, res) => {
+  try {
+    const pet = req.params.id;
+    if (!pet) {
+      return res.status(200).json({
+        status: "ERR",
+        message: "The userId is required",
+      });
+    }
+
+    const response = await PetService.getDetailPet(pet);
+    return res.status(200).json(response);
+  } catch (e) {
+    return res.status(404).json({
+      message: e,
+    });
   }
 };
 
@@ -39,8 +63,20 @@ exports.getByCategory = async (req, res) => {
 
 exports.create = async (req, res) => {
   try {
-    const { name, age, breed, color, description, imageLabel, category,price } =
-      req.body;
+    const {
+      name,
+      age,
+      breed,
+      color,
+      description,
+      rating,
+      type,
+      category,
+      price,
+      discount,
+      countInStock,
+      image,
+    } = req.body;
     // const { image, additionalImages } = req.files;
 
     // let imagePath = "";
@@ -59,14 +95,21 @@ exports.create = async (req, res) => {
       breed,
       color,
       description,
-      imageLabel,
+      rating,
       category,
-      price
-      // image: imagePath,
+      price,
+      type,
+      discount,
+      countInStock,
+      image,
       // additionalImages: additionalImagesPaths,
     });
 
-    res.json({ message: "Pet created successfully.", createdPet });
+    res.json({
+      message: "Pet created successfully.",
+      status: "OK",
+      data: createdPet,
+    });
   } catch (error) {
     console.log(error);
     res.status(404).json(error);
@@ -76,60 +119,72 @@ exports.create = async (req, res) => {
 exports.update = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, age, breed, color, description, imageLabel, category } =
-      req.body;
-    const { image, additionalImages } = req.files;
+    const {
+      name,
+      age,
+      breed,
+      color,
+      description,
+      rating,
+      category,
+      price,
+      type,
+      discount,
+      countInStock,
+      image,
+    } = req.body;
+    // const { image, additionalImages } = req.files;
 
-    let imagePath = "";
-    let additionalImagesPaths = [];
-    if (req.files.image && req.files.image.length > 0) {
-      imagePath = image[0].path;
-    }
+    // let imagePath = "";
+    // let additionalImagesPaths = [];
+    // if (req.files.image && req.files.image.length > 0) {
+    //   imagePath = image[0].path;
+    // }
 
-    if (
-      Array.isArray(req.files.additionalImages) &&
-      req.files.additionalImages.length > 0
-    ) {
-      additionalImagesPaths = additionalImages.map((file) => file.path);
-    }
+    // if (
+    //   Array.isArray(req.files.additionalImages) &&
+    //   req.files.additionalImages.length > 0
+    // ) {
+    //   additionalImagesPaths = additionalImages.map((file) => file.path);
+    // }
 
-    const existing = await Pet.findById(id);
-    console.log(existing.additionalImages);
+    // const existing = await Pet.findById(id);
+    // console.log(existing.additionalImages);
 
-    if (additionalImagesPaths.length === 0) {
-      additionalImagesPaths = existing.additionalImages;
-    } else if (
-      Array.isArray(existing.additionalImages) &&
-      existing.additionalImages.length > 0
-    ) {
-      console.log(existing.additionalImages);
-      await Promise.all(
-        existing.additionalImages.map(
-          async (img) =>
-            await fs.unlink(path.join(__dirname, "../", img), (err, res) => {
-              if (err) {
-                console.log(err);
-              } else {
-                console.log("Files deleted successfuly");
-              }
-            })
-        )
-      )
-        .then(console.log)
-        .catch(console.log);
-    }
+    // if (additionalImagesPaths.length === 0) {
+    //   additionalImagesPaths = existing.additionalImages;
+    // } else if (
+    //   Array.isArray(existing.additionalImages) &&
+    //   existing.additionalImages.length > 0
+    // ) {
+    //   console.log(existing.additionalImages);
+    //   await Promise.all(
+    //     existing.additionalImages.map(
+    //       async (img) =>
+    //         await fs.unlink(path.join(__dirname, "../", img), (err, res) => {
+    //           if (err) {
+    //             console.log(err);
+    //           } else {
+    //             console.log("Files deleted successfuly");
+    //           }
+    //         })
+    //     )
+    //   )
+    //     .then(console.log)
+    //     .catch(console.log);
+    // }
 
-    if (imagePath.length === 0) {
-      imagePath = existing.image;
-    } else {
-      await fs.unlink(existing.image, (err, res) => {
-        if (err) {
-          console.log(err);
-        } else {
-          return;
-        }
-      });
-    }
+    // if (imagePath.length === 0) {
+    //   imagePath = existing.image;
+    // } else {
+    //   await fs.unlink(existing.image, (err, res) => {
+    //     if (err) {
+    //       console.log(err);
+    //     } else {
+    //       return;
+    //     }
+    //   });
+    // }
 
     const createdPet = await Pet.findByIdAndUpdate(
       id,
@@ -139,15 +194,23 @@ exports.update = async (req, res) => {
         breed,
         color,
         description,
-        imageLabel,
+        rating,
         category,
-        image: imagePath,
-        additionalImages: additionalImagesPaths,
+        price,
+        type,
+        discount,
+        countInStock,
+        image,
+        // additionalImages: additionalImagesPaths,
       },
       { new: true }
     );
 
-    res.json({ message: "Pet updated successfully.", createdPet });
+    res.json({
+      message: "Pet updated successfully.",
+      status: "OK",
+      data: createdPet,
+    });
   } catch (error) {
     console.log(error);
     res.status(400).json(error);
@@ -159,9 +222,20 @@ exports.delete = async (req, res) => {
   try {
     const pet = await Pet.findByIdAndRemove(id);
 
-    res.json({ message: "Pet successfuly deleted", pet });
+    res.json({ message: "Pet successfuly deleted", status : "OK", data:pet });
   } catch (error) {
     console.log(error);
     res.status(400).json(error);
+  }
+};
+
+exports.getAllType = async (req, res) => {
+  try {
+    const response = await PetService.getAllType();
+    return res.status(200).json(response);
+  } catch (e) {
+    return res.status(404).json({
+      message: e,
+    });
   }
 };

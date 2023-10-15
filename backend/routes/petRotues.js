@@ -43,6 +43,10 @@ router.get("/get/:id", petController.getOne);
 
 router.get("/category/:categoryId", petController.getByCategory);
 
+router.get('/get-all-type', petController.getAllType)
+
+router.get('/get-details/:id', petController.getDetailPet)
+
 //post create pet
 router.post(
   "/create",

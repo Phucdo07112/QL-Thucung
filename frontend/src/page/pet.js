@@ -8,34 +8,34 @@ import * as CategoryService from "../services/CategoryService"
 import * as PetsService from "../services/PetsService"
 import * as ProductService from "../services/ProductService"
 import { useParams } from 'react-router-dom';
-const Product = () => {
+const Pet = () => {
   const navigate = useNavigate()
   const { categoryId } = useParams();
-  const handleClickCategory = (id,sect) => {
+  const handleClickCategory = (id, sect) => {
     navigate(`/${sect}/${id}`)
   }
   const getAllCategory = async () => {
     const res = await CategoryService.getAllCategory()
     return res
   }
-
-  const getAllProductByCategory = async (context) => {
+  const getAllPetByCategory = async (context) => {
     const id = context.queryKey && context.queryKey[1]
-    const res = await ProductService.getProductByCategory(id)
+    const res = await PetsService.getPetByCategory(id)
     return res
   }
 
+
   const queryCategory = useQuery({ queryKey: ['category'], queryFn: getAllCategory })
-  const queryProductByCategory = useQuery({ queryKey: ['productCategory', categoryId], queryFn: getAllProductByCategory })
+  const queryPetByCategory = useQuery({ queryKey: ['petCategory', categoryId], queryFn: getAllPetByCategory })
 
   const { isLoading: isLoadingCategory, data: categorys } = queryCategory
-  const { isLoading: isLoadingProductCategory, data: productCategorys } = queryProductByCategory
+  const { isLoading: isLoadingPetCategory, data: petCategorys } = queryPetByCategory
   const handleChange = (value) => {
     console.log(`selected ${value}`);
   };
   return (
     <div className="pb-10 bg-white">
-      <Banner title="Products" link="home / product" />
+      <Banner title="Pets" link="home / pet" />
       <div className="container pt-5">
         <div className="w-full flex gap-5">
           <div className="flex-1">
@@ -106,17 +106,17 @@ const Product = () => {
             <div className="mt-5">
                 <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-5">
                     {
-                      productCategorys?.map((products) => (
-                        <Link to={`/productDetails/${products?._id}`} className=" cursor-pointer group relative h-[380px] w-[300px] " key={products?._id}>
+                      petCategorys?.map((pets) => (
+                        <Link to={`/petDetails/${pets?._id}`} className=" cursor-pointer group relative h-[380px] w-[300px] " key={pets?._id}>
                             <div className="transition-all duration-300 ease-in-out w-full h-[79%] bg-[#FAF7F2] rounded-lg p-3 absolute top-0 left-0 group-hover:top-[-15px] ">
-                                <img className="rounded-lg w-full h-full" src={`${products.image ? products.image : '../images/dogvang.jpg'}`} alt="" />
+                                <img className="rounded-lg w-full h-full" src={`${pets.image ? pets.image : '../images/dogvang.jpg'}`} alt="" />
                             </div>
                             <div className="transition duration-300 ease-in-out absolute right-5 top-1 bg-[#ff642f] text-white p-3 rounded-full opacity-0 group-hover:opacity-100"><AiOutlineHeart size={22}/></div>
                             <div  className="transition duration-300 ease-in-out absolute right-5 top-[60px] bg-[#0090AE] text-white p-3 rounded-full opacity-0 group-hover:opacity-100"><AiOutlineEye size={22} /></div>
                             <button className="transition duration-300 ease-in-out bg-black px-11 py-[14px] rounded-full text-[12px] font-medium text-white absolute top-[265px] z-10 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100">Add to cart</button>
                             <div className="flex flex-col items-center absolute bottom-0 left-1/2 transform -translate-x-1/2">
                                 <Rate disabled defaultValue={2} />
-                                <p className="text-lg font-medium">{products.name}</p>
+                                <p className="text-lg font-medium">{pets.name}</p>
                                 <p className="text-red-700 font-medium">$25.00</p>
                             </div>
                         </Link>
@@ -131,4 +131,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default Pet;

@@ -12,12 +12,19 @@ import AdminUser from "../../components/AdminUser/AdminUser";
 import { Menu } from "antd";
 import Header from "../../components/Layout/Header";
 import NotFoundPage from "../NotFoundPage/NotFoundPage";
+import AdminProduct from "../../components/AdminProduct/AdminProduct";
+import AdminCategory from "../../components/AdminCategory/AdminCategory";
+import { MdOutlineCategory } from "react-icons/md";
+import AdminPet from "../../components/AdminPet/AdminPet";
+import {MdPets} from "react-icons/md"
 const AdminDashboard = () => {
   const user = useSelector((state) => state?.user);
 
   const items = [
     getItem("Người dùng", "users", <UserOutlined />),
+    getItem("Danh mục", "categories", <MdOutlineCategory />),
     getItem("Sản phẩm", "products", <AppstoreOutlined />),
+    getItem("Thú Cưng", "pets", <MdPets />),
     getItem("Đơn hàng", "orders", <ShoppingCartOutlined />),
   ];
 
@@ -69,10 +76,12 @@ const AdminDashboard = () => {
     switch (key) {
       case "users":
         return <AdminUser />;
-      // case 'products':
-      //   return (
-      //     <AdminProduct />
-      //   )
+      case "products":
+        return <AdminProduct />;
+      case "pets":
+        return <AdminPet />;
+      case "categories":
+        return <AdminCategory />;
       // case 'orders':
       //   return (
       //     <OrderAdmin />

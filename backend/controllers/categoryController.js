@@ -10,18 +10,28 @@ exports.getAll = async (req, res) => {
     res.status(400).json(error);
   }
 };
+exports.getDetailCategory = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const categorie = await Category.findById(id);
 
+    res.json(categorie);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
+};
 exports.create = async (req, res) => {
   try {
-    const { name } = req.body;
-
+    const {name,sect, image} = req.body;
     const created = await Category.create({
       name,
+      sect,
+      image
     });
 
     res.json({ message: "Category successfuly created.", created });
   } catch (error) {
-    console.log(error);
     res.status(400).json(error);
   }
 };
@@ -29,10 +39,12 @@ exports.create = async (req, res) => {
 exports.update = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name } = req.body;
-
+    const { name,sect, image } = req.body;
+    console.log('image',image);
     const created = await Category.findByIdAndUpdate(id, {
       name,
+      sect,
+      image
     });
 
     res.json({ message: "Category successfuly updated.", created });

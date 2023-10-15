@@ -37,9 +37,22 @@ export function renderOptions(arr) {
   }
 
   results.push({
-    label:'Them type',
+    label:'Thêm type',
     value: 'add-type'
   })
+  return results
+}
+
+export function renderOptionsCategory(arr) {
+  let results = [] 
+  if(arr) {
+    results = arr?.map((option) => {
+      return {
+        value: option?.name,
+        label: option?.name
+      }
+    })
+  }
   return results
 }
 

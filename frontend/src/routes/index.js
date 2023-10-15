@@ -7,6 +7,8 @@ import Profile from "../page/user/Profile";
 import Orders from "../page/user/Orders";
 import Product from "../page/Product";
 import ProductDetails from "../page/ProductDetails";
+import Pet from "../page/pet";
+import PetDetails from "../page/PetDetails";
 
 export const routes = [
   {
@@ -46,13 +48,24 @@ export const routes = [
     isShowHeader: true,
   },
   {
-    path: "/productDetails",
+    path: "/productDetails/:productId",
     page: ProductDetails,
+    isShowHeader: true,
+  },
+  {
+    path: "/pet/:categoryId",
+    page: Pet,
+    isShowHeader: true,
+  },
+  {
+    path: "/petDetails/:productId",
+    page: PetDetails,
     isShowHeader: true,
   },
   {
     path: "*",
     page: NotFoundPage,
+    isShowHeader: true,
   },
   // {
   //     path: '/system/admin',

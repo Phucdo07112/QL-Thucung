@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { BiSolidUserAccount } from "react-icons/bi";
-import { AiOutlineDownload } from "react-icons/ai";
 import { BsPersonAdd } from "react-icons/bs";
+import { AiOutlineDownload } from "react-icons/ai";
 import { Button, Form, Image, Space, Upload } from "antd";
 import TableComponent from "../TableComponent/TableComponent";
 import DrawerComponent from "../Drawer/DrawerComponent";

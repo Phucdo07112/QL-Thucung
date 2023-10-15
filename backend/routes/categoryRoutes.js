@@ -6,12 +6,14 @@ const router = express.Router();
 //get all media
 router.get("/all", categoryController.getAll);
 
+router.get("/detail/:id", categoryController.getDetailCategory)
 //post create new media
 router.post("/create", categoryController.create);
 
-//post create new media
-router.put("/update/:id", categoryController.create);
 
-router.delete("/delete/:id", categoryController.create);
+//post create new media
+router.put("/update/:id", categoryController.update);
+
+router.delete("/delete/:id", categoryController.delete);
 
 module.exports = router;

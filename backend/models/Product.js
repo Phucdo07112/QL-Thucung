@@ -33,7 +33,7 @@ const ProductSchema = new mongoose.Schema(
     countInStock: { type: Number, required: true },
     reviews: [
       {
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Review",
       },
     ],
