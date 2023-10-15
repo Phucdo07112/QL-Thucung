@@ -14,8 +14,8 @@ const HomePage = () => {
   const queryCategory = useQuery({ queryKey: ['category'], queryFn: getAllCategory })
   const { isLoading: isLoadingCategory, data: categorys } = queryCategory
   console.log('categorys',queryCategory);
-  const handleClickCategory = (id) => {
-    navigate(`/product/${id}`)
+  const handleClickCategory = (id,sect) => {
+    navigate(`/${sect}/${id}`)
   }
   const data = [
     {
@@ -107,13 +107,13 @@ const HomePage = () => {
         <div className="flex items-center pt-2 w-full gap-2 mb-6">
           <div className="flex-1 bg-white rounded-lg h-[345px] overflow-y-auto">
             {categorys?.map((category) => (
-              <div className="flex items-center gap-3 border-b p-3 cursor-pointer" key={category._id} onClick={() => handleClickCategory(category._id)}>
+              <div className="flex items-center gap-3 border-b p-3 cursor-pointer" key={category?._id} onClick={() => handleClickCategory(category?._id,category?.sect)}>
                 <img
-                  className="w-[50px] h-[50px] rounded-full object-contain"
-                  src="./images/Logo.png"
+                  className="w-[50px] h-[50px] rounded-full object-cover"
+                  src={category?.image}
                   alt=""
                 />
-                <p className="text-lg">{category.name}</p>
+                <p className="text-lg">{category?.name}</p>
               </div>
             ))}
             

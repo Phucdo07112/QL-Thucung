@@ -2,16 +2,21 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   orderItems: [],
-  shippingAddress: {},
-  paymentMethod: "",
+  orderItemsSlected: [],
+  shippingAddress: {
+  },
+  paymentMethod: '',
   itemsPrice: 0,
   shippingPrice: 0,
+  taxPrice: 0,
   totalPrice: 0,
-  user: "",
+  user: '',
   isPaid: false,
-  paidAt: "",
+  paidAt: '',
   isDelivered: false,
-  deliveredAt: "",
+  deliveredAt: '',
+  isSucessOrder: false,
+  isErrorOrder: false
 };
 
 export const orderSlice = createSlice({
@@ -19,26 +24,30 @@ export const orderSlice = createSlice({
   initialState,
   reducers: {
     addOrderProduct: (state, action) => {
-      const { orderItem } = action.payload;
-      const itemOrder = state?.orderItems.find(
-        (item) => item?.product === orderItem.product
-      );
-      if (itemOrder) {
-        //nếu đã có sản phẩm đó thì + số lượng
-        itemOrder.amount += orderItem?.amount;
-      } else {
-        // ko thì thêm vào product mới
-        state.orderItems.push(orderItem);
+      const {orderItem} = action.payload
+      const itemOrder = state?.orderItems?.find((item) => item?.product === orderItem.product)
+      if(itemOrder){
+        if(itemOrder.amount <= itemOrder.countInstock) {
+          itemOrder.amount += orderItem?.amount
+          state.isSucessOrder = true
+          state.isErrorOrder = false
+        }
+      }else {
+        state.orderItems.push(orderItem)
       }
     },
     removeOrderProduct: (state, action) => {
-      const {idProduct} = action.payload
-      
-      const itemOrder = state?.orderItems?.filter((item) => item?.product !== idProduct)
-      const itemOrderSeleted = state?.orderItemsSlected?.filter((item) => item?.product !== idProduct)
+      const { idProduct } = action.payload;
+
+      const itemOrder = state?.orderItems?.filter(
+        (item) => item?.product !== idProduct
+      );
+      const itemOrderSeleted = state?.orderItemsSlected?.filter(
+        (item) => item?.product !== idProduct
+      );
 
       state.orderItems = itemOrder;
-      state.orderItemsSlected = itemOrderSeleted; 
+      state.orderItemsSlected = itemOrderSeleted;
     },
     increaseAmount: (state, action) => {
       const { idProduct } = action.payload;
@@ -54,18 +63,57 @@ export const orderSlice = createSlice({
       }
     },
     decreaseAmount: (state, action) => {
-      const {idProduct} = action.payload
-      const itemOrder = state?.orderItems?.find((item) => item?.product === idProduct)
-      const itemOrderSelected = state?.orderItemsSlected?.find((item) => item?.product === idProduct)
+      const { idProduct } = action.payload;
+      const itemOrder = state?.orderItems?.find(
+        (item) => item?.product === idProduct
+      );
+      const itemOrderSelected = state?.orderItemsSlected?.find(
+        (item) => item?.product === idProduct
+      );
       itemOrder.amount--;
-      if(itemOrderSelected) {
+      if (itemOrderSelected) {
         itemOrderSelected.amount--;
       }
     },
+    removeAllOrderProduct: (state, action) => {
+      const { listChecked } = action.payload;
+
+      const itemOrders = state?.orderItems?.filter(
+        (item) => !listChecked.includes(item.product)
+      );
+      const itemOrdersSelected = state?.orderItems?.filter(
+        (item) => !listChecked.includes(item.product)
+      );
+      state.orderItems = itemOrders;
+      state.orderItemsSlected = itemOrdersSelected;
+    },
+    selectedOrder: (state, action) => {
+      const {listChecked} = action.payload
+      const orderSelected = []
+      state.orderItems.forEach((order) => {
+        if(listChecked.includes(order.product)) {
+          orderSelected.push(order)
+        }
+      })
+      state.orderItemsSlected = orderSelected
+      console.log('selected', state, action);
+    },
+    resetOrder: (state) => {
+      state.isSucessOrder = false
+    },
   },
+  
 });
 
 // Action creators are generated for each case reducer function
-export const { addOrderProduct,removeOrderProduct,increaseAmount,decreaseAmount  } = orderSlice.actions;
+export const {
+  addOrderProduct,
+  removeOrderProduct,
+  increaseAmount,
+  decreaseAmount,
+  removeAllOrderProduct,
+  selectedOrder,
+  resetOrder,
+} = orderSlice.actions;
 
 export default orderSlice.reducer;

@@ -2,15 +2,11 @@ import mongoose from "mongoose";
 
 const reviewSchema = new mongoose.Schema(
   {
-    petId: {
-      type: mongoose.Types.ObjectId,
-      ref: "Pet",
-    },
-    productId: {
-        type: mongoose.Types.ObjectId,
-        ref: "Product",
-    },
     username: {
+      type: String,
+      required: true,
+    },
+    useremail: {
       type: String,
       required: true,
     },

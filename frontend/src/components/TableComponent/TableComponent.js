@@ -4,7 +4,7 @@ import { Excel } from "antd-table-saveas-excel";
 import Loading from '../LoadingComponent/Loading';
 import {BiSolidUserAccount} from "react-icons/bi"
 import TopAdmin from '../TopAdmin';
-const TableComponent = ({iconTitle,title, iconAdd, AddTitle, selectionType = 'checkbox', data:dataSource = [], isLoading = false, columns= [],handleDeleteMany, ...rests}) => {
+const TableComponent = ({iconTitle,title, iconAdd, AddTitle,IsShowModal=null, selectionType = 'checkbox', data:dataSource = [], isLoading = false, columns= [],handleDeleteMany, ...rests}) => {
   const [rowSelectedKeys, setRowSelectedKeys] = useState([])
 
   const newColumnExport = useMemo(() => {
@@ -39,7 +39,7 @@ const rowSelection = {
   };
   return (
     <Loading isLoading={isLoading}>
-      <TopAdmin iconTitle={iconTitle} title={title} iconAdd={iconAdd} AddTitle={AddTitle} onClickEx={exportExcel} />
+      <TopAdmin iconTitle={iconTitle} title={title} iconAdd={iconAdd} AddTitle={AddTitle} onClickEx={exportExcel} IsShowModal={IsShowModal} />
       {!!rowSelectedKeys.length && (
         <div style={{
           background: '#FF642F',

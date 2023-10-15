@@ -17,15 +17,12 @@ const PetSchema = new mongoose.Schema(
     description: {
       type: String,
     },
-    species: {
-      type: String,
-    },
     breed: {
       type: String,
     },
     imageLabel: {
       type: String,
-      required: true,
+      // required: true,
     },
     category: {
       type: mongoose.Schema.Types.ObjectId,
@@ -44,11 +41,14 @@ const PetSchema = new mongoose.Schema(
       type: String,
       // required: true,
     },
+    discount: { type: Number },
+    selled: { type: Number },
+    countInStock: { type: Number, required: true },
     rating: { type: Number, required: true },
     type: { type: String },
     reviews: [
       {
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Review",
       },
     ],

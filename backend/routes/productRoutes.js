@@ -1,5 +1,6 @@
 const express = require("express");
 const productController = require("../controllers/productController");
+const { authMiddleWare } = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
@@ -10,7 +11,11 @@ const router = express.Router();
 router.post("/create", productController.createProduct);
 router.get('/get-all', productController.getAllProduct);
 router.get("/category/:categoryId", productController.getProductByCategory);
-
+router.post('/delete-many',authMiddleWare, productController.deleteManyProduct)
+router.get('/get-all-type', productController.getAllType)
+router.put('/update/:id', authMiddleWare, productController.updateProduct)
+router.get('/get-details/:id', productController.getDetailProduct)
+router.delete('/delete/:id',authMiddleWare, productController.deleteProduct)
 // //post create new media
 // router.put("/update/:id", categoryController.create);
 

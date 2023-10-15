@@ -141,3 +141,16 @@ textarea:focus
 :where(.css-dev-only-do-not-override-190m0jy).ant-btn-primary{
   background-color: #FF642F;
 }
+:where(.css-dev-only-do-not-override-190m0jy).ant-input {
+  border-radius: 5px;
+  height: 35px;
+}
+
+.ant-input-number.ant-input-number-sm {
+  width: 40px;
+        border-top: none;
+        border-bottom: none;
+}
+.ant-input-number.ant-input-number-sm .ant-input-number-handler-wrap {
+  display: none !important;
+}
