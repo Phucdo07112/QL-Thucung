@@ -293,6 +293,33 @@ const ProductDetails = () => {
               </div>
             </div>
             <hr />
+            <div className="flex gap-5 my-7">
+              <div>
+                <img
+                  className="w-[150px] h-[150px] object-cover rounded-full"
+                  src="../images/anhhung.jpg"
+                  alt=""
+                />
+              </div>
+              <div className="flex flex-col gap-5 flex-1">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-lg font-bold text-gray-700">Anh Hưng</p>
+                    <p className="text-red-600 font-medium">
+                      20 April, 2022 . 4:00 pm
+                    </p>
+                  </div>
+                  <div>
+                    <Rate disabled defaultValue={2} />
+                  </div>
+                </div>
+                <p className="text-[18px]">
+                  Mua con này về coi nhà tôi với ông làm chuyến Casino được
+                  không <span className="text-blue-600">@bá thông</span>. Nhìn
+                  mặt con này ko ai vô được tới cửa !
+                </p>
+              </div>
+            </div>
 
             
           </div>
