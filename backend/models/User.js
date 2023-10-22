@@ -13,10 +13,16 @@ const userSchema = new mongoose.Schema(
         "https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev\u003d2540745",
     },
     city: { type: String },
-    heart: [
+    heartProduct: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Product",
+      },
+    ],
+    heartPet: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Pet",
       },
     ],
   },
