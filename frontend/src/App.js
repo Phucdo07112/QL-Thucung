@@ -9,7 +9,7 @@ import Layout from "./components/Layout/Layout";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { isJsonString } from "./utils/jsonString";
-import { updateUser } from "./redux/slides/userSlice";
+import { resetUser, updateUser } from "./redux/slides/userSlice";
 import * as UserService from "./services/UserService";
 import jwt_decode from "jwt-decode";
 import Loading from "./components/LoadingComponent/Loading";
@@ -51,10 +51,19 @@ function App() {
       // trước khi call chạy cái này
       const currentTime = new Date();
       const { decoded } = handleDecoded();
+      let storageRefreshToken = localStorage.getItem('refreshToken-dog')
+      const refreshToken = JSON.parse(storageRefreshToken)
+      const decodedRefreshToken =  jwt_decode(refreshToken)
       if (decoded?.exp < currentTime.getTime() / 1000) {
-        const data = await UserService.refreshToken();
-        console.log("data", data);
-        config.headers["token"] = `Bearer ${data?.access_Token}`;
+        // const data = await UserService.refreshToken();
+        // console.log("data", data);
+        // config.headers["token"] = `Bearer ${data?.access_Token}`;
+        if(decodedRefreshToken?.exp > currentTime.getTime() / 1000) {
+          const data = await UserService.refreshToken(refreshToken)
+          config.headers['token'] = `Bearer ${data?.access_token}`
+        }else {
+          dispatch(resetUser())
+        }
       }
       // Do something before request is sent
       console.log("config", config);
@@ -66,9 +75,11 @@ function App() {
     }
   );
   const handleGetDetailUser = async (id, access_Token) => {
+    let storageRefreshToken = localStorage.getItem('refreshToken-dog')
+    const refreshToken = JSON.parse(storageRefreshToken)
     const res = await UserService.getDetailUser(id, access_Token);
 
-    dispatch(updateUser({ ...res?.data, access_Token: access_Token }));
+    dispatch(updateUser({ ...res?.data, access_Token: access_Token,refreshToken: refreshToken }));
   };
   return (
     // <h1>cc</h1>

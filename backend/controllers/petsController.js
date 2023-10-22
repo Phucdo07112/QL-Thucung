@@ -5,16 +5,18 @@ const PetService = require("../services/petService");
 
 exports.getAll = async (req, res) => {
   try {
-    const pets = await Pet.find().populate("category");
-
-    res.json({
-      status: "OK",
-      message: "Success",
-      data: pets,
+    const { limit, page, sort, filter } = req.query;
+    const response = await PetService.getAllPet(
+      Number(limit) || null,
+      Number(page) || 0,
+      sort,
+      filter
+    );
+    return res.status(200).json(response);
+  } catch (e) {
+    return res.status(404).json({
+      message: e,
     });
-  } catch (error) {
-    console.log(error);
-    res.status(400).json(error);
   }
 };
 

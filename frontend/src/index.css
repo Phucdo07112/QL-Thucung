@@ -154,3 +154,7 @@ textarea:focus
 .ant-input-number.ant-input-number-sm .ant-input-number-handler-wrap {
   display: none !important;
 }
+
+:where(.css-dev-only-do-not-override-190m0jy).ant-input-number-sm input.ant-input-number-input {
+  text-align: center;
+}

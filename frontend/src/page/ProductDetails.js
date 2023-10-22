@@ -161,6 +161,7 @@ const ProductDetails = () => {
                       background: "transparent",
                       cursor: "pointer",
                     }}
+                    className="w-[30px] h-[30px]"
                     onClick={() =>
                       handleChangeCount("decrease", numProduct === 1)
                     }
@@ -175,6 +176,7 @@ const ProductDetails = () => {
                       borderBottom: "none",
                       width: "40px",
                     }}
+                    className="flex-1 "
                     defaultValue={1}
                     min={1}
                     max={productDetails?.countInStock}
@@ -188,6 +190,7 @@ const ProductDetails = () => {
                       background: "transparent",
                       cursor: "pointer",
                     }}
+                    className="w-[30px] h-[30px]"
                     onClick={() =>
                       handleChangeCount(
                         "increase",

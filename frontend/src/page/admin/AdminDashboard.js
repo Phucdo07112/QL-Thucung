@@ -17,6 +17,7 @@ import AdminCategory from "../../components/AdminCategory/AdminCategory";
 import { MdOutlineCategory } from "react-icons/md";
 import AdminPet from "../../components/AdminPet/AdminPet";
 import {MdPets} from "react-icons/md"
+import AdminOrder from "../../components/AdminOrder/AdminOrder";
 const AdminDashboard = () => {
   const user = useSelector((state) => state?.user);
 
@@ -82,10 +83,10 @@ const AdminDashboard = () => {
         return <AdminPet />;
       case "categories":
         return <AdminCategory />;
-      // case 'orders':
-      //   return (
-      //     <OrderAdmin />
-      //   )
+      case 'orders':
+        return (
+          <AdminOrder />
+        )
       default:
         return <></>;
     }

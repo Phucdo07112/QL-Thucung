@@ -27,7 +27,7 @@ const Login = () => {
         navigate("/");
       }
       localStorage.setItem("accessToken-dog", JSON.stringify(data?.access_Token));
-
+      localStorage.setItem('refreshToken-dog', JSON.stringify(data?.refresh_token))
       if (data?.access_Token) {
         const decoded = jwt_decode(data?.access_Token);
         console.log("decoded", decoded);
@@ -40,8 +40,10 @@ const Login = () => {
   }, [data, navigate]);
 
   const handleGetDetailUser = async (id, access_Token) => {
+    const storage = localStorage.getItem('refreshToken-dog')
+    const refreshToken = JSON.parse(storage)
     const res = await UserService.getDetailUser(id, access_Token);
-    dispatch(updateUser({ ...res?.data, access_Token: access_Token }));
+    dispatch(updateUser({ ...res?.data, access_Token: access_Token, refreshToken }));
   };
 
   const handleOnchangeEmail = (e) => {

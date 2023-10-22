@@ -11,6 +11,7 @@ export const productSlice = createSlice({
     searchProduct: (state, action) => {
       state.search = action.payload
     },
+    
   },
 })
 

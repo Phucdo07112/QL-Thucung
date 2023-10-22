@@ -1,11 +1,13 @@
 const Order = require("../models/Order");
 const Product = require("../models/Product");
-// const EmailService = require("../services/EmailService");
+const Pet = require("../models/Pet");
+const EmailService = require("../services/EmailService");
 
 const createOrder = (newOrder) => {
   return new Promise(async (resolve, reject) => {
     const {
       orderItems,
+      orderPetItems,
       paymentMethod,
       itemsPrice,
       shippingPrice,
@@ -19,9 +21,9 @@ const createOrder = (newOrder) => {
       paidAt,
       email,
     } = newOrder;
-    console.log('newOrder',newOrder);
     try {
-      const promises = orderItems.map(async (order) => {
+      const promiseProduct = orderItems.map(async (order) => {
+        
         const productData = await Product.findOneAndUpdate(
           {
             // filter
@@ -50,9 +52,40 @@ const createOrder = (newOrder) => {
           };
         }
       });
-      const results = await Promise.all(promises);
+
+      const promisePet = orderPetItems.map(async (order) => {
+        
+        const petData = await Pet.findOneAndUpdate(
+          {
+            // filter
+            _id: order.pet, // tìm phần tử
+            countInStock: { $gte: order.amount }, //Tìm phần tử đó kiểm tra amount đủ để giảm số lượng
+          },
+          {
+            $inc: {
+              // update
+              countInStock: -order.amount, // giảm số lượng hàng
+              selled: +order.amount, // tăng số lượng đã bán
+            },
+          },
+          { new: true } // trả về th mới nhất
+        );
+        if (petData) {
+          return {
+            status: "OK",
+            message: "SUCCESS",
+          };
+        } else {
+          return {
+            status: "OK",
+            message: "ERR",
+            id: order.pet,
+          };
+        }
+      });
+      const results = await Promise.all(promiseProduct,promisePet);
       const newData = results && results.filter((item) => item.id);
-      
+
       if (newData.length) {
         const arrId = [];
         newData.forEach((item) => {
@@ -65,6 +98,7 @@ const createOrder = (newOrder) => {
       } else {
         const createdOrder = await Order.create({
           orderItems,
+          orderPetItems,
           shippingAddress: {
             fullName,
             address,
@@ -164,63 +198,98 @@ const getOrderDetails = (id) => {
   });
 };
 
-const cancelOrderDetails = (id, data) => {
+const cancelOrderDetails = (id, datapro, datapet) => {
   return new Promise(async (resolve, reject) => {
-      try {
-          let orders = []
-          const promises = data.map(async (order) => {
-              const productData = await Product.findOneAndUpdate(
-                  {
-                  _id: order.product,
-                  selled: {$gte: order.amount}
-                  },
-                  {$inc: {
-                      countInStock: +order.amount,
-                      selled: -order.amount
-                  }},
-                  {new: true}
-              )
-              if(productData) {
-                  orders = await Order.findByIdAndDelete(id)
-                  if (orders === null) {
-                      resolve({
-                          status: 'ERR',
-                          message: 'The order is not defined'
-                      })
-                  } 
-                  
-              } else {
-                return{
-                    status: 'ERR',
-                    message: 'ERR',
-                    id: order.product
-                }
-              } 
-              return {
-                status: 'OK',
-                message: 'Success',
-              }
-          })
-          const results = await Promise.all(promises)
-          const newData = results && results[0] && results[0].id
-          
-          if(newData) {
-              resolve({
-                  status: 'ERR',
-                  message: `San pham voi id: ${newData} khong ton tai`
-              })
+    try {
+      let orders = [];
+      const promiseProduct = datapro.map(async (order) => {
+        const productData = await Product.findOneAndUpdate(
+          {
+            _id: order?.product,
+            selled: { $gte: order.amount },
+          },
+          {
+            $inc: {
+              countInStock: +order.amount,
+              selled: -order.amount,
+            },
+          },
+          { new: true }
+        );
+        if (productData) {
+          orders = await Order.findByIdAndDelete(id);
+          if (orders === null) {
+            resolve({
+              status: "ERR",
+              message: "The order is not defined",
+            });
           }
-          resolve({
-              status: 'OK',
-              message: 'success',
-              data: orders
-          })
-      } catch (e) {
-          reject(e)
-      }
-  })
-}
+        } else {
+          return {
+            status: "ERR",
+            message: "ERR",
+            id: order?.product,
+          };
+        }
+        return {
+          status: "OK",
+          message: "Success",
+        };
+      });
 
+      const promisePet = datapet.map(async (order) => {
+        const petData = await Pet.findOneAndUpdate(
+          {
+            _id: order?.pet,
+            selled: { $gte: order.amount },
+          },
+          {
+            $inc: {
+              countInStock: +order.amount,
+              selled: -order.amount,
+            },
+          },
+          { new: true }
+        );
+        if (petData) {
+          orders = await Order.findByIdAndDelete(id);
+          if (orders === null) {
+            resolve({
+              status: "ERR",
+              message: "The order is not defined",
+            });
+          }
+        } else {
+          return {
+            status: "ERR",
+            message: "ERR",
+            id: order?.product,
+          };
+        }
+        return {
+          status: "OK",
+          message: "Success",
+        };
+      });
+      const results = await Promise.all(promiseProduct,promisePet);
+      const newData = results && results[0] && results[0].id;
+
+      if (newData) {
+        resolve({
+          status: "ERR",
+          message: `San pham voi id: ${newData} khong ton tai`,
+        });
+      }
+      resolve({
+        status: "OK",
+        message: "success",
+        data: orders,
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 
 const getAllOrder = () => {
   return new Promise(async (resolve, reject) => {
