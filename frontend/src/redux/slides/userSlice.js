@@ -1,36 +1,50 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  id: '',
-  name: '',
-  email: '',
-  phone: '',
-  address: '',
-  avatar: '',
-  access_token: '',
+  id: "",
+  name: "",
+  email: "",
+  phone: "",
+  address: "",
+  avatar: "",
+  access_token: "",
   isAdmin: false,
-  city: '',
-  refreshToken: '',
-  heart: []
-}
+  city: "",
+  refreshToken: "",
+  heartProduct: [],
+  heartPet: [],
+};
 export const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {
     updateUser: (state, action) => {
-        console.log('action', action);
-        const { name = '', email = '', access_Token = '', address = '', phone = '', avatar = '', _id = '',isAdmin, city="",refreshToken = '', heart=[]} = action.payload
-        state.name = name ;
-        state.email = email;
-        state.address = address;
-        state.phone = phone;
-        state.avatar = avatar;
-        state.id = _id;
-        state.access_token = access_Token;
-        state.isAdmin = isAdmin;
-        state.city = city;
-        state.refreshToken = refreshToken ? refreshToken : state.refreshToken;
-        state.heart = heart
+      const {
+        name = "",
+        email = "",
+        access_Token = "",
+        address = "",
+        phone = "",
+        avatar = "",
+        _id = "",
+        isAdmin,
+        city = "",
+        refreshToken = "",
+        heartProduct = [],
+        heartPet = [],
+      } = action.payload;
+      state.name = name;
+      state.email = email;
+      state.address = address;
+      state.phone = phone;
+      state.avatar = avatar;
+      state.id = _id;
+      state.access_token = access_Token;
+      state.isAdmin = isAdmin;
+      state.city = city;
+      state.refreshToken = refreshToken ? refreshToken : state.refreshToken;
+      state.heartProduct = heartProduct ;
+      state.heartPet = heartPet;
     },
     resetUser: (state) => {
       state.name = "";
@@ -42,16 +56,32 @@ export const userSlice = createSlice({
       state.access_token = "";
       state.isAdmin = false;
       state.city = "";
-      state.refreshToken = ''
-      state.heart = []
+      state.refreshToken = "";
+      state.heartProduct = [];
+      state.heartPet = [];
     },
     addHeart: (state, action) => {
-      state.heart.push(action.payload)
-    }
+      const { productId, petId } = action.payload;
+      if(productId) {
+        if(state.heartProduct.includes(productId)){
+          const itemHeartProduct = state?.heartProduct?.filter((item) => item !== productId)
+          state.heartProduct = itemHeartProduct
+        } else {
+          state.heartProduct.push(productId)
+        }
+      } else if(petId) {
+        if(state.heartPet.includes(petId)){
+          const itemHeartPet = state?.heartPet?.filter((item) => item !== petId)
+          state.heartPet = itemHeartPet
+        } else {
+          state.heartPet.push(petId)
+        }
+      }
+    },
   },
-})
+});
 
 // Action creators are generated for each case reducer function
-export const { updateUser,resetUser,addHeart } = userSlice.actions
+export const { updateUser, resetUser, addHeart } = userSlice.actions;
 
-export default userSlice.reducer
+export default userSlice.reducer;

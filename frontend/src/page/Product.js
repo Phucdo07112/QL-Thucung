@@ -108,7 +108,7 @@ const Product = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-5">
                     {
                       productCategorys?.map((products) => (
-                        <CardComponent data={products} />
+                        <CardComponent data={products} isProduct={true} />
                       ))
                     }
                 </div>

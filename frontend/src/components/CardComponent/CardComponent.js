@@ -1,19 +1,73 @@
 import { Rate } from "antd";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import {AiOutlineHeart,AiOutlineEye } from "react-icons/ai";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {AiOutlineHeart,AiOutlineEye,AiFillHeart } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { addHeart } from "../../redux/slides/userSlice";
-const CardComponent = ({data}) => {
+import { useMutationHooks } from "../../hooks/useMutationHook";
+import * as UserService from "../../services/UserService";
+const CardComponent = ({data, isPet=false, isProduct=false}) => {
     const [heart, setHeart] = useState(false)
+    const user = useSelector((state) => state?.user);
     const dispatch = useDispatch();
+    const navigate = useNavigate()
+    const mutationUpdate = useMutationHooks((data) => {
+      const { id, token, ...rests } = data;
+      console.log('resst', {...rests});
+      return UserService.updateUser(id, token, { ...rests });
+    });
+
+    const {
+      data: dataUpdate,
+      isLoading: isLoadingUpdated,
+      isSuccess: isSuccessUpdated,
+      isError: isErrorUpdate,
+    } = mutationUpdate;
+
     const handleHeart = (e) => {
         e.stopPropagation();
-        dispatch(addHeart(data?._id))
+        
+        if(isPet) {
+          dispatch(addHeart({
+            petId: data?._id
+          }))
+          // mutationUpdate.mutate(
+          //   { id: user?._id, token: user?.access_token, heartPet: user?.heartPet,   ...user }
+          // );
+          
+        } else if(isProduct) {
+          dispatch(addHeart({
+            productId: data?._id
+          }))
+          // mutationUpdate.mutate(
+          //   { id: user?._id, token: user?.access_token, heartProduct: user?.heartProduct,   ...user }
+          // );
+          
+        }
+    }
+    useEffect(() => {
+      if(isPet) {
+        mutationUpdate.mutate(
+          { id: user?._id, token: user?.access_token, heartPet: user?.heartPet,   ...user }
+        );
+      } else if (isProduct) {
+        mutationUpdate.mutate(
+          { id: user?._id, token: user?.access_token, heartProduct: user?.heartProduct,   ...user }
+        );
+      }
+    },[user?.heartPet, user?.heartProduct, isPet, isProduct])
+
+    const handelOnClick = (e) => {
+      e.stopPropagation();
+      if(isPet) {
+        navigate(`/petDetails/${data?._id}`)
+      } else if(isProduct) {
+        navigate(`/productDetails/${data?._id}`)
+      }
     }
   return (
-    <Link
-      to={`/productDetails/${data?._id}`}
+    <div
+      onClick={handelOnClick}
       className=" cursor-pointer group relative h-[380px] w-[300px] "
       key={data?._id}
     >
@@ -24,8 +78,16 @@ const CardComponent = ({data}) => {
           alt=""
         />
       </div>
-      <div className="transition duration-300 ease-in-out absolute right-5 top-1 bg-[#ff642f] text-white p-3 rounded-full opacity-0 group-hover:opacity-100" onClick={handleHeart}>
-        <AiOutlineHeart size={22} />
+      <div className="transition duration-300 ease-in-out absolute right-5 top-1 bg-[#ffc458] text-white p-3 rounded-full opacity-0 group-hover:opacity-100" onClick={handleHeart}>
+        {
+          user?.heartPet?.includes(data?._id) || user?.heartProduct?.includes(data?._id) ?  (
+            <>
+            <AiFillHeart color="#ff642f" size={25} />
+            </>
+          ) : (
+            <AiOutlineHeart size={25} />
+          )
+        }
       </div>
       <div className="transition duration-300 ease-in-out absolute right-5 top-[60px] bg-[#0090AE] text-white p-3 rounded-full opacity-0 group-hover:opacity-100">
         <AiOutlineEye size={22} />
@@ -38,7 +100,7 @@ const CardComponent = ({data}) => {
         <p className="text-lg font-medium">{data.name}</p>
         <p className="text-red-700 font-medium">$25.00</p>
       </div>
-    </Link>
+    </div>
   );
 };
 
