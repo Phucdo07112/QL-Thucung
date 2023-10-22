@@ -27,7 +27,7 @@ const Footer = () => {
         </div>
         <div className="flex justify-between container py-8 pt-[120px]">
           <div className="footer-list w-36">
-            <img src="/images/Logo2.png"></img>
+            <img src="/images/Logo2.png" alt="" />
             <p className="leading-6">
               Cửa hàng thú cưng hân hạnh được phục vụ bạn
             </p>

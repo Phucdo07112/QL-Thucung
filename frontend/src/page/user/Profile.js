@@ -82,7 +82,7 @@ const Profile = () => {
     <div className="container pt-2">
       <div className="bg-white p-6 my-4 rounded-2xl max-w-[700px] mx-auto border-2">
         <div className="bg-[#FF642F] w-[280px] flex items-center justify-center p-2 rounded-lg mb-4">
-          <h1 className="text-lg font-bold ">Thông tin người dùng</h1>
+          <p className="text-lg font-bold ">Thông tin người dùng</p>
         </div>
         <Loading isLoading={isLoading}>
           <div className="flex flex-col items-center gap-2">

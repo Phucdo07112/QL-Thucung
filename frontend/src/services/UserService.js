@@ -7,8 +7,7 @@ export const loginUser = async(data) => {
 }
 
 export const signUpUser = async(data) => {
-    console.log('process.env.REACT_APP_API_URL',process.env);
-
+    
     const res = await axios.post(`${process.env.REACT_APP_API_URL}/user/sign-up`, data)
     return res.data
 }
@@ -49,10 +48,11 @@ export const deleteManyUser = async (data, access_token) => {
     return res.data
 }
 
-export const refreshToken = async() => {
-    const res = await axios.post(`${process.env.REACT_APP_API_URL}/user/refresh-token`, {
-        withCredentials: true, // khi co cookie thi tu dong lay cookie truyen xuong backend
-        credentials: 'include'
+export const refreshToken = async (refreshToken) => {
+    const res = await axios.post(`${process.env.REACT_APP_API_URL}/user/refresh-token`, {} , {
+        headers: {
+            token: `Bearer ${refreshToken}`,
+        }
     })
     return res.data
 }

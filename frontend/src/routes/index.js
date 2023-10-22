@@ -9,6 +9,10 @@ import Product from "../page/Product";
 import ProductDetails from "../page/ProductDetails";
 import Pet from "../page/pet";
 import PetDetails from "../page/PetDetails";
+import payment from "../page/payment";
+import OrderSuccess from "../page/user/OrderSuccess";
+import MyOrder from "../page/MyOrder";
+import Search from "../page/search";
 
 export const routes = [
   {
@@ -32,6 +36,11 @@ export const routes = [
     isShowHeader: true,
   },
   {
+    path: "/search",
+    page: Search,
+    isShowHeader: true,
+  },
+  {
     path: "/admin/AdminDashboard",
     page: AdminDashboard,
     isShowHeader: false,
@@ -40,6 +49,21 @@ export const routes = [
   {
     path: "/order",
     page: Orders,
+    isShowHeader: true,
+  },
+  {
+    path: "/payment",
+    page: payment,
+    isShowHeader: true,
+  },
+  {
+    path: "/orderSuccess",
+    page: OrderSuccess,
+    isShowHeader: true,
+  },
+  {
+    path: "/myorder",
+    page: MyOrder,
     isShowHeader: true,
   },
   {

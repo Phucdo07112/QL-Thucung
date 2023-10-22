@@ -7,10 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 import * as UserService from "../../services/UserService";
 import { Badge, Image, Popover } from "antd";
 import { resetUser } from "../../redux/slides/userSlice";
+import { searchProduct } from '../../redux/slides/productSlice';
 const Header = ({ isHiddenSearch, isHiddenCart, isHiddenNav }) => {
+  const order = useSelector((state) => state.order);
   const user = useSelector((state) => state.user);
+  const [search, setSearch] = useState('')
   const [loading, setLoading] = useState(false);
   const [avatar, setAvatar] = useState("");
+  const [isOpenPopup, setIsOpenPopup] = useState(false)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogOut = async () => {
@@ -23,35 +27,69 @@ const Header = ({ isHiddenSearch, isHiddenCart, isHiddenNav }) => {
 
   const content = (
     <div className="w-[200px] flex flex-col gap-2">
+      
       <p
         className="bg-gray-800 p-2 rounded-lg cursor-pointer font-semibold text-white"
-        onClick={handleLogOut}
+        onClick={() => handleClickNavigate('profile')}
       >
-        LogOut
+        Thông tin người dùng
       </p>
       <p
         className="bg-gray-800 p-2 rounded-lg cursor-pointer font-semibold text-white"
-        onClick={() => navigate("/profile")}
+        onClick={() => handleClickNavigate(`my-order`)}
       >
-        Thông tin người dùng
+        Đơn hàng của tôi
       </p>
       {user?.isAdmin && (
         <p
           className="bg-gray-800 p-2 rounded-lg cursor-pointer font-semibold text-white"
-          onClick={() => navigate("/admin/AdminDashboard")}
+          onClick={() => handleClickNavigate('admin')}
         >
           Quản lí hệ thống
         </p>
       )}
+      <p
+        className="bg-gray-800 p-2 rounded-lg cursor-pointer font-semibold text-white"
+        onClick={() => handleClickNavigate()}
+      >
+        LogOut
+      </p>
     </div>
   );
+
+  const handleClickNavigate = (type) => {
+    if(type === 'profile') {
+      navigate('/profile')
+    }else if(type === 'admin') {
+      navigate('/admin/AdminDashboard')
+    }else if(type === 'my-order') {
+      navigate('/myorder',{ state : {
+          id: user?.id,
+          token : user?.access_token
+        }
+      })
+    }else {
+      handleLogOut()
+    }
+    setIsOpenPopup(false)
+  }
   useEffect(() => {
     setLoading(true);
     setAvatar(user?.avatar);
     setLoading(false);
   }, [user?.avatar]);
-  console.log("user", user);
-  // const [search, setSearch] = useState('')
+
+  
+  const onSearch = (e) => {
+    e.preventDefault()
+    setSearch(e.target.value)
+  }
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+    dispatch(searchProduct(search))
+    navigate(`/search`)
+  }
   return (
     <header>
       <div className="container flex items-center justify-between">
@@ -60,9 +98,9 @@ const Header = ({ isHiddenSearch, isHiddenCart, isHiddenNav }) => {
         </Link>
 
         {!isHiddenNav && (
-          <form>
+          <form onSubmit={onSubmit}>
             <div className="flex items-center">
-              <input className="w-[400px] h-[46px] text-gray-600 rounded-l-lg bg-[#faf6f1] px-4" placeholder="Tìm kiếm thú cưng"/>
+              <input className="w-[400px] h-[46px] text-gray-600 rounded-l-lg bg-[#faf6f1] px-4" placeholder="Tìm kiếm thú cưng" onChange={onSearch}/>
               <button type="submit" className="btn-search-bf cursor-pointer  px-3 py-2 bg-[#ffbc3e] rounded-r-lg relative">
                 <AiOutlineSearch style={{ fontSize: "30px" }} />
               </button>
@@ -80,7 +118,7 @@ const Header = ({ isHiddenSearch, isHiddenCart, isHiddenNav }) => {
           )}
           {!isHiddenCart && (
             <Link to="/order" className="cursor-pointer">
-              <Badge count={2}>
+              <Badge count={order?.orderItems?.length + order?.orderPetItems?.length}>
                 <AiOutlineShoppingCart
                   style={{
                     fontSize: "30px",
