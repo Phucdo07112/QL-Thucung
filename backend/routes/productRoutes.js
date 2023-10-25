@@ -10,6 +10,7 @@ const router = express.Router();
 //post create new media
 router.post("/create", productController.createProduct);
 router.get('/get-all', productController.getAllProduct);
+router.post('/get-heart', productController.getAllProductById);
 router.get("/category/:categoryId", productController.getProductByCategory);
 router.post('/delete-many',authMiddleWare, productController.deleteManyProduct)
 router.get('/get-all-type', productController.getAllType)

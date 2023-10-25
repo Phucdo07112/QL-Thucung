@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addOrderPet, addOrderProduct, resetOrder } from "../redux/slides/orderSlice";
 import * as message from "../components/Message/Message";
 import { PlusOutlined, MinusOutlined } from "@ant-design/icons";
+import { convertPrice } from "../utils/jsonString";
 const PetDetails = () => {
   const { productId } = useParams();
   const [numProduct, setNumProduct] = useState(1);
@@ -130,10 +131,10 @@ const PetDetails = () => {
             </div>
             <div className="flex-1">
               <div className="flex items-end gap-6">
-                <h3 className="text-[40px] font-bold text-gray-700">
+                <h3 className="text-[40px] font-bold text-gray-700 space-">
                   {petDetail?.name}
                 </h3>
-                <p className="font-bold text-[21px] text-red-500">$25.00</p>
+                <p className="font-bold text-[21px] text-red-500">{convertPrice(Number(petDetail?.price))}</p>
               </div>
               <div className="flex items-center gap-2 mt-5 mb-5">
                 <Rate disabled defaultValue={`${petDetail?.rating}`} />

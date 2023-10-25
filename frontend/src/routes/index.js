@@ -13,6 +13,7 @@ import payment from "../page/payment";
 import OrderSuccess from "../page/user/OrderSuccess";
 import MyOrder from "../page/MyOrder";
 import Search from "../page/search";
+import Heart from "../page/heart";
 
 export const routes = [
   {
@@ -33,6 +34,11 @@ export const routes = [
   {
     path: "/profile",
     page: Profile,
+    isShowHeader: true,
+  },
+  {
+    path: "/heart",
+    page: Heart,
     isShowHeader: true,
   },
   {

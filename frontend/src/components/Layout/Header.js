@@ -110,11 +110,11 @@ const Header = ({ isHiddenSearch, isHiddenCart, isHiddenNav }) => {
 
         <div className="flex items-center gap-4 border-l-2 pl-7">
           {!isHiddenSearch && (
-            <div className="cursor-pointer">
+            <Link to="/heart" className="cursor-pointer">
               <Badge count={user?.heartPet?.length + user?.heartProduct?.length} color="#ffbc3e">
                 <AiOutlineHeart style={{ fontSize: "30px" }} />
               </Badge>
-            </div>
+            </Link>
           )}
           {!isHiddenCart && (
             <Link to="/order" className="cursor-pointer">

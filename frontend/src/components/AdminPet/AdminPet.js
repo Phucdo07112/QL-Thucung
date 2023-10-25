@@ -25,6 +25,7 @@ import { useSelector } from "react-redux";
 import ModalComponent from "../ModalComponent/ModalComponent";
 import { GiDogHouse } from "react-icons/gi";
 import { LuDog } from "react-icons/lu";
+import TextArea from "antd/es/input/TextArea";
 const AdminPet = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rowSelected, setRowSelected] = useState("");
@@ -772,7 +773,7 @@ const AdminPet = () => {
                   },
                 ]}
               >
-                <InputComponent
+                <TextArea
                   value={statePet.description}
                   onChange={handleOnchange}
                   name="description"
@@ -1083,7 +1084,7 @@ const AdminPet = () => {
                   },
                 ]}
               >
-                <InputComponent
+                <TextArea
                   value={statePetDetails.description}
                   onChange={handleOnchangeDetails}
                   name="description"

@@ -98,6 +98,39 @@ const getDetailProduct = (id) => {
   });
 };
 
+const getAllProductById = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const heartData = []
+      const Data = data?.map(async (id) => {
+        const product = await Product.findById(id);
+        if (product) {
+          heartData.push(product)
+        }
+      })
+
+      const results = await Promise.all(Data);
+      const newData = results && results[0] && results[0].id;
+      
+      if (heartData === null) {
+        resolve({
+          status: "OK",
+          message: "the data is not defined",
+        });
+      }
+
+      
+      resolve({
+        status: "OK",
+        message: "Success",
+        data: heartData
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
 const deleteProduct = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -211,5 +244,6 @@ module.exports = {
   deleteProduct,
   getAllProduct,
   deleteManyProduct,
-  getAllType
+  getAllType,
+  getAllProductById
 };
