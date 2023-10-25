@@ -6,14 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { addHeart } from "../../redux/slides/userSlice";
 import { useMutationHooks } from "../../hooks/useMutationHook";
 import * as UserService from "../../services/UserService";
+import { convertPrice } from "../../utils/jsonString";
 const CardComponent = ({data, isPet=false, isProduct=false}) => {
-    const [heart, setHeart] = useState(false)
     const user = useSelector((state) => state?.user);
     const dispatch = useDispatch();
     const navigate = useNavigate()
     const mutationUpdate = useMutationHooks((data) => {
       const { id, token, ...rests } = data;
-      console.log('resst', {...rests});
       return UserService.updateUser(id, token, { ...rests });
     });
 
@@ -95,10 +94,10 @@ const CardComponent = ({data, isPet=false, isProduct=false}) => {
       <button className="transition duration-300 ease-in-out bg-black px-11 py-[14px] rounded-full text-[12px] font-medium text-white absolute top-[265px] z-10 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100">
         Add to cart
       </button>
-      <div className="flex flex-col items-center absolute bottom-0 left-1/2 transform -translate-x-1/2">
+      <div className="flex flex-col w-full  items-center absolute bottom-0 left-1/2 transform -translate-x-1/2">
         <Rate disabled defaultValue={data?.rating} />
-        <p className="text-lg font-medium">{data.name}</p>
-        <p className="text-red-700 font-medium">$25.00</p>
+        <p className="text-lg font-medium whitespace-nowrap text-ellipsis text-center overflow-hidden w-full">{data?.name}</p>
+        <p className="text-red-700 font-medium">{convertPrice(Number(data?.price))}</p>
       </div>
     </div>
   );

@@ -27,6 +27,11 @@ export const getDetailsProduct = async(id) => {
     return res.data
 }
 
+export const getAllProductbyId = async(data) => {
+    const res = await axios.post(`${process.env.REACT_APP_API_URL}/product/get-heart`, data)
+    return res.data
+}
+
 export const updateProduct = async(id, access_Token, data) => {
     const res = await axiosJWT.put(`${process.env.REACT_APP_API_URL}/product/update/${id}`, data, {
         headers: {

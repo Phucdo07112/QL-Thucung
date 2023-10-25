@@ -16,6 +16,39 @@ exports.getAllType = () => {
     });
 };
 
+exports.getAllPetById = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const heartData = []
+      const Data = data?.map(async (id) => {
+        const pet = await Pet.findById(id);
+        if (pet) {
+          heartData.push(pet)
+        }
+      })
+
+      const results = await Promise.all(Data);
+      const newData = results && results[0] && results[0].id;
+      
+      if (heartData === null) {
+        resolve({
+          status: "OK",
+          message: "the data is not defined",
+        });
+      }
+
+      
+      resolve({
+        status: "OK",
+        message: "Success",
+        data: heartData
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
 exports.getDetailPet = (id) => {
     return new Promise(async (resolve, reject) => {
       try {

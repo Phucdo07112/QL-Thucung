@@ -80,6 +80,25 @@ exports.getDetailProduct = async (req, res) => {
   }
 };
 
+exports.getAllProductById = async (req, res) => {
+  try {
+    const data = req.body;
+    if (!data) {
+      return res.status(200).json({
+        status: "ERR",
+        message: "The userId is required",
+      });
+    }
+
+    const response = await ProductService.getAllProductById(data);
+    return res.status(200).json(response);
+  } catch (e) {
+    return res.status(404).json({
+      message: e,
+    });
+  }
+};
+
 exports.deleteProduct = async (req, res) => {
   try {
     const productId = req.params.id;

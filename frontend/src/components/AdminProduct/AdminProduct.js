@@ -25,6 +25,7 @@ import { useSelector } from "react-redux";
 import ModalComponent from "../ModalComponent/ModalComponent";
 import { BiSolidAddToQueue } from "react-icons/bi";
 import { BsHouseAdd } from "react-icons/bs";
+import TextArea from "antd/es/input/TextArea";
 const AdminProduct = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rowSelected, setRowSelected] = useState("");
@@ -738,7 +739,7 @@ const AdminProduct = () => {
                   },
                 ]}
               >
-                <InputComponent
+                <TextArea
                   value={stateProduct.description}
                   onChange={handleOnchange}
                   name="description"
@@ -960,7 +961,7 @@ const AdminProduct = () => {
                   },
                 ]}
               >
-                <InputComponent
+                <TextArea
                   value={stateProductDetails.description}
                   onChange={handleOnchangeDetails}
                   name="description"

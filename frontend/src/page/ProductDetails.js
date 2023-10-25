@@ -10,6 +10,7 @@ import * as message from "../components/Message/Message";
 import { useDispatch, useSelector } from "react-redux";
 import { PlusOutlined, MinusOutlined } from "@ant-design/icons";
 import { addOrderProduct, resetOrder } from "../redux/slides/orderSlice";
+import { convertPrice } from "../utils/jsonString";
 const ProductDetails = () => {
   const { productId } = useParams();
   const [numProduct, setNumProduct] = useState(1);
@@ -122,7 +123,7 @@ const ProductDetails = () => {
       <div className="container">
         {product && (
           <div className="flex gap-5 pt-8" key={product?._id}>
-            <div className="flex-1 bg-[#FAF7F2] p-6 rounded-lg h-[570px]">
+            <div className="flex-1 bg-[#FAF7F2] p-6 rounded-lg h-[570px] w-full">
               <img
                 className="rounded-lg h-[520px] w-full object-cover"
                 src={product?.image}
@@ -134,14 +135,14 @@ const ProductDetails = () => {
                 <h3 className="text-[40px] font-bold text-gray-700">
                   {product?.name}
                 </h3>
-                <p className="font-bold text-[21px] text-red-500">$25.00</p>
+                <p className="font-bold text-[21px] text-red-500">{convertPrice(Number(product?.price))}</p>
               </div>
               <div className="flex items-center gap-2 mt-5 mb-5">
                 <Rate disabled defaultValue={`${product?.rating}`} />
                 <p className="font-medium text-gray-500">2 Customer Reviews</p>
               </div>
               <hr />
-              <p className="font-medium text-gray-500 my-3 text-[17px] leading-6">
+              <p className="font-medium whitespace-pre-line  text-gray-500 my-3 text-[17px] leading-6" >
                 {product?.description}
               </p>
               <p className="font-medium text-gray-500 text-[17px] pt-11 ">

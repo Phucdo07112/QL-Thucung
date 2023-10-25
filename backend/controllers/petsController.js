@@ -20,6 +20,25 @@ exports.getAll = async (req, res) => {
   }
 };
 
+exports.getAllPetById = async (req, res) => {
+  try {
+    const data = req.body;
+    if (!data) {
+      return res.status(200).json({
+        status: "ERR",
+        message: "The userId is required",
+      });
+    }
+
+    const response = await PetService.getAllPetById(data);
+    return res.status(200).json(response);
+  } catch (e) {
+    return res.status(404).json({
+      message: e,
+    });
+  }
+};
+
 exports.getDetailPet = async (req, res) => {
   try {
     const pet = req.params.id;
