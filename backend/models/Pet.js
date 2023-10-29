@@ -38,7 +38,7 @@ const PetSchema = new mongoose.Schema(
       default: "open",
     },
     price: {
-      type: String,
+      type: Number,
       // required: true,
     },
     discount: { type: Number },

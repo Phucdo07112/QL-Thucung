@@ -309,10 +309,35 @@ const getAllOrder = () => {
   });
 };
 
+const updateProduct = (id, data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const checkOrder = await Order.findById(id);
+      if (checkOrder === null) {
+        resolve({
+          status: "OK",
+          message: "the product is not defined",
+        });
+      }
+      
+      const updateOrder = await Order.findByIdAndUpdate(id, data, { new: true }) //new: true : lay moi nhat
+      
+      resolve({
+        status: "OK",
+        message: "Success",
+        data: updateOrder
+      });
+    } catch (e) {
+      reject(e.message);
+    }
+  });
+};
+
 module.exports = {
   createOrder,
   getAllOrderDetails,
   getOrderDetails,
   cancelOrderDetails,
   getAllOrder,
+  updateProduct
 };

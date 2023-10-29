@@ -1,7 +1,7 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import productReducer from './slides/productSlice'
-import userReducer from './slides/userSlice'
-import orderReducer from './slides/orderSlice'
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import productReducer from "./slides/productSlice";
+import userReducer from "./slides/userSlice";
+import orderReducer from "./slides/orderSlice";
 import {
   persistStore,
   persistReducer,
@@ -11,23 +11,22 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
+} from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
 const persistConfig = {
-  key: 'phuc',
+  key: "phuc",
   version: 1,
   storage,
-  blacklist: ['search','user']
-}
+  blacklist: ["search"],
+};
 const rootReducer = combineReducers({
   search: productReducer,
   user: userReducer,
-  order: orderReducer
-})
+  order: orderReducer,
+});
 
-const persistedReducer = persistReducer(persistConfig, rootReducer)
-
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
@@ -37,6 +36,6 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
-})
+});
 
-export let persistor = persistStore(store)
+export let persistor = persistStore(store);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Banner from "../components/Banner";
 import { Rate, Select, Slider } from "antd";
 import { useQuery } from "@tanstack/react-query";
@@ -9,8 +9,14 @@ import * as PetsService from "../services/PetsService"
 import * as ProductService from "../services/ProductService"
 import { useParams } from 'react-router-dom';
 import CardComponent from "../components/CardComponent/CardComponent";
+import { useMutationHooks } from "../hooks/useMutationHook";
+import * as UserService from "../services/UserService";
+import { useSelector } from "react-redux";
 const Pet = () => {
   const navigate = useNavigate()
+  const [price, setPrice] = useState(0);
+  const [Filterprice, setFilterPrice] = useState(0);
+  const user = useSelector((state) => state?.user);
   const { categoryId } = useParams();
   const handleClickCategory = (id, sect) => {
     navigate(`/${sect}/${id}`)
@@ -21,19 +27,49 @@ const Pet = () => {
   }
   const getAllPetByCategory = async (context) => {
     const id = context.queryKey && context.queryKey[1]
-    const res = await PetsService.getPetByCategory(id)
+    const price = context.queryKey && context.queryKey[2];
+    const res = await PetsService.getPetByCategory(id, price)
     return res
   }
+  const mutationUpdate = useMutationHooks((data) => {
+    const { id, token, ...rests } = data;
+    return UserService.updateUser(id, token, { ...rests });
+  });
+
+  const {
+    data: dataUpdate,
+    isLoading: isLoadingUpdated,
+    isSuccess: isSuccessUpdated,
+    isError: isErrorUpdate,
+  } = mutationUpdate;
 
 
   const queryCategory = useQuery({ queryKey: ['category'], queryFn: getAllCategory })
-  const queryPetByCategory = useQuery({ queryKey: ['petCategory', categoryId], queryFn: getAllPetByCategory })
+  const queryPetByCategory = useQuery({ queryKey: ['petCategory', categoryId, Filterprice], queryFn: getAllPetByCategory })
 
   const { isLoading: isLoadingCategory, data: categorys } = queryCategory
   const { isLoading: isLoadingPetCategory, data: petCategorys } = queryPetByCategory
   const handleChange = (value) => {
     console.log(`selected ${value}`);
   };
+
+  const onChange = (checked) => {
+    setPrice(checked);
+  };
+
+  const handleFilterPrice = () => {
+    setFilterPrice(price);
+  };
+
+
+  useEffect(() => {
+    mutationUpdate.mutate({
+      id: user?._id,
+      token: user?.access_token,
+      heartProduct: user?.heartPet,
+      ...user,
+    });
+  }, [user?.heartPet]);
   return (
     <div className="pb-10 bg-white">
       <Banner title="Pets" link="home / pet" />
@@ -49,18 +85,16 @@ const Pet = () => {
             <div className="mt-5 border-2 p-4 rounded-lg">
               <p className="text-lg font-semibold">Price</p>
               <div className="mt-5">
-                <input
-                  id="minmax-range"
-                  type="range"
-                  min="0"
-                  max="10"
-                  value="5"
-                  class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+                <Slider
+                  min={0}
+                  max={1000}
+                  defaultValue={0}
+                  onChange={onChange}
                 />
               </div>
               <div className="flex items-center justify-between mt-5">
                 <p className="text-gray-500 font-medium">$50 - $500</p>
-                <button className="bg-[#ff642f] px-9 py-[14px] rounded-full text-[12px] font-medium text-white">
+                <button className="bg-[#ff642f] px-9 py-[14px] rounded-full text-[12px] font-medium text-white" onClick={handleFilterPrice}>
                   FILTER
                 </button>
               </div>
@@ -107,7 +141,7 @@ const Pet = () => {
             <div className="mt-5">
                 <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-5">
                     {
-                      petCategorys?.map((pets) => (
+                      petCategorys?.data?.map((pets) => (
                         <CardComponent data={pets} isPet={true} />
                       ))
                     }

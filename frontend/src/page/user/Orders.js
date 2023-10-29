@@ -166,7 +166,6 @@ const Orders = () => {
 
   const mutationUpdate = useMutationHooks((data) => {
     const { id, token, ...rests } = data;
-    console.log("rests", rests);
     const res = UserService.updateUser(id, token, { ...rests });
     return res;
   });

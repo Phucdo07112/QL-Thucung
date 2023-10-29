@@ -100,7 +100,7 @@ const AdminDashboard = () => {
       {user.isAdmin ? (
         <div className="mt-24">
           <Header isHiddenSearch isHiddenCart isHiddenNav />
-          <div style={{ display: "flex" }}>
+          <div className="mt-[100px]" style={{ display: "flex" }}>
             <Menu
               mode="inline"
               // openKeys={openKeys}
@@ -110,10 +110,11 @@ const AdminDashboard = () => {
                 boxShadow: "1px 1px 2px #ccc",
                 height: "100vh",
               }}
+              className="fixed top-[95px] bottom-0"
               items={items}
               onClick={handleOnClick}
             />
-            <div style={{ flex: "1", padding: "15px" }}>
+            <div className="container" style={{ flex: "1", marginLeft:"270px" }}>
               {renderPage(keySelected)}
             </div>
           </div>

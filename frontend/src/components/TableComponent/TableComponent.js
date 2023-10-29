@@ -8,7 +8,7 @@ const TableComponent = ({iconTitle,title, iconAdd, AddTitle,IsShowModal=null, se
   const [rowSelectedKeys, setRowSelectedKeys] = useState([])
 
   const newColumnExport = useMemo(() => {
-    const arr = columns?.filter((col) => col.dataIndex !== 'action')
+    const arr = columns?.filter((col) => col.dataIndex !== 'action' && col.dataIndex !== 'image')
     return arr
   }, [columns])
 

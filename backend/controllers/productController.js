@@ -63,7 +63,7 @@ exports.updateProduct = async (req, res) => {
 exports.getDetailProduct = async (req, res) => {
   try {
     const product = req.params.id;
-    console.log('product',product);
+    console.log("product", product);
     if (!product) {
       return res.status(200).json({
         status: "ERR",
@@ -167,16 +167,32 @@ exports.getAllProduct = async (req, res) => {
 };
 
 exports.getProductByCategory = async (req, res) => {
-  const { categoryId } = req.params;
-  try {
-    const products = await Product.find({ category: categoryId }).populate(
-      "category"
-    );
+  // try {
+  //   const categories = await Product.find({ category: categoryId }).populate(
+  //     "category"
+  //   );
 
-    res.json(products);
-  } catch (error) {
-    console.log(error);
-    res.status(400).json(error);
+  //   res.json(products);
+  // } catch (error) {
+  //   console.log(error);
+  //   res.status(400).json(error);
+  // }
+
+  try {
+    const { categoryId } = req.params;
+    const { limit, page, sort, filter } = req.query;
+    const response = await ProductService.getProductByCategory(
+      categoryId,
+      Number(limit) || null,
+      Number(page) || 0,
+      sort,
+      filter
+    );
+    return res.status(200).json(response);
+  } catch (e) {
+    return res.status(404).json({
+      message: e,
+    });
   }
 };
 

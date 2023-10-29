@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import CardComponent from '../components/CardComponent/CardComponent'
 import { useSelector } from 'react-redux';
 import { useQuery } from '@tanstack/react-query';
 import * as ProductService from "../services/ProductService"
 import * as PetsService from "../services/PetsService"
+import * as UserService from "../services/UserService"
+import { useMutationHooks } from '../hooks/useMutationHook';
 const Heart = () => {
     const user = useSelector((state) => state.user);
 
     const getAllProductById = async (context) => {
         const data = context.queryKey && context.queryKey[1]
+        console.log('1233',data);
         const res = await ProductService.getAllProductbyId(data)
         return res
       }
@@ -18,12 +21,42 @@ const Heart = () => {
         const res = await PetsService.getAllPetbyId(data)
         return res
       }
+
+      const mutationUpdate = useMutationHooks((data) => {
+        const { id, token, ...rests } = data;
+        return UserService.updateUser(id, token, { ...rests });
+      });
+    
+      const {
+        data: dataUpdate,
+        isLoading: isLoadingUpdated,
+        isSuccess: isSuccessUpdated,
+        isError: isErrorUpdate,
+      } = mutationUpdate;
     const queryProductById = useQuery({ queryKey: ['productHeart',user?.heartProduct], queryFn: getAllProductById })
     const queryPetById = useQuery({ queryKey: ['petHeart',user?.heartPet], queryFn: getAllPetById })
 
     const { isLoading: isLoadingProduct, data: product } = queryProductById
     const { isLoading: isLoadingPet, data: pet } = queryPetById
     console.log('product',product);
+
+    useEffect(() => {
+      mutationUpdate.mutate({
+        id: user?._id,
+        token: user?.access_token,
+        heartProduct: user?.heartProduct,
+        ...user,
+      });
+    }, [user?.heartProduct]);
+
+    useEffect(() => {
+      mutationUpdate.mutate({
+        id: user?._id,
+        token: user?.access_token,
+        heartProduct: user?.heartPet,
+        ...user,
+      });
+    }, [user?.heartPet]);
   return (
     <div className='bg-white'>
         <div className='container'>

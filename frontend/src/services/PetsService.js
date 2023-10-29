@@ -1,7 +1,12 @@
 import axios from "axios"
 import { axiosJWT } from "./UserService"
-export const getPetByCategory = async(id) => {
-    const res = await axios.get(`${process.env.REACT_APP_API_URL}/pets/category/${id}`)
+export const getPetByCategory = async(id, price) => {
+    let res = {}
+    if(price > 0){
+        res = await axios.get(`${process.env.REACT_APP_API_URL}/pets/category/${id}?filter=price&filter=${price}000`)
+    } else {
+        res = await axios.get(`${process.env.REACT_APP_API_URL}/pets/category/${id}`)
+    }
     return res.data
 }
 
