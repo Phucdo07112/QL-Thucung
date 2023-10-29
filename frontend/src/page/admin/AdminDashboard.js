@@ -18,10 +18,12 @@ import { MdOutlineCategory } from "react-icons/md";
 import AdminPet from "../../components/AdminPet/AdminPet";
 import {MdPets} from "react-icons/md"
 import AdminOrder from "../../components/AdminOrder/AdminOrder";
+import AdminDashboards from "../../components/AdminDashboard/AdminDashboard";
 const AdminDashboard = () => {
   const user = useSelector((state) => state?.user);
 
   const items = [
+    getItem("DashBoard", "dashboard", <UserOutlined />),
     getItem("Người dùng", "users", <UserOutlined />),
     getItem("Danh mục", "categories", <MdOutlineCategory />),
     getItem("Sản phẩm", "products", <AppstoreOutlined />),
@@ -29,7 +31,7 @@ const AdminDashboard = () => {
     getItem("Đơn hàng", "orders", <ShoppingCartOutlined />),
   ];
 
-  const [keySelected, setKeySelected] = useState("users");
+  const [keySelected, setKeySelected] = useState("dashboard");
   // const getAllOrder = async () => {
   //   const res = await OrderService.getAllOrder(user?.access_token)
   //   return {data: res?.data, key: 'orders'}
@@ -75,6 +77,8 @@ const AdminDashboard = () => {
 
   const renderPage = (key) => {
     switch (key) {
+      case "dashboard":
+        return <AdminDashboards />;
       case "users":
         return <AdminUser />;
       case "products":

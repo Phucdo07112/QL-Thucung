@@ -93,7 +93,7 @@ const Pet = () => {
                 />
               </div>
               <div className="flex items-center justify-between mt-5">
-                <p className="text-gray-500 font-medium">$50 - $500</p>
+                <p className="text-gray-500 font-medium">{price}k - 1000k</p>
                 <button className="bg-[#ff642f] px-9 py-[14px] rounded-full text-[12px] font-medium text-white" onClick={handleFilterPrice}>
                   FILTER
                 </button>

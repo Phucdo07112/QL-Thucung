@@ -1,5 +1,5 @@
 import React, { PureComponent }  from 'react'
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { convertDataChart } from '../../utils/jsonString';
 
 const PieChartComponent = (props) => {
@@ -21,7 +21,7 @@ const PieChartComponent = (props) => {
 
   return (
     <ResponsiveContainer width="100%" height="100%">
-        <PieChart width={400} height={400}>
+        <PieChart width={500} height={500}>
           <Pie
             data={data}
             cx="50%"
@@ -37,6 +37,7 @@ const PieChartComponent = (props) => {
             ))}
           </Pie>
           <Tooltip />
+          <Legend />
         </PieChart>
       </ResponsiveContainer>
   )
