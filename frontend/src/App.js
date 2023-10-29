@@ -55,11 +55,10 @@ function App() {
       const refreshToken = JSON.parse(storageRefreshToken)
       const decodedRefreshToken =  jwt_decode(refreshToken)
       if (decoded?.exp < currentTime.getTime() / 1000) {
-        // const data = await UserService.refreshToken();
-        // console.log("data", data);
-        // config.headers["token"] = `Bearer ${data?.access_Token}`;
         if(decodedRefreshToken?.exp > currentTime.getTime() / 1000) {
           const data = await UserService.refreshToken(refreshToken)
+          // localStorage.setItem("accessToken-dog", JSON.stringify(data?.access_token));
+          console.log('data?.access_token',data?.access_token);
           config.headers['token'] = `Bearer ${data?.access_token}`
         }else {
           dispatch(resetUser())

@@ -11,17 +11,17 @@ const CardComponent = ({data, isPet=false, isProduct=false}) => {
     const user = useSelector((state) => state?.user);
     const dispatch = useDispatch();
     const navigate = useNavigate()
-    const mutationUpdate = useMutationHooks((data) => {
-      const { id, token, ...rests } = data;
-      return UserService.updateUser(id, token, { ...rests });
-    });
+    // const mutationUpdate = useMutationHooks((data) => {
+    //   const { id, token, ...rests } = data;
+    //   return UserService.updateUser(id, token, { ...rests });
+    // });
 
-    const {
-      data: dataUpdate,
-      isLoading: isLoadingUpdated,
-      isSuccess: isSuccessUpdated,
-      isError: isErrorUpdate,
-    } = mutationUpdate;
+    // const {
+    //   data: dataUpdate,
+    //   isLoading: isLoadingUpdated,
+    //   isSuccess: isSuccessUpdated,
+    //   isError: isErrorUpdate,
+    // } = mutationUpdate;
 
     const handleHeart = (e) => {
         e.stopPropagation();
@@ -44,17 +44,19 @@ const CardComponent = ({data, isPet=false, isProduct=false}) => {
           
         }
     }
-    useEffect(() => {
-      if(isPet) {
-        mutationUpdate.mutate(
-          { id: user?._id, token: user?.access_token, heartPet: user?.heartPet,   ...user }
-        );
-      } else if (isProduct) {
-        mutationUpdate.mutate(
-          { id: user?._id, token: user?.access_token, heartProduct: user?.heartProduct,   ...user }
-        );
-      }
-    },[user?.heartPet, user?.heartProduct, isPet, isProduct])
+
+    
+    // useEffect(() => {
+    //   if(isPet) {
+    //     mutationUpdate.mutate(
+    //       { id: user?._id, token: user?.access_token, heartPet: user?.heartPet,   ...user }
+    //     );
+    //   } else if (isProduct) {
+    //     mutationUpdate.mutate(
+    //       { id: user?._id, token: user?.access_token, heartProduct: user?.heartProduct,   ...user }
+    //     );
+    //   }
+    // },[user?.heartPet, user?.heartProduct, isPet, isProduct])
 
     const handelOnClick = (e) => {
       e.stopPropagation();

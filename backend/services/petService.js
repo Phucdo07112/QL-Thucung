@@ -120,3 +120,79 @@ exports.getAllPet = (limit, page, sort, filter) => {
     }
   });
 };
+
+exports.getPetByCategory = (categoryId, limit, page, sort, filter) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const totalPet = await Pet.count();
+      // const categories = await Pet.find({ category: categoryId }).populate(
+      //   "category"
+      // );
+      console.log("limit, page, sort, filter", limit, page, sort, filter);
+      let allCategory = [];
+      if (filter) {
+        const label = filter[0];
+        const allObjectFilter = await Pet.find(
+            {
+              category: categoryId,
+              [label]: { $gt: Number(filter[1]) }
+            }
+        )
+          .populate("category")
+          .limit(limit)
+          .skip(page * limit)
+          .sort({ createdAt: -1, updatedAt: -1 });
+        resolve({
+          status: "OK",
+          message: "Success",
+          data: allObjectFilter,
+          total: totalPet,
+          pageCurrent: Number(page + 1),
+          totalPage: Math.ceil(totalPet / limit),
+        });
+      }
+      if (sort) {
+        const objectSort = {};
+        objectSort[sort[1]] = sort[0];
+        const allCategorySort = await Pet.find({ category: categoryId })
+          .populate("category")
+          .limit(limit)
+          .skip(page * limit)
+          .sort(objectSort)
+          .sort({ createdAt: -1, updatedAt: -1 });
+        resolve({
+          status: "OK",
+          message: "Success",
+          data: allCategorySort,
+          total: totalPet,
+          pageCurrent: Number(page + 1),
+          totalPage: Math.ceil(totalPet / limit),
+        });
+      }
+      if (!limit) {
+        allCategory = await Pet.find({ category: categoryId })
+          .populate("category")
+          .sort({
+            createdAt: -1,
+            updatedAt: -1,
+          });
+      } else {
+        allCategory = await Pet.find({ category: categoryId })
+          .populate("category")
+          .limit(limit)
+          .skip(page * limit)
+          .sort({ createdAt: -1, updatedAt: -1 });
+      }
+      resolve({
+        status: "OK",
+        message: "Success",
+        data: allCategory,
+        total: totalPet,
+        pageCurrent: Number(page + 1),
+        totalPage: Math.ceil(totalPet / limit),
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
