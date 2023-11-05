@@ -42,7 +42,11 @@ const orderSchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     isPaid: { type: Boolean, default: false },
     paidAt: { type: Date },
-    isDelivered: { type: Boolean, default: false },
+    isDelivered: {
+        type: String,
+        enum: ["Đơn Hàng Đã Đặt", "Đã Xác Nhận Thông Tin", "Đã Giao Cho ĐVVC", "Đã Nhận Được Hàng", "Đơn Hàng Đã Hoàn Thành"],
+        default: "Đơn Hàng Đã Đặt",
+    },
     deliveredAt: { type: Date },
 },
     {

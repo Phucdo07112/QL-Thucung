@@ -188,7 +188,7 @@ const getOrderDetails = (id) => {
 
       resolve({
         status: "OK",
-        message: "SUCESSS",
+        message: "SUCESSS orderDetails",
         data: order,
       });
     } catch (e) {
@@ -324,7 +324,7 @@ const updateProduct = (id, data) => {
       
       resolve({
         status: "OK",
-        message: "Success",
+        message: "Success update",
         data: updateOrder
       });
     } catch (e) {

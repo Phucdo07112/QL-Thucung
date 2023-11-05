@@ -104,6 +104,7 @@ exports.create = async (req, res) => {
       discount,
       countInStock,
       image,
+      expenses
     } = req.body;
     // const { image, additionalImages } = req.files;
 
@@ -130,6 +131,7 @@ exports.create = async (req, res) => {
       discount,
       countInStock,
       image,
+      expenses
       // additionalImages: additionalImagesPaths,
     });
 
@@ -160,6 +162,7 @@ exports.update = async (req, res) => {
       discount,
       countInStock,
       image,
+      expenses
     } = req.body;
     // const { image, additionalImages } = req.files;
 
@@ -229,6 +232,7 @@ exports.update = async (req, res) => {
         discount,
         countInStock,
         image,
+        expenses
         // additionalImages: additionalImagesPaths,
       },
       { new: true }
@@ -267,3 +271,17 @@ exports.getAllType = async (req, res) => {
     });
   }
 };
+
+exports.getAllBreed = async (req, res) => {
+  try {
+    const data = req.body;
+    console.log('typeccc',data.type);
+    const response = await PetService.getAllBreed(data.type);
+    return res.status(200).json(response);
+  } catch (e) {
+    return res.status(404).json({
+      message: e,
+    });
+  }
+};
+

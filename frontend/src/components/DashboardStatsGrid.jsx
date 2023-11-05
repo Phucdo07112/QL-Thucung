@@ -1,7 +1,8 @@
 import React from 'react'
 import { IoBagHandle, IoPieChart, IoPeople, IoCart } from 'react-icons/io5'
+import { convertPrice } from '../utils/jsonString'
 
-export default function DashboardStatsGrid() {
+export default function DashboardStatsGrid({totalPrice,totalExpenses, totalOrder, totalCustomers}) {
 	return (
 		<div className="flex gap-4">
 			<BoxWrapper>
@@ -11,8 +12,8 @@ export default function DashboardStatsGrid() {
 				<div className="pl-4">
 					<span className="text-sm text-gray-500 font-light">Total Sales</span>
 					<div className="flex items-center">
-						<strong className="text-xl text-gray-700 font-semibold">$54232</strong>
-						<span className="text-sm text-green-500 pl-2">+343</span>
+						<strong className="text-xl text-gray-700 font-semibold">{convertPrice(Number(totalPrice))}</strong>
+						{/* <span className="text-sm text-green-500 pl-2">+343</span> */}
 					</div>
 				</div>
 			</BoxWrapper>
@@ -23,8 +24,8 @@ export default function DashboardStatsGrid() {
 				<div className="pl-4">
 					<span className="text-sm text-gray-500 font-light">Total Expenses</span>
 					<div className="flex items-center">
-						<strong className="text-xl text-gray-700 font-semibold">$3423</strong>
-						<span className="text-sm text-green-500 pl-2">-343</span>
+						<strong className="text-xl text-gray-700 font-semibold">{convertPrice(Number(totalExpenses))}</strong>
+						{/* <span className="text-sm text-green-500 pl-2">-343</span> */}
 					</div>
 				</div>
 			</BoxWrapper>
@@ -35,8 +36,8 @@ export default function DashboardStatsGrid() {
 				<div className="pl-4">
 					<span className="text-sm text-gray-500 font-light">Total Customers</span>
 					<div className="flex items-center">
-						<strong className="text-xl text-gray-700 font-semibold">12313</strong>
-						<span className="text-sm text-red-500 pl-2">-30</span>
+						<strong className="text-xl text-gray-700 font-semibold">{totalCustomers}</strong>
+						{/* <span className="text-sm text-red-500 pl-2">-30</span> */}
 					</div>
 				</div>
 			</BoxWrapper>
@@ -47,8 +48,8 @@ export default function DashboardStatsGrid() {
 				<div className="pl-4">
 					<span className="text-sm text-gray-500 font-light">Total Orders</span>
 					<div className="flex items-center">
-						<strong className="text-xl text-gray-700 font-semibold">16432</strong>
-						<span className="text-sm text-red-500 pl-2">-43</span>
+						<strong className="text-xl text-gray-700 font-semibold">{totalOrder}</strong>
+						{/* <span className="text-sm text-red-500 pl-2">-43</span> */}
 					</div>
 				</div>
 			</BoxWrapper>

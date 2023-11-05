@@ -133,9 +133,9 @@ const Orders = () => {
   // }, [order]);
 
   const diliveryPriceMemo = useMemo(() => {
-    if (priceMemo >= 20000 && priceMemo < 500000) {
+    if (priceMemo > 200000) {
       return 10000;
-    } else if (priceMemo >= 500000 || order?.orderItemsSlected?.length === 0) {
+    } else if (priceMemo === 0) {
       return 0;
     } else {
       return 20000;
@@ -263,7 +263,7 @@ const Orders = () => {
                       order?.orderItems?.length + order?.orderPetItems?.length
                     }
                   ></Checkbox>
-                  <span> Tất cả ({order?.orderItems?.length} sản phẩm)</span>
+                  <span> Tất cả ({order?.orderItems?.length + order?.orderPetItems?.length} sản phẩm)</span>
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Price

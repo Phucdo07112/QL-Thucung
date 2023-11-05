@@ -45,6 +45,8 @@ router.get("/category/:categoryId", petController.getByCategory);
 
 router.get('/get-all-type', petController.getAllType)
 
+router.post('/get-all-breed', petController.getAllBreed)
+
 router.get('/get-details/:id', petController.getDetailPet)
 
 

@@ -23,16 +23,14 @@ import { orderContant } from "../../contant";
 import { useNavigate } from "react-router-dom";
 import PieChartComponent from "./PieChart";
 import { useMutationHooks } from "../../hooks/useMutationHook";
+import { getOrderStatus } from "../../utils/helpers";
 const AdminOrder = () => {
   const user = useSelector((state) => state?.user);
   const [orderDetail, setOrderDetail] = useState(false);
   const [rowSelected, setRowSelected] = useState("");
   const navigate = useNavigate();
 
-  const getAllOrder = async () => {
-    const res = await OrderService.getAllOrder(user?.access_token);
-    return res;
-  };
+  
 
   const mutationOrderDetail = useMutationHooks(async (data) => {
     const { id } = data;
@@ -46,7 +44,10 @@ const AdminOrder = () => {
     const res = OrderService.updateOrder(id, token, { isPaid, isDelivered, ...rests });
     return res;
   });
-
+  const getAllOrder = async () => {
+    const res = await OrderService.getAllOrder(user?.access_token);
+    return res.data;
+  };
   const queryOrder = useQuery({ queryKey: ["orders"], queryFn: getAllOrder });
   const { isLoading: isLoadingOrders, data: orders } = queryOrder;
 
@@ -272,7 +273,8 @@ const AdminOrder = () => {
         id: rowSelected,
         token: user?.access_token,
         ...dataOrder,
-        isDelivered: value === "Đã Giao" ? true : false,
+        isDelivered: value,
+        isPaid: value === "Đơn Hàng Đã Hoàn Thành" ? true : dataOrder?.isPaid
       },
       {
         onSettled: () => {
@@ -282,8 +284,8 @@ const AdminOrder = () => {
     );
   }
   const dataTable =
-    orders?.data?.length &&
-    orders?.data?.map((order) => {
+    orders?.length &&
+    orders?.map((order) => {
       return {
         ...order,
         key: order._id,
@@ -291,27 +293,7 @@ const AdminOrder = () => {
         phone: order?.shippingAddress?.phone,
         address: order?.shippingAddress?.address,
         paymentMethod: orderContant.payment[order?.paymentMethod],
-        isPaid: (
-            <Select
-              name="Order"
-              // defaultValue="lucy"
-              style={{
-                width: "100%",
-              }}
-              value={order?.isPaid ? "Đã Thanh Toán" : "Chưa thanh toán" }
-              onChange={handleChangeSelectOrderPaid}
-              options={[
-                {
-                  value: "Đã Thanh Toán" ,
-                  label: "Đã Thanh Toán"
-                },
-                {
-                  value: "Chưa Thanh Toán" ,
-                  label: "Chưa Thanh Toán"
-                },
-              ]}
-            />
-        ) ,
+        isPaid: order?.isPaid ? (<div className="w-[150px]">{getOrderStatus( "Đã Thanh Toán")}</div>) : (<div className="w-[150px]">{getOrderStatus("Chưa thanh Toán")}</div>)  ,
         isDelivered: (
           <Select
             name="Orders"
@@ -319,16 +301,28 @@ const AdminOrder = () => {
             style={{
               width: "100%",
             }}
-            value={order?.isDelivered ? "Đã Giao" : "Chưa Giao" }
+            value={order?.isDelivered}
             onChange={handleChangeSelectOrderisDelivered}
             options={[
               {
-                value: "Đã Giao" ,
-                label: "Đã Giao"
+                value: "Đơn Hàng Đã Đặt" ,
+                label: "Đơn Hàng Đã Đặt"
               },
               {
-                value: "Chưa Giao" ,
-                label: "Chưa Giao"
+                value: "Đã Xác Nhận Thông Tin" ,
+                label: "Đã Xác Nhận Thông Tin"
+              },
+              {
+                value: "Đã Giao Cho ĐVVC" ,
+                label: "Đã Giao Cho ĐVVC"
+              },
+              {
+                value: "Đã Nhận Được Hàng" ,
+                label: "Đã Nhận Được Hàng"
+              },
+              {
+                value: "Đơn Hàng Đã Hoàn Thành" ,
+                label: "Đơn Hàng Đã Hoàn Thành"
               },
             ]}
           />

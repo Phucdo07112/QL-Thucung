@@ -1,4 +1,5 @@
 const Product = require("../models/Product");
+const Review = require("../models/Review");
 
 const createProduct = (newProduct) => {
   return new Promise(async (resolve, reject) => {
@@ -13,6 +14,8 @@ const createProduct = (newProduct) => {
       discount,
       selled,
       category,
+      reviews,
+      expenses
     } = newProduct;
     try {
       const checkProduct = await Product.findOne({
@@ -36,6 +39,7 @@ const createProduct = (newProduct) => {
         discount,
         selled,
         category,
+        expenses
       });
       if (createProduct) {
         resolve({
@@ -79,7 +83,7 @@ const updateProduct = (id, data) => {
 const getDetailProduct = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const product = await Product.findById(id);
+      const product = await Product.findById(id).populate('reviews')
       if (product === null) {
         resolve({
           status: "OK",
@@ -91,6 +95,7 @@ const getDetailProduct = (id) => {
         status: "OK",
         message: "Success",
         data: product,
+        reviews:product.reviews
       });
     } catch (e) {
       reject(e);
@@ -244,6 +249,10 @@ const getProductByCategory = (categoryId, limit, page, sort, filter) => {
       let allCategory = [];
       if (filter) {
         const label = filter[0];
+        const objectSort = {}
+        objectSort[filter[0]] = filter[2]
+        const object = objectSort.price ? objectSort : {}
+        console.log('objectSort',objectSort);
         const allObjectFilter = await Product.find(
             {
               category: categoryId,
@@ -253,6 +262,7 @@ const getProductByCategory = (categoryId, limit, page, sort, filter) => {
           .populate("category")
           .limit(limit)
           .skip(page * limit)
+          .sort(object)
           .sort({ createdAt: -1, updatedAt: -1 });
         resolve({
           status: "OK",
@@ -265,7 +275,9 @@ const getProductByCategory = (categoryId, limit, page, sort, filter) => {
       }
       if (sort) {
         const objectSort = {};
-        objectSort[sort[1]] = sort[0];
+        objectSort[sort[0]] = sort[1];
+        
+        console.log('objectSort',objectSort);
         const allCategorySort = await Product.find({ category: categoryId })
           .populate("category")
           .limit(limit)

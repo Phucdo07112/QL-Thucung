@@ -14,6 +14,7 @@ exports.createProduct = async (req, res) => {
       countInStock,
       type,
       reviews,
+      expenses
     } = req.body;
     console.log("req.body", req.body);
     if (

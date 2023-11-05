@@ -3,6 +3,7 @@ import { Radio, Tabs } from "antd";
 import { useQuery } from "@tanstack/react-query";
 import * as CategoryService from "../services/CategoryService"
 import {useNavigate} from "react-router-dom"
+import Loading from "../components/LoadingComponent/Loading";
 const HomePage = () => {
   const navigate = useNavigate()
   const [mode, setMode] = useState("top");
@@ -102,7 +103,8 @@ const HomePage = () => {
     },
   ]
   return (
-    <div className="mb-4">
+    <Loading isLoading={isLoadingCategory}>
+      <div className="mb-4">
       <div className="container">
         <div className="flex items-center pt-2 w-full gap-2 mb-6">
           <div className="flex-1 bg-white rounded-lg h-[345px] overflow-y-auto">
@@ -208,6 +210,7 @@ const HomePage = () => {
         </div>
       </div>
     </div>
+    </Loading>
   );
 };
 

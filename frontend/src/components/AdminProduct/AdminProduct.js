@@ -46,6 +46,7 @@ const AdminProduct = () => {
     newCategory: "",
     discount: "",
     category: "",
+    expenses: "",
   });
   const [stateProduct, setStateProduct] = useState(inittial());
   const [stateProductDetails, setStateProductDetails] = useState(inittial());
@@ -63,6 +64,7 @@ const AdminProduct = () => {
       countInStock,
       discount,
       category,
+      expenses,
     } = data;
 
     const res = ProductService.createProduct({
@@ -75,6 +77,7 @@ const AdminProduct = () => {
       countInStock,
       discount,
       category,
+      expenses
     });
     return res;
   });
@@ -122,6 +125,7 @@ const AdminProduct = () => {
         countInStock: res?.data?.countInStock,
         discount: res?.data?.discount,
         category: categoryDetail?.name,
+        expenses: res?.data?.expenses
       });
     }
     setIsLoadingUpdate(false);
@@ -431,6 +435,7 @@ const AdminProduct = () => {
       type: "",
       countInStock: "",
       category: "",
+      expenses:""
     });
     form.resetFields();
   };
@@ -471,6 +476,7 @@ const AdminProduct = () => {
       countInStock: "",
       discount: "",
       category: "",
+      expenses: "",
     });
     form.resetFields();
   };
@@ -497,6 +503,7 @@ const AdminProduct = () => {
       countInStock: stateProduct.countInStock,
       discount: stateProduct.discount,
       category: idCategory,
+      expenses: stateProduct.expenses
     };
     mutation.mutate(params, {
       onSettled: () => {
@@ -730,6 +737,23 @@ const AdminProduct = () => {
               </FormItem>
 
               <FormItem
+                label="Expenses"
+                name="expenses"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your expenses!",
+                  },
+                ]}
+              >
+                <InputComponent
+                  value={stateProduct.expenses}
+                  onChange={handleOnchange}
+                  name="expenses"
+                />
+              </FormItem>
+
+              <FormItem
                 label="Description"
                 name="description"
                 rules={[
@@ -948,6 +972,23 @@ const AdminProduct = () => {
                   value={stateProductDetails.price}
                   onChange={handleOnchangeDetails}
                   name="price"
+                />
+              </FormItem>
+
+              <FormItem
+                label="Expenses"
+                name="expenses"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your expenses!",
+                  },
+                ]}
+              >
+                <InputComponent
+                  value={stateProductDetails.expenses}
+                  onChange={handleOnchangeDetails}
+                  name="expenses"
                 />
               </FormItem>
 
