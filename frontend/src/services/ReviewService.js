@@ -14,3 +14,13 @@ export const getDetailReview = async(id) => {
     const res = await axios.get(`${process.env.REACT_APP_API_URL}/review/detail/${id}`)
     return res.data
 }
+
+export const updateReview = async(id, token, data) => {
+    const res = await axios.put(`${process.env.REACT_APP_API_URL}/category/update/${id}`, data)
+    return res.data
+}
+
+export const deleteReview = async(id) => {
+    const res = await axios.delete(`${process.env.REACT_APP_API_URL}/category/delete/${id}`)
+    return res.data
+}
