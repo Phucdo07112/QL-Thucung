@@ -47,11 +47,25 @@ export function renderOptions(arr) {
 
 export function renderOptionsCategory(arr) {
   let results = [] 
+  
   if(arr) {
     results = arr?.map((option) => {
       return {
         value: option?.name,
         label: option?.name
+      }
+    })
+  }
+  return results
+}
+
+export function renderOptionsPet(arr) {
+  let results = [] 
+  if(arr) {
+    results = arr?.map((option) => {
+      return {
+        value: option,
+        label: option
       }
     })
   }

@@ -64,10 +64,18 @@ export const getAllTypeProduct = async () => {
     return res.data
 }
 
-export const getProductByCategory = async (id, price,limit) => {
+export const getProductByCategory = async (id, price,sortPrice,limit) => {
     let res = {}
     if(price > 0){
-        res = await axios.get(`${process.env.REACT_APP_API_URL}/product/category/${id}?filter=price&filter=${price}000`)
+        
+        if(sortPrice) {
+            res = await axios.get(`${process.env.REACT_APP_API_URL}/product/category/${id}?filter=price&filter=${price}000&filter=${sortPrice}`)
+        } else {
+            res = await axios.get(`${process.env.REACT_APP_API_URL}/product/category/${id}?filter=price&filter=${price}000`)
+        }
+        
+    } else if(sortPrice) {
+        res = await axios.get(`${process.env.REACT_APP_API_URL}/product/category/${id}?sort=price&sort=${sortPrice}`)
     } else {
         res = await axios.get(`${process.env.REACT_APP_API_URL}/product/category/${id}`)
     }

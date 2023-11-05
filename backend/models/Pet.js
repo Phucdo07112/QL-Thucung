@@ -52,6 +52,9 @@ const PetSchema = new mongoose.Schema(
         ref: "Review",
       },
     ],
+    expenses: { type: Number,
+      //  required: true
+       },
   },
   {
     timestamps: true,

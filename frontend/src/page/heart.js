@@ -6,6 +6,7 @@ import * as ProductService from "../services/ProductService"
 import * as PetsService from "../services/PetsService"
 import * as UserService from "../services/UserService"
 import { useMutationHooks } from '../hooks/useMutationHook';
+import Loading from '../components/LoadingComponent/Loading';
 const Heart = () => {
     const user = useSelector((state) => state.user);
 
@@ -38,7 +39,6 @@ const Heart = () => {
 
     const { isLoading: isLoadingProduct, data: product } = queryProductById
     const { isLoading: isLoadingPet, data: pet } = queryPetById
-    console.log('product',product);
 
     useEffect(() => {
       mutationUpdate.mutate({
@@ -58,7 +58,8 @@ const Heart = () => {
       });
     }, [user?.heartPet]);
   return (
-    <div className='bg-white'>
+    <Loading isLoading={isLoadingProduct && isLoadingProduct && isLoadingUpdated}>
+      <div className='bg-white'>
         <div className='container'>
         <div className="pt-5">
         <div className="bg-[#FF642F] text-white w-[280px] flex items-center justify-center p-2 rounded-lg mb-7">
@@ -80,6 +81,7 @@ const Heart = () => {
             </div>
         </div>
     </div>
+    </Loading>
   )
 }
 

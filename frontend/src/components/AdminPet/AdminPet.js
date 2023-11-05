@@ -48,6 +48,7 @@ const AdminPet = () => {
     image: "",
     discount: "",
     countInStock: "",
+    expenses: ""
     // additionalImages: additionalImagesPaths,
   });
   const [statePet, setStatePet] = useState(inittial());
@@ -69,6 +70,7 @@ const AdminPet = () => {
       image,
       discount,
       countInStock,
+      expenses,
     } = data;
 
     const res = PetsService.createPets({
@@ -84,6 +86,7 @@ const AdminPet = () => {
       image,
       discount,
       countInStock,
+      expenses
     });
     return res;
   });
@@ -133,7 +136,8 @@ const AdminPet = () => {
         discount: res?.data?.discount,
         category: categoryDetail?.name,
         breed: res?.data?.breed,
-        color: res?.data?.color
+        color: res?.data?.color,
+        expenses: res?.data?.expenses
       });
     }
     setIsLoadingUpdate(false);
@@ -447,6 +451,7 @@ const AdminPet = () => {
       image: "",
       discount: "",
       countInStock: "",
+      expenses:""
     });
     form.resetFields();
   };
@@ -490,6 +495,7 @@ const AdminPet = () => {
       image: "",
       discount: "",
       countInStock: "",
+      expenses:""
     });
     form.resetFields();
   };
@@ -516,6 +522,7 @@ const AdminPet = () => {
       age: statePet.age,
       breed: statePet.breed,
       color: statePet.color,
+      expenses: statePet.expenses
     };
     mutation.mutate(params, {
       onSettled: () => {
@@ -760,6 +767,23 @@ const AdminPet = () => {
                   value={statePet.price}
                   onChange={handleOnchange}
                   name="price"
+                />
+              </FormItem>
+
+              <FormItem
+                label="Expenses"
+                name="expenses"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your expenses!",
+                  },
+                ]}
+              >
+                <InputComponent
+                  value={statePet.expenses}
+                  onChange={handleOnchange}
+                  name="expenses"
                 />
               </FormItem>
 
@@ -1071,6 +1095,23 @@ const AdminPet = () => {
                   value={statePetDetails.price}
                   onChange={handleOnchangeDetails}
                   name="price"
+                />
+              </FormItem>
+
+              <FormItem
+                label="Expenses"
+                name="expenses"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your expenses!",
+                  },
+                ]}
+              >
+                <InputComponent
+                  value={statePetDetails.expenses}
+                  onChange={handleOnchangeDetails}
+                  name="expenses"
                 />
               </FormItem>
 

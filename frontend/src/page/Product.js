@@ -12,11 +12,13 @@ import CardComponent from "../components/CardComponent/CardComponent";
 import { useMutationHooks } from "../hooks/useMutationHook";
 import * as UserService from "../services/UserService";
 import { useSelector } from "react-redux";
+import Loading from "../components/LoadingComponent/Loading";
 const Product = () => {
   const navigate = useNavigate();
   const { categoryId } = useParams();
   const [price, setPrice] = useState(0);
   const [Filterprice, setFilterPrice] = useState(0);
+  const [filterSort, setFilterSort] = useState("");
   const user = useSelector((state) => state?.user);
 
   const onChange = (checked) => {
@@ -33,7 +35,8 @@ const Product = () => {
   const getAllProductByCategory = async (context) => {
     const id = context.queryKey && context.queryKey[1];
     const price = context.queryKey && context.queryKey[2];
-    const res = await ProductService.getProductByCategory(id, price);
+    const sortPrice = context.queryKey && context.queryKey[3];
+    const res = await ProductService.getProductByCategory(id, price,sortPrice);
     return res;
   };
 
@@ -42,6 +45,7 @@ const Product = () => {
     return UserService.updateUser(id, token, { ...rests });
   });
 
+
   const {
     data: dataUpdate,
     isLoading: isLoadingUpdated,
@@ -49,12 +53,14 @@ const Product = () => {
     isError: isErrorUpdate,
   } = mutationUpdate;
 
+  
+
   const queryCategory = useQuery({
     queryKey: ["category"],
     queryFn: getAllCategory,
   });
   const queryProductByCategory = useQuery({
-    queryKey: ["productCategory", categoryId, Filterprice],
+    queryKey: ["productCategory", categoryId, Filterprice,filterSort],
     queryFn: getAllProductByCategory,
   });
 
@@ -63,6 +69,7 @@ const Product = () => {
     queryProductByCategory;
   const handleChange = (value) => {
     console.log(`selected ${value}`);
+    setFilterSort(value)
   };
 
   const handleFilterPrice = () => {
@@ -79,7 +86,8 @@ const Product = () => {
   }, [user?.heartProduct]);
 
   return (
-    <div className="pb-10 bg-white">
+    <Loading isLoading={isLoadingCategory && isLoadingProductCategory && isLoadingUpdated}>
+      <div className="pb-10 bg-white">
       <Banner title="Products" link="home / product" />
       <div className="container pt-5">
         <div className="w-full flex gap-5">
@@ -145,23 +153,23 @@ const Product = () => {
                 Showing 1-9 of 12 results
               </p>
               <Select
-                defaultValue="Sort by Popular"
+                defaultValue="Mặc Định"
                 style={{
                   width: 200,
                 }}
                 onChange={handleChange}
                 options={[
                   {
-                    value: "Sort by Popular",
-                    label: "Sort by Popular",
+                    value: "",
+                    label: "Mặc Định",
                   },
                   {
-                    value: "Bubble Sort",
-                    label: "Bubble Sort",
+                    value: 1,
+                    label: "Từ rẽ tới mắc",
                   },
                   {
-                    value: "Selection Sort",
-                    label: "Selection Sort",
+                    value: -1,
+                    label: "Từ mắc tới rẽ",
                   },
                 ]}
               />
@@ -177,6 +185,7 @@ const Product = () => {
         </div>
       </div>
     </div>
+    </Loading>
   );
 };
 
