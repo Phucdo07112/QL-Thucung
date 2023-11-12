@@ -15,6 +15,7 @@ import { convertPrice } from "../utils/jsonString";
 import { useMutationHooks } from "../hooks/useMutationHook";
 import Loading from "../components/LoadingComponent/Loading";
 import { compareAsc, format } from 'date-fns'
+import {RiDeleteBinLine} from "react-icons/ri";
 const desc = ["Rất Tệ", "Tệ", "Bình Thường", "Tốt", "Rất Tốt"];
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -46,6 +47,11 @@ const ProductDetails = () => {
     queryKey: ["product-detail", productId],
     queryFn: getDetailProduct,
   });
+  // const mutationDeletedReview = useMutationHooks((data) => {
+  //   const { id } = data;
+  //   const res = ReviewService.deleteReview(id);
+  //   return res;
+  // });
 
   // const queryDetailReview = useQuery({
   //   queryKey: ["review-detail", productId],
@@ -64,6 +70,13 @@ const ProductDetails = () => {
   //   queryDetailReview;
 
   const { data: reviewData, isLoading, isSuccess, isError } = mutation;
+
+  // const {
+  //   data: dataDeleted,
+  //   isLoading: isLoadingDeleted,
+  //   isSuccess: isSuccessDelected,
+  //   isError: isErrorDeleted,
+  // } = mutationDeletedReview;
 
   const product = productDetails?.data;
 
@@ -179,6 +192,18 @@ const ProductDetails = () => {
   const handleOnChangEmail = (e) => {
     setEmail(e.target.value);
   };
+
+  // const handleDeleteReview = (id, userId) => {
+  //   if(user?.id === userId) {
+  //     mutationDeletedReview.mutate({id: id},
+  //       {
+  //         onSettled: () => {
+  //           queryDetailProduct.refetch();
+  //         },
+  //       }
+  //     );
+  //   }
+  // }
 
   console.log("Review", productDetails?.data);
   return (
@@ -333,9 +358,17 @@ const ProductDetails = () => {
                           
                         </p>
                       </div>
-                      <div>
+                      {/* <div className="flex flex-col-reverse items-end gap-1">
                         <Rate disabled defaultValue={review?.rating} />
-                      </div>
+                        {
+                          user?.id === review?.userId && (
+                            <div className="cursor-pointer bg-red-500 p-2 rounded-full text-white" onClick={() => handleDeleteReview(review?._id, review?.userId)}>
+                              <RiDeleteBinLine size={20}/>
+                            </div>
+                          )
+                        }
+                        
+                      </div> */}
                     </div>
                     <p className="text-[18px]">
                       {review?.reviewText}
