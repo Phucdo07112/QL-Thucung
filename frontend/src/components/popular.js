@@ -3,7 +3,8 @@ import classNames from 'classnames'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-function PopularProducts({products}) {
+
+const PopularProducts = ({products}) => {
 	const inittial = () => ({
 		data: products?.data,
 		currentPage: 1,
@@ -11,20 +12,16 @@ function PopularProducts({products}) {
 	  });
 	const [limitProduct, setLimitProduct] = useState(inittial())
 
-// const { data, currentPage, todosPerPage } = limitProduct;
-    // Logic for displaying todos
     const indexOfLastTodo = limitProduct?.currentPage * limitProduct?.todosPerPage;
     const indexOfFirstTodo = indexOfLastTodo - limitProduct?.todosPerPage;
 
     const currentTodos = limitProduct?.data?.slice(indexOfFirstTodo, indexOfLastTodo);
 	const handleLimitProduct = (value) => {
-		console.log('value123123',value);
 		setLimitProduct({
 			...limitProduct,
 			currentPage: Number(value)
 		})
 	}
-	console.log('indexOfLastTodo',limitProduct?.todosPerPage);
 
 	useEffect(() => {
 		setLimitProduct({

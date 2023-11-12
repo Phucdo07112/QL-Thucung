@@ -3,13 +3,13 @@ import DashboardStatsGrid from "../DashboardStatsGrid";
 import TransactionChart from "../TransactionChart";
 import RecentOrders from "../RecentOrders";
 import BuyerProfilePieChart from "../BuyerProfilePieChart";
-import PopularProducts from "../PopularProducts";
 import { useQuery } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import * as OrderService from "../../services/OrderService";
 import * as UserService from "../../services/UserService";
 import * as ProductService from "../../services/ProductService";
 import * as PetsService from "../../services/PetsService";
+import PopularProducts from "../popular";
 const AdminDashboard = () => {
   const user = useSelector((state) => state?.user);
   const getAllOrder = async () => {
