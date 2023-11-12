@@ -193,17 +193,17 @@ const ProductDetails = () => {
     setEmail(e.target.value);
   };
 
-  // const handleDeleteReview = (id, userId) => {
-  //   if(user?.id === userId) {
-  //     mutationDeletedReview.mutate({id: id},
-  //       {
-  //         onSettled: () => {
-  //           queryDetailProduct.refetch();
-  //         },
-  //       }
-  //     );
-  //   }
-  // }
+  const handleDeleteReview = (id, userId) => {
+    if(user?.id === userId) {
+      mutationDeletedReview.mutate({id: id},
+        {
+          onSettled: () => {
+            queryDetailProduct.refetch();
+          },
+        }
+      );
+    }
+  }
 
   console.log("Review", productDetails?.data);
   return (
