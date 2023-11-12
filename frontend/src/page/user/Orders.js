@@ -133,14 +133,16 @@ const Orders = () => {
   // }, [order]);
 
   const diliveryPriceMemo = useMemo(() => {
-    if (priceMemo > 200000) {
-      return 10000;
-    } else if (priceMemo === 0) {
+    if (Number(priceMemo) >= 500000) {
       return 0;
+    } else if (Number(priceMemo) >= 200000) {
+      return 10000;
     } else {
       return 20000;
     }
   }, [priceMemo]);
+
+  console.log('diliveryPriceMemo',diliveryPriceMemo);
 
   const totalPriceMemo = useMemo(() => {
     return (

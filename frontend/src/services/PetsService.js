@@ -1,15 +1,25 @@
 import axios from "axios"
 import { axiosJWT } from "./UserService"
-export const getPetByCategory = async(id, price,sortPrice,sortPet, limit) => {
+export const getPetByCategory = async(id, price,sortPrice,sortPet,breedPet, limit) => {
     let res = {}
     if(price > 0){
 
         if(sortPrice) {
 
             if(sortPet) {
-                res = await axios.get(`${process.env.REACT_APP_API_URL}/pets/category/${id}?filter=price&filter=${price}000&filter=${sortPrice}&filter=type&filter=${sortPet}`)
+                if(breedPet) {
+                    res = await axios.get(`${process.env.REACT_APP_API_URL}/pets/category/${id}?filter=price&filter=${price}000&filter=type&filter=${sortPet}&filter=breed&filter=${breedPet}&filter=sort&filter=${sortPrice}`)
+                } else {
+                    res = await axios.get(`${process.env.REACT_APP_API_URL}/pets/category/${id}?filter=price&filter=${price}000&filter=type&filter=${sortPet}&filter=sort&filter=${sortPrice}`)
+                }
             } else {
-                res = await axios.get(`${process.env.REACT_APP_API_URL}/pets/category/${id}?filter=price&filter=${price}000&filter=${sortPrice}`)
+                res = await axios.get(`${process.env.REACT_APP_API_URL}/pets/category/${id}?filter=price&filter=${price}000&filter=sort&filter=${sortPrice}`)
+            }
+        } else if(sortPet) {
+            if(breedPet) {
+                res = await axios.get(`${process.env.REACT_APP_API_URL}/pets/category/${id}?filter=price&filter=${price}&filter=type&filter=${sortPet}&filter=breed&filter=${breedPet}`)
+            } else {
+                res = await axios.get(`${process.env.REACT_APP_API_URL}/pets/category/${id}?filter=price&filter=${price}000&filter=type&filter=${sortPet}`)
             }
         } else {
             res = await axios.get(`${process.env.REACT_APP_API_URL}/pets/category/${id}?filter=price&filter=${price}000`)
@@ -17,23 +27,34 @@ export const getPetByCategory = async(id, price,sortPrice,sortPet, limit) => {
         
     } else if(sortPrice) {
         if(sortPet) {
-            res = await axios.get(`${process.env.REACT_APP_API_URL}/pets/category/${id}?sort=price&filter=type&filter=${sortPet}&sort=${sortPrice}`)
+            if(breedPet) {
+                res = await axios.get(`${process.env.REACT_APP_API_URL}/pets/category/${id}?sort=price&filter=type&filter=${sortPet}&sort=${sortPrice}&filter=breed&filter=${breedPet}`)    
+            } else {
+                res = await axios.get(`${process.env.REACT_APP_API_URL}/pets/category/${id}?sort=price&filter=type&filter=${sortPet}&sort=${sortPrice}`)
+            }
+
         } else {
             res = await axios.get(`${process.env.REACT_APP_API_URL}/pets/category/${id}?sort=price&sort=${sortPrice}`)
         }
     } else if(sortPet) {
-        res = await axios.get(`${process.env.REACT_APP_API_URL}/pets/category/${id}?filter=type&filter=${sortPet}`)
-    }
-    else {
+        if(breedPet) {
+            res = await axios.get(`${process.env.REACT_APP_API_URL}/pets/category/${id}?filter=type&filter=${sortPet}&filter=breed&filter=${breedPet}`)
+        } else {
+            res = await axios.get(`${process.env.REACT_APP_API_URL}/pets/category/${id}?filter=type&filter=${sortPet}`)
+        }
+    } else {
         res = await axios.get(`${process.env.REACT_APP_API_URL}/pets/category/${id}`)
     }
     return res.data
 }
 
-export const getAllPets = async(search, limit) => {
+export const getAllPets = async(search, breed, limit) => {
+    console.log('search, breed, limit',search, breed, limit);
     let res = {}
     if(search?.length > 0){
         res = await axios.get(`${process.env.REACT_APP_API_URL}/pets/all?filter=name&filter=${search}&limit=${limit}`)
+    } else if(breed) {
+        res = await axios.get(`${process.env.REACT_APP_API_URL}/pets/all?filter=breed&filter=${breed}&limit=${limit}`)
     } else {
         res = await axios.get(`${process.env.REACT_APP_API_URL}/pets/all?limit=${limit}`)
     }
@@ -54,7 +75,7 @@ export const getPetType = async(type, page, limit) => {
 
 export const getPetBreed = async(type, page, limit) => {
     if(type){
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}/pets/get-all?filter=loai&filter=${type}&limit=${limit}&page=${page}`)
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/pets/get-all?filter=breed&filter=${type}&limit=${limit}&page=${page}`)
         return res.data
     } 
 }

@@ -275,7 +275,6 @@ exports.getAllType = async (req, res) => {
 exports.getAllBreed = async (req, res) => {
   try {
     const data = req.body;
-    console.log('typeccc',data.type);
     const response = await PetService.getAllBreed(data.type);
     return res.status(200).json(response);
   } catch (e) {

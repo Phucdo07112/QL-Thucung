@@ -297,12 +297,12 @@ const AdminUser = () => {
           value: false,
         },
       ],
-      // onFilter: (value, record) => {
-      //   if(value === true) {
-      //     return record.phone === true
-      //   }
-      //   return record.phone === false
-      // }
+      onFilter: (value, record) => {
+        if(value === true) {
+          return record.phone === true
+        }
+        return record.phone === false
+      }
     },
     {
       title: "Phone",

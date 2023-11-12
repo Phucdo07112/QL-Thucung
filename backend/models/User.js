@@ -25,6 +25,11 @@ const userSchema = new mongoose.Schema(
         ref: "Pet",
       },
     ],
+    commentIdOrder: [
+      {
+        type: String,
+      },
+    ],
   },
   {
     timestamps: true, //thoi gian tao va update

@@ -376,12 +376,14 @@ const ProductDetails = () => {
                 placeholder="Your name"
                 value={username}
                 onChange={handleOnChangUserName}
+                required
               />
               <input
                 className="flex-1 bg-[#FAF7F2] rounded-lg  p-4 focus:outline-none focus:ring focus:ring-[#FF642F]"
                 placeholder="Email address"
                 value={email}
                 onChange={handleOnChangEmail}
+                required
               />
             </div>
             <button

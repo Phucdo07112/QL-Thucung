@@ -13,7 +13,7 @@ const initialState = {
   user: "",
   isPaid: false,
   paidAt: "",
-  isDelivered: "Đơn Hàng Đã Đặt",
+  isDelivered: "Đơn Hàng Chờ Xác Nhận",
   deliveredAt: "",
   isSucessOrder: false,
   isErrorOrder: false,

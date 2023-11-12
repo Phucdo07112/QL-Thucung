@@ -75,10 +75,10 @@ const Payment = () => {
   // }, [order]);
 
   const diliveryPriceMemo = useMemo(() => {
-    if (priceMemo > 200000) {
-      return 10000;
-    } else if (priceMemo === 0) {
+    if (Number(priceMemo) >= 500000) {
       return 0;
+    } else if (Number(priceMemo) >= 200000) {
+      return 10000;
     } else {
       return 20000;
     }
@@ -288,9 +288,9 @@ const Payment = () => {
               <div className="">
                 <div className="">
                   <div className="flex flex-col gap-2">
-                    <lable className="text-lg font-semibold">
+                    <label className="text-lg font-semibold">
                       Chọn phương thức giao hàng:
-                    </lable>
+                    </label>
                     <Radio.Group
                       className=""
                       onChange={handleDilivery}

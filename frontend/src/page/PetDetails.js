@@ -13,6 +13,7 @@ import * as ReviewService from "../services/ReviewService";
 import { PlusOutlined, MinusOutlined } from "@ant-design/icons";
 import { convertPrice } from "../utils/jsonString";
 import { useMutationHooks } from "../hooks/useMutationHook";
+import {RiDeleteBinLine} from "react-icons/ri";
 const desc = ["Rất Tệ", "Tệ", "Bình Thường", "Tốt", "Rất Tốt"];
 const PetDetails = () => {
   const { productId } = useParams();
@@ -38,12 +39,22 @@ const PetDetails = () => {
     const res = ReviewService.createReview({ ...data });
     return res;
   });
-
+  const mutationDeletedReview = useMutationHooks((data) => {
+    const { id } = data;
+    const res = ReviewService.deleteReview(id);
+    return res;
+  });
   const queryDetailPet = useQuery({ queryKey: ['pet-detail', productId], queryFn: getDetailPet })
 
   const { isLoading: isLoadingPet, data: petDetail } = queryDetailPet
 
   const { data: reviewData, isLoading, isSuccess, isError } = mutation;
+  const {
+    data: dataDeleted,
+    isLoading: isLoadingDeleted,
+    isSuccess: isSuccessDelected,
+    isError: isErrorDeleted,
+  } = mutationDeletedReview;
   const pet = petDetail?.data
 
   const onChange = (value) => {
@@ -159,6 +170,20 @@ const PetDetails = () => {
   const handleOnChangEmail = (e) => {
     setEmail(e.target.value);
   };
+
+  const handleDeleteReview = (id, userId) => {
+    if(user?.id === userId) {
+      mutationDeletedReview.mutate({id: id},
+        {
+          onSettled: () => {
+            queryDetailPet.refetch();
+          },
+        }
+      );
+    }
+  }
+
+  console.log('petDetail?.reviews',petDetail?.reviews);
   return (
     <div className="pb-10 bg-white">
       <Banner title="ProductDetails" link="Home / ProductDetails" />
@@ -285,7 +310,7 @@ const PetDetails = () => {
           </h4>
           <div>
             {petDetail?.reviews?.map((review) => (
-              <div>
+              <div key={review?._id}>
                 <div className="flex gap-5 my-7">
                   <div>
                     <img
@@ -306,8 +331,16 @@ const PetDetails = () => {
                           
                         </p>
                       </div>
-                      <div>
+                      <div className="flex flex-col-reverse items-end gap-1">
                         <Rate disabled defaultValue={review?.rating} />
+                        {
+                          user?.id === review?.userId && (
+                            <div className="cursor-pointer bg-red-500 p-2 rounded-full text-white" onClick={() => handleDeleteReview(review?._id, review?.userId)}>
+                              <RiDeleteBinLine size={20}/>
+                            </div>
+                          )
+                        }
+                        
                       </div>
                     </div>
                     <p className="text-[18px]">
@@ -348,12 +381,14 @@ const PetDetails = () => {
                 placeholder="Your name"
                 value={username}
                 onChange={handleOnChangUserName}
+                required
               />
               <input
                 className="flex-1 bg-[#FAF7F2] rounded-lg  p-4 focus:outline-none focus:ring focus:ring-[#FF642F]"
                 placeholder="Email address"
                 value={email}
                 onChange={handleOnChangEmail}
+                required
               />
             </div>
             <button

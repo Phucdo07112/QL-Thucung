@@ -184,12 +184,13 @@ const MyOrder = () => {
                         </span>
                       </div>
                       <div style={{ display: "flex", gap: "10px" }}>
-                        <button
-                          className="bg-red-500 px-6 py-[14px] rounded-lg font-medium text-white"
-                          onClick={() => handleCanceOrder(order)}
-                        >
-                          Hủy đơn hàng
-                        </button>
+                          <button
+                            className="bg-red-500 px-6 py-[14px] disabled:opacity-60 rounded-lg font-medium text-white"
+                            onClick={() => handleCanceOrder(order)}
+                            disabled={order?.isDelivered === "Đơn Hàng Chờ Xác Nhận" ? false : true}
+                          >
+                            Hủy đơn hàng
+                          </button>
                         <button
                           className="bg-[#ffbc3e] px-6 py-[14px] rounded-lg font-medium text-white"
                           onClick={() => handleDetailsOrder(order?._id)}
