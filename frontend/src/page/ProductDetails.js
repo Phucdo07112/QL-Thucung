@@ -37,26 +37,26 @@ const ProductDetails = () => {
     return res;
   };
 
-  // const getDetailReview = async (context) => {
-  //   const id = context.queryKey && context.queryKey[1];
-  //   const res = await ReviewService.getDetailReview(id);
-  //   return res.data;
-  // };
+  const getDetailReview = async (context) => {
+    const id = context.queryKey && context.queryKey[1];
+    const res = await ReviewService.getDetailReview(id);
+    return res.data;
+  };
 
   const queryDetailProduct = useQuery({
     queryKey: ["product-detail", productId],
     queryFn: getDetailProduct,
   });
-  // const mutationDeletedReview = useMutationHooks((data) => {
-  //   const { id } = data;
-  //   const res = ReviewService.deleteReview(id);
-  //   return res;
-  // });
+  const mutationDeletedReview = useMutationHooks((data) => {
+    const { id } = data;
+    const res = ReviewService.deleteReview(id);
+    return res;
+  });
 
-  // const queryDetailReview = useQuery({
-  //   queryKey: ["review-detail", productId],
-  //   queryFn: getDetailReview,
-  // });
+  const queryDetailReview = useQuery({
+    queryKey: ["review-detail", productId],
+    queryFn: getDetailReview,
+  });
 
   const mutation = useMutationHooks((data) => {
     const res = ReviewService.createReview({ ...data });
@@ -66,17 +66,17 @@ const ProductDetails = () => {
   const { isLoading: isLoadingProduct, data: productDetails, isFetching } =
     queryDetailProduct;
 
-  // const { isLoading: isLoadingReview, data: ReviewDetails } =
-  //   queryDetailReview;
+  const { isLoading: isLoadingReview, data: ReviewDetails } =
+    queryDetailReview;
 
   const { data: reviewData, isLoading, isSuccess, isError } = mutation;
 
-  // const {
-  //   data: dataDeleted,
-  //   isLoading: isLoadingDeleted,
-  //   isSuccess: isSuccessDelected,
-  //   isError: isErrorDeleted,
-  // } = mutationDeletedReview;
+  const {
+    data: dataDeleted,
+    isLoading: isLoadingDeleted,
+    isSuccess: isSuccessDelected,
+    isError: isErrorDeleted,
+  } = mutationDeletedReview;
 
   const product = productDetails?.data;
 
@@ -358,7 +358,7 @@ const ProductDetails = () => {
                           
                         </p>
                       </div>
-                      {/* <div className="flex flex-col-reverse items-end gap-1">
+                      <div className="flex flex-col-reverse items-end gap-1">
                         <Rate disabled defaultValue={review?.rating} />
                         {
                           user?.id === review?.userId && (
@@ -368,7 +368,7 @@ const ProductDetails = () => {
                           )
                         }
                         
-                      </div> */}
+                      </div>
                     </div>
                     <p className="text-[18px]">
                       {review?.reviewText}
