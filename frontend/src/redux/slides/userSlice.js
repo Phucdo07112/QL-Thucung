@@ -13,6 +13,7 @@ const initialState = {
   refreshToken: "",
   heartProduct: [],
   heartPet: [],
+  commentIdOrder: []
 };
 export const userSlice = createSlice({
   name: "user",
@@ -32,6 +33,7 @@ export const userSlice = createSlice({
         refreshToken = "",
         heartProduct = [],
         heartPet = [],
+        commentIdOrder=[]
       } = action.payload;
       state.name = name;
       state.email = email;
@@ -45,6 +47,7 @@ export const userSlice = createSlice({
       state.refreshToken = refreshToken ? refreshToken : state.refreshToken;
       state.heartProduct = heartProduct ;
       state.heartPet = heartPet;
+      state.commentIdOrder = commentIdOrder;
     },
     resetUser: (state) => {
       state.name = "";
@@ -59,6 +62,7 @@ export const userSlice = createSlice({
       state.refreshToken = "";
       state.heartProduct = [];
       state.heartPet = [];
+      state.commentIdOrder = [];
     },
     addHeart: (state, action) => {
       const { productId, petId } = action.payload;

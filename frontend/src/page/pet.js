@@ -23,6 +23,7 @@ const Pet = () => {
   const user = useSelector((state) => state?.user);
   const [filterSort, setFilterSort] = useState("");
   const [filterPet, setFilterPet] = useState("");
+  const [filterBreed, setFilterBreed] = useState("");
   const { categoryId } = useParams();
   const handleClickCategory = (id, sect) => {
     navigate(`/${sect}/${id}`);
@@ -31,16 +32,20 @@ const Pet = () => {
     const res = await CategoryService.getAllCategory();
     return res;
   };
+  console.log('filterBreed',filterBreed);
+  console.log('filterPet',filterPet);
   const getAllPetByCategory = async (context) => {
     const id = context.queryKey && context.queryKey[1];
     const price = context.queryKey && context.queryKey[2];
     const sortPrice = context.queryKey && context.queryKey[3];
     const sortPet = context.queryKey && context.queryKey[4];
+    const breedPet = context.queryKey && context.queryKey[5];
     const res = await PetsService.getPetByCategory(
       id,
       price,
       sortPrice,
-      sortPet
+      sortPet,
+      breedPet
     );
     return res;
   };
@@ -75,7 +80,7 @@ const Pet = () => {
     queryFn: getAllCategory,
   });
   const queryPetByCategory = useQuery({
-    queryKey: ["petCategory", categoryId, Filterprice, filterSort, filterPet],
+    queryKey: ["petCategory", categoryId, Filterprice, filterSort, filterPet,filterBreed],
     queryFn: getAllPetByCategory,
   });
 
@@ -90,7 +95,15 @@ const Pet = () => {
   const handleChangePet = (value) => {
     console.log(`selected ${value}`);
     setFilterPet(value);
-    // fetchAllBreedProduct(value);
+    if(value === "") {
+      setFilterBreed("");
+    }
+    fetchAllBreedProduct(value);
+  };
+
+  const handleChangeBreed = (value) => {
+    console.log(`selected ${value}`);
+      setFilterBreed(value);
   };
 
   const onChange = (checked) => {
@@ -114,7 +127,7 @@ const Pet = () => {
     fetchAllTypeProduct();
   }, []);
 
-
+  console.log('typePets',filterBreed);
   return (
     <Loading
       isLoading={isLoadingPetCategory && isLoadingCategory && isLoadingUpdated}
@@ -169,14 +182,14 @@ const Pet = () => {
                 />
               </div>
 
-              {/* {typePets && (
+              {filterPet && (
                 <div className="w-full mt-5">
                   <Select
                     defaultValue="Mặc Định"
                     style={{
                       width: "100%",
                     }}
-                    onChange={handleChangePet}
+                    onChange={handleChangeBreed}
                     options={[
                       {
                         value: "",
@@ -186,7 +199,7 @@ const Pet = () => {
                     ]}
                   />
                 </div>
-              )} */}
+              )}
 
               <div className="mt-5 border-2 p-4 rounded-lg">
                 <p className="text-lg font-semibold">Categories</p>

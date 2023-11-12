@@ -93,7 +93,7 @@ exports.delete = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const deleted = await Category.findByIdAndRemove(id);
+    const deleted = await Review.findByIdAndRemove(id);
 
     res.json({ message: "Category successfuly deleted.", deleted });
   } catch (error) {

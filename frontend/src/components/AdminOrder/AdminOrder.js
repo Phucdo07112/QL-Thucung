@@ -155,7 +155,7 @@ const AdminOrder = () => {
     if (rowSelected) {
       mutationOrderDetail.mutate({ id: rowSelected });
     }
-  }, [rowSelected]);
+  }, [rowSelected,dataUpdated]);
 
   const renderAction = () => {
     return (
@@ -228,7 +228,34 @@ const AdminOrder = () => {
       title: "Shipped",
       dataIndex: "isDelivered",
       sorter: (a, b) => a.isDelivered.length - b.isDelivered.length,
-      ...getColumnSearchProps("isDelivered"),
+      filters: [
+        {
+          text: "Đơn Hàng Chờ Xác Nhận",
+          value: "Đơn Hàng Chờ Xác Nhận",
+        },
+        {
+          text: "Đã Xác Nhận Thông Tin",
+          value: "Đã Xác Nhận Thông Tin",
+        },
+        {
+          text: "Đã Giao Cho ĐVVC",
+          value: "Đã Giao Cho ĐVVC",
+        },
+        {
+          text: "Đã Nhận Được Hàng",
+          value: "Đã Nhận Được Hàng",
+        },
+        {
+          text: "Đơn Hàng Đã Hoàn Thành",
+          value: "Đơn Hàng Đã Hoàn Thành",
+        },
+      ],
+       onFilter: (value, record) => {
+        if(record?.isDelivered?.props?.value === value) {
+          return record?.isDelivered?.props?.value
+        }
+      },
+      filterSearch: true,
     },
     {
       title: "Payment method",
@@ -268,13 +295,14 @@ const AdminOrder = () => {
   }
 
   const handleChangeSelectOrderisDelivered = (value) => {
+    console.log('dataOrder?.isDelivered',dataOrder?.isDelivered);
     mutationUpdate.mutate(
       {
         id: rowSelected,
         token: user?.access_token,
         ...dataOrder,
+        isPaid: value === "Đơn Hàng Đã Hoàn Thành" ? true : dataOrder?.isDelivered === "Đơn Hàng Đã Hoàn Thành" ? false : dataOrder?.isDelivered !== "Đơn Hàng Đã Hoàn Thành" && false ,
         isDelivered: value,
-        isPaid: value === "Đơn Hàng Đã Hoàn Thành" ? true : dataOrder?.isPaid
       },
       {
         onSettled: () => {
@@ -293,7 +321,28 @@ const AdminOrder = () => {
         phone: order?.shippingAddress?.phone,
         address: order?.shippingAddress?.address,
         paymentMethod: orderContant.payment[order?.paymentMethod],
-        isPaid: order?.isPaid ? (<div className="w-[150px]">{getOrderStatus( "Đã Thanh Toán")}</div>) : (<div className="w-[150px]">{getOrderStatus("Chưa thanh Toán")}</div>)  ,
+        isPaid: (
+          <Select
+            name="Orders"
+            // defaultValue="lucy"
+            style={{
+              width: "100%",
+            }}
+            value={order?.isPaid ? "Đã Thanh Toán" : "Chưa Thanh Toán"}
+            onChange={handleChangeSelectOrderPaid}
+            options={[
+              {
+                value: "Đã Thanh Toán" ,
+                label: "Đã Thanh Toán"
+              },
+              {
+                value: "Chưa Thanh Toán" ,
+                label: "Chưa Thanh Toán"
+              },
+              
+            ]}
+          />
+      ) ,
         isDelivered: (
           <Select
             name="Orders"
@@ -305,8 +354,8 @@ const AdminOrder = () => {
             onChange={handleChangeSelectOrderisDelivered}
             options={[
               {
-                value: "Đơn Hàng Đã Đặt" ,
-                label: "Đơn Hàng Đã Đặt"
+                value: "Đơn Hàng Chờ Xác Nhận" ,
+                label: "Đơn Hàng Chờ Xác Nhận"
               },
               {
                 value: "Đã Xác Nhận Thông Tin" ,

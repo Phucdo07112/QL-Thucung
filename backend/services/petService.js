@@ -18,17 +18,12 @@ exports.getAllType = () => {
 exports.getAllBreed = (type) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const allPets = [];
-      if (type) {
-        console.log("type123123", typeof type);
-        allPets = await Pet.find({ type: type}).distinct("breed");
-      } 
+      const allPets = await Pet.find({ type: type}).distinct("breed");
       resolve({
         status: "OK",
         message: "Success",
         data: allPets,
       });
-      console.log('cc');
     } catch (e) {
       reject(e);
     }
@@ -100,6 +95,7 @@ exports.getAllPet = (limit, page, sort, filter) => {
         const allObjectFilter = await Pet.find({
           [label]: { $regex: filter[1] },
         })
+          .populate("category")
           .limit(limit)
           .skip(page * limit)
           .sort({ createdAt: -1, updatedAt: -1 });
@@ -151,7 +147,7 @@ exports.getAllPet = (limit, page, sort, filter) => {
   });
 };
 
-exports.getPetByCategory = (categoryId, limit, page, sort, filter) => {
+exports.getPetByCategory = (categoryId, limit, page, sort, filter = []) => {
   return new Promise(async (resolve, reject) => {
     try {
       const totalPet = await Pet.count();
@@ -161,17 +157,20 @@ exports.getPetByCategory = (categoryId, limit, page, sort, filter) => {
       console.log("limit, page, sort, filter", limit, page, sort, filter);
       let allCategory = [];
       if (filter && filter[0] === "price") {
-        console.log("filter");
         const label = filter[0];
-        const label1 = filter[3];
+        const label1 = filter[2];
+        const label2 = filter[4];
         const objectSort = {};
-        objectSort[filter[0]] = filter[2];
+        const lastFilter = filter.includes("sort") ? filter.length - 1 : 100;
+        console.log("filter",lastFilter);
+        objectSort[filter[0]] = filter[lastFilter];
         const object = objectSort.price ? objectSort : {};
-        console.log("objectSort", object);
         const allObjectFilter = await Pet.find({
           category: categoryId,
           [label]: { $gt: Number(filter[1]) },
-          [label1]: { $regex: filter[4] },
+          [label1]: { $regex: filter[3] },
+          // [label1]: { $regex: filter[4] },
+          [label2]: { $regex: filter[5] },
         })
           .populate("category")
           .limit(limit)
@@ -189,6 +188,7 @@ exports.getPetByCategory = (categoryId, limit, page, sort, filter) => {
       } else if (filter && filter[0] === "type" && !sort) {
         console.log("type");
         const label = filter[0];
+        const label1 = filter[2];
         const objectSort = {};
         objectSort[filter[0]] = filter[2];
         const object = objectSort.price ? objectSort : {};
@@ -196,6 +196,7 @@ exports.getPetByCategory = (categoryId, limit, page, sort, filter) => {
           category: categoryId,
           // [label]: { $gt: Number(filter[1]) },
           [label]: { $regex: filter[1] },
+          [label1]: { $regex: filter[3] },
         })
           .populate("category")
           .limit(limit)
@@ -212,14 +213,15 @@ exports.getPetByCategory = (categoryId, limit, page, sort, filter) => {
         });
       }
       if (sort) {
-        const label = filter[0];
         console.log("def2");
+        const label = filter[0];
+        const label1 = filter[2];
         const objectSort = {};
         objectSort[sort[0]] = sort[1];
-        console.log("objectSort", objectSort);
         const allCategorySort = await Pet.find({
           category: categoryId,
           [label]: { $regex: filter[1] },
+          [label1]: { $regex: filter[3] },
         })
           .populate("category")
           .limit(limit)
@@ -251,6 +253,7 @@ exports.getPetByCategory = (categoryId, limit, page, sort, filter) => {
           .skip(page * limit)
           .sort({ createdAt: -1, updatedAt: -1 });
       }
+
       resolve({
         status: "OK",
         message: "Success",
