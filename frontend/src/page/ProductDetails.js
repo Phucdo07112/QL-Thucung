@@ -206,231 +206,231 @@ const ProductDetails = () => {
   }
 
   console.log("Review", productDetails?.data);
-  // return (
-  //   <Loading isLoading={isLoading && isLoadingProduct && isFetching}>
-  //     <div className="pb-10 bg-white">
-  //     <Banner title="ProductDetails" link="Home / ProductDetails" />
-  //     <div className="container">
-  //       {product && (
-  //         <div className="flex gap-5 pt-8" key={product?._id}>
-  //           <div className="flex-1 bg-[#FAF7F2] p-6 rounded-lg h-[570px] w-full">
-  //             <img
-  //               className="rounded-lg h-[520px] w-full object-cover"
-  //               src={product?.image}
-  //               alt=""
-  //             />
-  //           </div>
-  //           <div className="flex-1">
-  //             <div className="flex items-end gap-6">
-  //               <h3 className="text-[40px] font-bold text-gray-700">
-  //                 {product?.name}
-  //               </h3>
-  //               <p className="font-bold text-[21px] text-red-500">
-  //                 {convertPrice(Number(product?.price))}
-  //               </p>
-  //             </div>
-  //             <div className="flex items-center gap-2 mt-5 mb-5">
-  //               <Rate disabled defaultValue={`${product?.rating}`} />
-  //               <p className="font-medium text-gray-500">2 Customer Reviews</p>
-  //             </div>
-  //             <hr />
-  //             <p className="font-medium whitespace-pre-line  text-gray-500 my-3 text-[17px] leading-6">
-  //               {product?.description}
-  //             </p>
-  //             <p className="font-medium text-gray-500 text-[17px] pt-11 ">
-  //               REF. 4231/406
-  //             </p>
-  //             <p className="font-medium text-gray-500 mt-2  text-[17px]">
-  //               Avallable in store
-  //             </p>
-  //             <div className="flex items-center gap-5 my-11">
-  //               <h6 className="text-lg font-bold text-gray-700">
-  //                 Choose quantity
-  //               </h6>
-  //               <div className="flex gap-1 items-center w-[120px] border border-[#ccc] rounded-lg">
-  //                 <button
-  //                   style={{
-  //                     border: "none",
-  //                     background: "transparent",
-  //                     cursor: "pointer",
-  //                   }}
-  //                   className="w-[30px] h-[30px]"
-  //                   onClick={() =>
-  //                     handleChangeCount("decrease", numProduct === 1)
-  //                   }
-  //                 >
-  //                   <MinusOutlined
-  //                     style={{ color: "#000", fontSize: "20px" }}
-  //                   />
-  //                 </button>
-  //                 <InputNumber
-  //                   style={{
-  //                     borderTop: "none",
-  //                     borderBottom: "none",
-  //                     width: "40px",
-  //                   }}
-  //                   className="flex-1 "
-  //                   defaultValue={1}
-  //                   min={1}
-  //                   max={productDetails?.data?.countInStock}
-  //                   onChange={onChange}
-  //                   value={numProduct}
-  //                   size="small"
-  //                 />
-  //                 <button
-  //                   style={{
-  //                     border: "none",
-  //                     background: "transparent",
-  //                     cursor: "pointer",
-  //                   }}
-  //                   className="w-[30px] h-[30px]"
-  //                   onClick={() =>
-  //                     handleChangeCount(
-  //                       "increase",
-  //                       numProduct === productDetails?.data?.countInStock
-  //                     )
-  //                   }
-  //                 >
-  //                   <PlusOutlined style={{ color: "#000", fontSize: "20px" }} />
-  //                 </button>
-  //               </div>
-  //             </div>
-  //             <div className="flex items-center gap-3">
-  //               <button
-  //                 className="bg-[#ff642f] px-11 py-[17px] rounded-full font-medium text-white"
-  //                 onClick={handleAddOrderProduct}
-  //               >
-  //                 Add to cart
-  //               </button>
-  //               <button className="bg-[#ffbc3e] px-11 py-[17px] rounded-full font-medium text-white">
-  //                 Add to wishfist
-  //               </button>
-  //             </div>
-  //             {errorLimitOrder && (
-  //               <div style={{ color: "red" }}>San pham het hang</div>
-  //             )}
-  //             <div className="flex items-center gap-4 mt-11">
-  //               <p className="text-lg font-bold text-gray-700">
-  //                 Share with friends
-  //               </p>
-  //               <div className="flex items-center gap-2">
-  //                 <div className="transition duration-300 ease-in-out flex items-center justify-center bg-[#FAF7F2] hover:bg-[#0866FF] p-4 text-[18px] rounded-full hover:text-white cursor-pointer">
-  //                   <BsFacebook />
-  //                 </div>
-  //                 <div className="transition duration-300 ease-in-out flex items-center justify-center bg-[#FAF7F2] hover:bg-[#1D9BF0] p-4 text-[18px] rounded-full hover:text-white cursor-pointer">
-  //                   <BsTwitter />
-  //                 </div>
-  //                 <div className="transition duration-300 ease-in-out flex items-center justify-center bg-[#FAF7F2] hover:bg-[#CD3058] p-4 text-[18px] rounded-full hover:text-white cursor-pointer">
-  //                   <BsInstagram />
-  //                 </div>
-  //                 <div className="transition duration-300 ease-in-out flex items-center justify-center bg-[#FAF7F2] hover:bg-[#E60023] p-4 text-[18px] rounded-full hover:text-white cursor-pointer">
-  //                   <FaPinterestP />
-  //                 </div>
-  //               </div>
-  //             </div>
-  //           </div>
-  //         </div>
-  //       )}
-  //       <div>
-  //         <h4 className="text-[30px] font-bold text-gray-700 mt-8">
-  //           {productDetails?.reviews.length} Reviews
-  //         </h4>
-  //         <div>
-  //           {productDetails?.reviews?.map((review) => (
-  //             <div>
-  //               <div className="flex gap-5 my-7">
-  //                 <div>
-  //                   <img
-  //                     className="w-[150px] rounded-full"
-  //                     src={review?.image}
-  //                     alt=""
-  //                   />
-  //                 </div>
-  //                 <div className="flex flex-col gap-5 flex-1">
-  //                   <div className="flex items-center justify-between">
-  //                     <div>
-  //                       <p className="text-lg font-bold text-gray-700">
-  //                         {review?.username}
-  //                       </p>
-  //                       <p className="text-red-600 font-medium">
-  //                         {/* {format Date.parse(review?.createdAt)} */}
-  //                         {new Date(review?.createdAt).toString('yyyy-MM-dd')}
+  return (
+    <Loading isLoading={isLoading && isLoadingProduct && isFetching}>
+      <div className="pb-10 bg-white">
+      <Banner title="ProductDetails" link="Home / ProductDetails" />
+      <div className="container">
+        {product && (
+          <div className="flex gap-5 pt-8" key={product?._id}>
+            <div className="flex-1 bg-[#FAF7F2] p-6 rounded-lg h-[570px] w-full">
+              <img
+                className="rounded-lg h-[520px] w-full object-cover"
+                src={product?.image}
+                alt=""
+              />
+            </div>
+            <div className="flex-1">
+              <div className="flex items-end gap-6">
+                <h3 className="text-[40px] font-bold text-gray-700">
+                  {product?.name}
+                </h3>
+                <p className="font-bold text-[21px] text-red-500">
+                  {convertPrice(Number(product?.price))}
+                </p>
+              </div>
+              <div className="flex items-center gap-2 mt-5 mb-5">
+                <Rate disabled defaultValue={`${product?.rating}`} />
+                <p className="font-medium text-gray-500">2 Customer Reviews</p>
+              </div>
+              <hr />
+              <p className="font-medium whitespace-pre-line  text-gray-500 my-3 text-[17px] leading-6">
+                {product?.description}
+              </p>
+              <p className="font-medium text-gray-500 text-[17px] pt-11 ">
+                REF. 4231/406
+              </p>
+              <p className="font-medium text-gray-500 mt-2  text-[17px]">
+                Avallable in store
+              </p>
+              <div className="flex items-center gap-5 my-11">
+                <h6 className="text-lg font-bold text-gray-700">
+                  Choose quantity
+                </h6>
+                <div className="flex gap-1 items-center w-[120px] border border-[#ccc] rounded-lg">
+                  <button
+                    style={{
+                      border: "none",
+                      background: "transparent",
+                      cursor: "pointer",
+                    }}
+                    className="w-[30px] h-[30px]"
+                    onClick={() =>
+                      handleChangeCount("decrease", numProduct === 1)
+                    }
+                  >
+                    <MinusOutlined
+                      style={{ color: "#000", fontSize: "20px" }}
+                    />
+                  </button>
+                  <InputNumber
+                    style={{
+                      borderTop: "none",
+                      borderBottom: "none",
+                      width: "40px",
+                    }}
+                    className="flex-1 "
+                    defaultValue={1}
+                    min={1}
+                    max={productDetails?.data?.countInStock}
+                    onChange={onChange}
+                    value={numProduct}
+                    size="small"
+                  />
+                  <button
+                    style={{
+                      border: "none",
+                      background: "transparent",
+                      cursor: "pointer",
+                    }}
+                    className="w-[30px] h-[30px]"
+                    onClick={() =>
+                      handleChangeCount(
+                        "increase",
+                        numProduct === productDetails?.data?.countInStock
+                      )
+                    }
+                  >
+                    <PlusOutlined style={{ color: "#000", fontSize: "20px" }} />
+                  </button>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <button
+                  className="bg-[#ff642f] px-11 py-[17px] rounded-full font-medium text-white"
+                  onClick={handleAddOrderProduct}
+                >
+                  Add to cart
+                </button>
+                <button className="bg-[#ffbc3e] px-11 py-[17px] rounded-full font-medium text-white">
+                  Add to wishfist
+                </button>
+              </div>
+              {errorLimitOrder && (
+                <div style={{ color: "red" }}>San pham het hang</div>
+              )}
+              <div className="flex items-center gap-4 mt-11">
+                <p className="text-lg font-bold text-gray-700">
+                  Share with friends
+                </p>
+                <div className="flex items-center gap-2">
+                  <div className="transition duration-300 ease-in-out flex items-center justify-center bg-[#FAF7F2] hover:bg-[#0866FF] p-4 text-[18px] rounded-full hover:text-white cursor-pointer">
+                    <BsFacebook />
+                  </div>
+                  <div className="transition duration-300 ease-in-out flex items-center justify-center bg-[#FAF7F2] hover:bg-[#1D9BF0] p-4 text-[18px] rounded-full hover:text-white cursor-pointer">
+                    <BsTwitter />
+                  </div>
+                  <div className="transition duration-300 ease-in-out flex items-center justify-center bg-[#FAF7F2] hover:bg-[#CD3058] p-4 text-[18px] rounded-full hover:text-white cursor-pointer">
+                    <BsInstagram />
+                  </div>
+                  <div className="transition duration-300 ease-in-out flex items-center justify-center bg-[#FAF7F2] hover:bg-[#E60023] p-4 text-[18px] rounded-full hover:text-white cursor-pointer">
+                    <FaPinterestP />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+        <div>
+          <h4 className="text-[30px] font-bold text-gray-700 mt-8">
+            {productDetails?.reviews.length} Reviews
+          </h4>
+          <div>
+            {productDetails?.reviews?.map((review) => (
+              <div>
+                <div className="flex gap-5 my-7">
+                  <div>
+                    <img
+                      className="w-[150px] rounded-full"
+                      src={review?.image}
+                      alt=""
+                    />
+                  </div>
+                  <div className="flex flex-col gap-5 flex-1">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-lg font-bold text-gray-700">
+                          {review?.username}
+                        </p>
+                        <p className="text-red-600 font-medium">
+                          {/* {format Date.parse(review?.createdAt)} */}
+                          {new Date(review?.createdAt).toString('yyyy-MM-dd')}
                           
-  //                       </p>
-  //                     </div>
-  //                     <div className="flex flex-col-reverse items-end gap-1">
-  //                       <Rate disabled defaultValue={review?.rating} />
-  //                       {
-  //                         user?.id === review?.userId && (
-  //                           <div className="cursor-pointer bg-red-500 p-2 rounded-full text-white" onClick={() => handleDeleteReview(review?._id, review?.userId)}>
-  //                             <RiDeleteBinLine size={20}/>
-  //                           </div>
-  //                         )
-  //                       }
+                        </p>
+                      </div>
+                      <div className="flex flex-col-reverse items-end gap-1">
+                        <Rate disabled defaultValue={review?.rating} />
+                        {
+                          user?.id === review?.userId && (
+                            <div className="cursor-pointer bg-red-500 p-2 rounded-full text-white" onClick={() => handleDeleteReview(review?._id, review?.userId)}>
+                              <RiDeleteBinLine size={20}/>
+                            </div>
+                          )
+                        }
                         
-  //                     </div>
-  //                   </div>
-  //                   <p className="text-[18px]">
-  //                     {review?.reviewText}
-  //                   </p>
-  //                 </div>
-  //               </div>
-  //               <hr />
-  //             </div>
-  //           ))}
-  //         </div>
-  //       </div>
-  //       <div className="">
-  //         <h4 className="text-[30px] font-bold text-gray-700 my-8">
-  //           Add a review
-  //         </h4>
-  //         <div className="flex items-center gap-4">
-  //           <p>Rate this Product?</p>{" "}
-  //           <Rate tooltips={desc} onChange={setRate} defaultValue={5} value={rate} />
-  //           {rate ? (
-  //             <span className="ant-rate-text">{desc[rate - 1]}</span>
-  //           ) : (
-  //             ""
-  //           )}
-  //         </div>
-  //         <form
-  //           className="w-full flex flex-col gap-8 mt-5"
-  //           onSubmit={handleReview}
-  //         >
-  //           <textarea
-  //             className="w-full h-[150px] rounded-lg bg-[#FAF7F2] border-none p-4 "
-  //             placeholder="Write a comment"
-  //             value={comment}
-  //             onChange={handleOnChangComment}
-  //           />
-  //           <div className="flex items-center gap-8">
-  //             <input
-  //               className="flex-1 bg-[#FAF7F2] rounded-lg p-4 focus:outline-none focus:ring focus:ring-[#FF642F]"
-  //               placeholder="Your name"
-  //               value={username}
-  //               onChange={handleOnChangUserName}
-  //               required
-  //             />
-  //             <input
-  //               className="flex-1 bg-[#FAF7F2] rounded-lg  p-4 focus:outline-none focus:ring focus:ring-[#FF642F]"
-  //               placeholder="Email address"
-  //               value={email}
-  //               onChange={handleOnChangEmail}
-  //               required
-  //             />
-  //           </div>
-  //           <button
-  //             className="bg-[#ff642f] px-11 py-[17px] rounded-full font-medium text-white w-[200px]"
-  //             type="submit"
-  //           >
-  //             Submit a review
-  //           </button>
-  //         </form>
-  //       </div>
-  //     </div>
-  //   </div>
-  //   </Loading>
-  // );
+                      </div>
+                    </div>
+                    <p className="text-[18px]">
+                      {review?.reviewText}
+                    </p>
+                  </div>
+                </div>
+                <hr />
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="">
+          <h4 className="text-[30px] font-bold text-gray-700 my-8">
+            Add a review
+          </h4>
+          <div className="flex items-center gap-4">
+            <p>Rate this Product?</p>{" "}
+            <Rate tooltips={desc} onChange={setRate} defaultValue={5} value={rate} />
+            {rate ? (
+              <span className="ant-rate-text">{desc[rate - 1]}</span>
+            ) : (
+              ""
+            )}
+          </div>
+          <form
+            className="w-full flex flex-col gap-8 mt-5"
+            onSubmit={handleReview}
+          >
+            <textarea
+              className="w-full h-[150px] rounded-lg bg-[#FAF7F2] border-none p-4 "
+              placeholder="Write a comment"
+              value={comment}
+              onChange={handleOnChangComment}
+            />
+            <div className="flex items-center gap-8">
+              <input
+                className="flex-1 bg-[#FAF7F2] rounded-lg p-4 focus:outline-none focus:ring focus:ring-[#FF642F]"
+                placeholder="Your name"
+                value={username}
+                onChange={handleOnChangUserName}
+                required
+              />
+              <input
+                className="flex-1 bg-[#FAF7F2] rounded-lg  p-4 focus:outline-none focus:ring focus:ring-[#FF642F]"
+                placeholder="Email address"
+                value={email}
+                onChange={handleOnChangEmail}
+                required
+              />
+            </div>
+            <button
+              className="bg-[#ff642f] px-11 py-[17px] rounded-full font-medium text-white w-[200px]"
+              type="submit"
+            >
+              Submit a review
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    </Loading>
+  );
 };
 
 export default ProductDetails;
