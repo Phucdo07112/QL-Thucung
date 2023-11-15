@@ -128,148 +128,148 @@ const Pet = () => {
   }, []);
 
   console.log('typePets',filterBreed);
-  // return (
-  //   <Loading
-  //     isLoading={isLoadingPetCategory && isLoadingCategory && isLoadingUpdated}
-  //   >
-  //     <div className="pb-10 bg-white">
-  //       <Banner title="Pets" link="home / pet" />
-  //       <div className="container pt-5">
-  //         <div className="w-full flex gap-5">
-  //           <div className="flex-1">
-  //             <div className="bg-[#ffbc3e] px-5 py-4 text-white rounded-lg text-[16px] ">
-  //               <input
-  //                 className="text-white placeholder:text-white "
-  //                 placeholder="Search here"
-  //               />
-  //             </div>
-  //             <div className="mt-5 border-2 p-4 rounded-lg">
-  //               <p className="text-lg font-semibold">Price</p>
-  //               <div className="mt-5">
-  //                 <Slider
-  //                   min={0}
-  //                   max={10000}
-  //                   defaultValue={0}
-  //                   onChange={onChange}
-  //                 />
-  //               </div>
-  //               <div className="flex items-center justify-between mt-5">
-  //                 <p className="text-gray-500 font-medium">
-  //                   {price}k - 10.000k
-  //                 </p>
-  //                 <button
-  //                   className="bg-[#ff642f] px-9 py-[14px] rounded-full text-[12px] font-medium text-white"
-  //                   onClick={handleFilterPrice}
-  //                 >
-  //                   FILTER
-  //                 </button>
-  //               </div>
-  //             </div>
-  //             <div className="w-full mt-5">
-  //               <Select
-  //                 defaultValue="Mặc Định"
-  //                 style={{
-  //                   width: "100%",
-  //                 }}
-  //                 onChange={handleChangePet}
-  //                 options={[
-  //                   {
-  //                     value: "",
-  //                     label: "Mặc Định",
-  //                   },
-  //                   ...renderOptionsPet(typePets),
-  //                 ]}
-  //               />
-  //             </div>
+  return (
+    <Loading
+      isLoading={isLoadingPetCategory && isLoadingCategory && isLoadingUpdated}
+    >
+      <div className="pb-10 bg-white">
+        <Banner title="Pets" link="home / pet" />
+        <div className="container pt-5">
+          <div className="w-full flex gap-5">
+            <div className="flex-1">
+              <div className="bg-[#ffbc3e] px-5 py-4 text-white rounded-lg text-[16px] ">
+                <input
+                  className="text-white placeholder:text-white "
+                  placeholder="Search here"
+                />
+              </div>
+              <div className="mt-5 border-2 p-4 rounded-lg">
+                <p className="text-lg font-semibold">Price</p>
+                <div className="mt-5">
+                  <Slider
+                    min={0}
+                    max={10000}
+                    defaultValue={0}
+                    onChange={onChange}
+                  />
+                </div>
+                <div className="flex items-center justify-between mt-5">
+                  <p className="text-gray-500 font-medium">
+                    {price}k - 10.000k
+                  </p>
+                  <button
+                    className="bg-[#ff642f] px-9 py-[14px] rounded-full text-[12px] font-medium text-white"
+                    onClick={handleFilterPrice}
+                  >
+                    FILTER
+                  </button>
+                </div>
+              </div>
+              <div className="w-full mt-5">
+                <Select
+                  defaultValue="Mặc Định"
+                  style={{
+                    width: "100%",
+                  }}
+                  onChange={handleChangePet}
+                  options={[
+                    {
+                      value: "",
+                      label: "Mặc Định",
+                    },
+                    ...renderOptionsPet(typePets),
+                  ]}
+                />
+              </div>
 
-  //             {filterPet && (
-  //               <div className="w-full mt-5">
-  //                 <Select
-  //                   defaultValue="Mặc Định"
-  //                   style={{
-  //                     width: "100%",
-  //                   }}
-  //                   onChange={handleChangeBreed}
-  //                   options={[
-  //                     {
-  //                       value: "",
-  //                       label: "Mặc Định",
-  //                     },
-  //                     ...renderOptionsPet(breedPets),
-  //                   ]}
-  //                 />
-  //               </div>
-  //             )}
+              {filterPet && (
+                <div className="w-full mt-5">
+                  <Select
+                    defaultValue="Mặc Định"
+                    style={{
+                      width: "100%",
+                    }}
+                    onChange={handleChangeBreed}
+                    options={[
+                      {
+                        value: "",
+                        label: "Mặc Định",
+                      },
+                      ...renderOptionsPet(breedPets),
+                    ]}
+                  />
+                </div>
+              )}
 
-  //             <div className="mt-5 border-2 p-4 rounded-lg">
-  //               <p className="text-lg font-semibold">Categories</p>
-  //               <div className="mt-5 flex flex-col gap-5 text-[15px] font-medium">
-  //                 {categorys?.map((category) => (
-  //                   <div
-  //                     className={`flex items-center justify-between cursor-pointer ${
-  //                       categoryId === category?._id
-  //                         ? "text-gray-800"
-  //                         : "text-gray-500"
-  //                     } `}
-  //                     key={category._id}
-  //                     onClick={() =>
-  //                       handleClickCategory(category?._id, category?.sect)
-  //                     }
-  //                   >
-  //                     {category.name}{" "}
-  //                     <AiOutlineRight
-  //                       size={18}
-  //                       className={`${
-  //                         categoryId === category?._id
-  //                           ? "text-red-600"
-  //                           : "text-gray-500"
-  //                       }`}
-  //                     />
-  //                   </div>
-  //                 ))}
-  //               </div>
-  //             </div>
-  //           </div>
-  //           <div className="flex-4">
-  //             <div className="flex  items-center justify-between">
-  //               <p className="text-gray-500 font-medium">
-  //                 Showing 1-9 of 12 results
-  //               </p>
-  //               <Select
-  //                 defaultValue="Mặc Định"
-  //                 style={{
-  //                   width: 200,
-  //                 }}
-  //                 onChange={handleChange}
-  //                 options={[
-  //                   {
-  //                     value: "",
-  //                     label: "Mặc Định",
-  //                   },
-  //                   {
-  //                     value: 1,
-  //                     label: "Từ rẽ tới mắc",
-  //                   },
-  //                   {
-  //                     value: -1,
-  //                     label: "Từ mắc tới rẽ",
-  //                   },
-  //                 ]}
-  //               />
-  //             </div>
-  //             <div className="mt-5">
-  //               <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-5">
-  //                 {petCategorys?.data?.map((pets) => (
-  //                   <CardComponent data={pets} isPet={true} />
-  //                 ))}
-  //               </div>
-  //             </div>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   </Loading>
-  // );
+              <div className="mt-5 border-2 p-4 rounded-lg">
+                <p className="text-lg font-semibold">Categories</p>
+                <div className="mt-5 flex flex-col gap-5 text-[15px] font-medium">
+                  {categorys?.map((category) => (
+                    <div
+                      className={`flex items-center justify-between cursor-pointer ${
+                        categoryId === category?._id
+                          ? "text-gray-800"
+                          : "text-gray-500"
+                      } `}
+                      key={category._id}
+                      onClick={() =>
+                        handleClickCategory(category?._id, category?.sect)
+                      }
+                    >
+                      {category.name}{" "}
+                      <AiOutlineRight
+                        size={18}
+                        className={`${
+                          categoryId === category?._id
+                            ? "text-red-600"
+                            : "text-gray-500"
+                        }`}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="flex-4">
+              <div className="flex  items-center justify-between">
+                <p className="text-gray-500 font-medium">
+                  Showing 1-9 of 12 results
+                </p>
+                <Select
+                  defaultValue="Mặc Định"
+                  style={{
+                    width: 200,
+                  }}
+                  onChange={handleChange}
+                  options={[
+                    {
+                      value: "",
+                      label: "Mặc Định",
+                    },
+                    {
+                      value: 1,
+                      label: "Từ rẽ tới mắc",
+                    },
+                    {
+                      value: -1,
+                      label: "Từ mắc tới rẽ",
+                    },
+                  ]}
+                />
+              </div>
+              <div className="mt-5">
+                <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-5">
+                  {petCategorys?.data?.map((pets) => (
+                    <CardComponent data={pets} isPet={true} />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Loading>
+  );
 };
 
 export default Pet;
