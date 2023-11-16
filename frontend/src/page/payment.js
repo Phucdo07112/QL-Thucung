@@ -262,199 +262,199 @@ const Payment = () => {
     }
   }, []);
   console.log("sdkReady", sdkReady);
-  return (
-    <div className="">
-      <Loading isLoading={isLoadingAddOrder}>
-        <div className="max-w-[1000px] mx-auto py-4">
-          <div className="bg-white rounded-lg py-4 px-8 border-2">
-            <div className="flex items-center justify-between">
-              <div className="bg-[#FF642F] text-white w-[280px] flex items-center justify-center p-2 rounded-lg ">
-                <p className="text-lg font-bold ">Thanh Toán</p>
-              </div>
-              <div className="my-4 flex items-center gap-4">
-                <span className="text-lg font-semibold">Địa chỉ: </span>
-                <span className="text-lg" style={{ fontWeight: "bold" }}>
-                  {`${user?.address} ${user?.city}`}{" "}
-                </span>
-                <button
-                  className="bg-[#ffbc3e] px-6 py-[14px] rounded-lg font-medium text-white"
-                  onClick={handleChangeAddress}
-                >
-                  Thay đổi
-                </button>
-              </div>
-            </div>
-            <div className="flex justify-between gap-[100px] mt-4">
-              <div className="">
-                <div className="">
-                  <div className="flex flex-col gap-2">
-                    <label className="text-lg font-semibold">
-                      Chọn phương thức giao hàng:
-                    </label>
-                    <Radio.Group
-                      className=""
-                      onChange={handleDilivery}
-                      value={delivery}
-                    >
-                      <Radio value="fast">
-                        <span style={{ color: "#ea8500", fontWeight: "bold" }}>
-                          FAST
-                        </span>{" "}
-                        Giao hàng tiết kiệm
-                      </Radio>
-                      <Radio value="gojek">
-                        <span style={{ color: "#ea8500", fontWeight: "bold" }}>
-                          GO_JEK
-                        </span>{" "}
-                        Giao hàng tiết kiệm
-                      </Radio>
-                    </Radio.Group>
-                  </div>
-                </div>
-                <div className="mt-4">
-                  <div className="flex flex-col gap-2">
-                    <lable className="text-lg font-semibold">
-                      Chọn phương thức thanh toán:
-                    </lable>
-                    <Radio.Group
-                      className=""
-                      onChange={handlePayment}
-                      value={payment}
-                    >
-                      <Radio value="later_money">
-                        {" "}
-                        Thanh toán tiền mặt khi nhận hàng
-                      </Radio>
-                      <Radio value="paypal"> Thanh toán tiền bằng paypal</Radio>
-                    </Radio.Group>
-                  </div>
-                </div>
-              </div>
-              <div className="flex-1 w-full">
-                <div style={{ width: "100%" }}>
-                  <div className="flex items-start">
-                    <div className="flex-1 flex flex-col justify-end items-end">
-                      <div className="w-full flex justify-between items-center">
-                        <h5 className="font-bold text-lg">Subtotal</h5>
-                        <p className="text-gray-500 font-semibold">
-                          {convertPrice(priceMemo)}
-                        </p>
-                      </div>
-                      <div className="w-full flex justify-between items-center">
-                        <h5 className="font-bold text-lg">Shipping Cost</h5>
-                        <p className="text-gray-500 font-semibold">
-                          {convertPrice(diliveryPriceMemo)}
-                        </p>
-                      </div>
-                      <div className="w-full flex justify-between items-center">
-                        <h5 className="font-bold text-lg">Total</h5>
-                        <p className="text-red-500 font-semibold">
-                          {convertPrice(totalPriceMemo)}
-                        </p>
-                      </div>
-                      <span style={{ color: "#000", fontSize: "11px" }}>
-                        (Đã bao gồm VAT nếu có)
-                      </span>
-                      <div className="flex gap-2 items-center mt-4">
-                        {payment === "paypal" && sdkReady ? (
-                          <div style={{ width: "320px" }}>
-                            <div>
-                              <PayPalButton
-                                amount="0.01"
-                                // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
-                                onSuccess={onSuccessPaypal}
-                                onError={() => {
-                                  alert("Error");
-                                }}
-                              />
-                            </div>
-                          </div>
-                        ) : (
-                          <button
-                            className="bg-[#ff642f] px-9 py-[14px] rounded-lg font-medium text-white"
-                            onClick={() => handleAddOrder()}
-                          >
-                            Đặt Hàng
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <ModalComponent
-          title="Cập nhật thông tin giao hàng"
-          open={isOpenModalUpdateInfo}
-          onCancel={handleCancleUpdate}
-          onOk={handleUpdateInforUser}
-        >
-          <Loading isLoading={isLoading}>
-            <Form
-              name="basic"
-              labelCol={{ span: 4 }}
-              wrapperCol={{ span: 20 }}
-              // onFinish={onUpdateUser}
-              autoComplete="on"
-              form={form}
-            >
-              <Form.Item
-                label="Name"
-                name="name"
-                rules={[{ required: true, message: "Please input your name!" }]}
-              >
-                <InputComponent
-                  value={stateUserDetails["name"]}
-                  onChange={handleOnchangeDetails}
-                  name="name"
-                />
-              </Form.Item>
-              <Form.Item
-                label="City"
-                name="city"
-                rules={[{ required: true, message: "Please input your city!" }]}
-              >
-                <InputComponent
-                  value={stateUserDetails["city"]}
-                  onChange={handleOnchangeDetails}
-                  name="city"
-                />
-              </Form.Item>
-              <Form.Item
-                label="Phone"
-                name="phone"
-                rules={[
-                  { required: true, message: "Please input your  phone!" },
-                ]}
-              >
-                <InputComponent
-                  value={stateUserDetails.phone}
-                  onChange={handleOnchangeDetails}
-                  name="phone"
-                />
-              </Form.Item>
+  // return (
+  //   <div className="">
+  //     <Loading isLoading={isLoadingAddOrder}>
+  //       <div className="max-w-[1000px] mx-auto py-4">
+  //         <div className="bg-white rounded-lg py-4 px-8 border-2">
+  //           <div className="flex items-center justify-between">
+  //             <div className="bg-[#FF642F] text-white w-[280px] flex items-center justify-center p-2 rounded-lg ">
+  //               <p className="text-lg font-bold ">Thanh Toán</p>
+  //             </div>
+  //             <div className="my-4 flex items-center gap-4">
+  //               <span className="text-lg font-semibold">Địa chỉ: </span>
+  //               <span className="text-lg" style={{ fontWeight: "bold" }}>
+  //                 {`${user?.address} ${user?.city}`}{" "}
+  //               </span>
+  //               <button
+  //                 className="bg-[#ffbc3e] px-6 py-[14px] rounded-lg font-medium text-white"
+  //                 onClick={handleChangeAddress}
+  //               >
+  //                 Thay đổi
+  //               </button>
+  //             </div>
+  //           </div>
+  //           <div className="flex justify-between gap-[100px] mt-4">
+  //             <div className="">
+  //               <div className="">
+  //                 <div className="flex flex-col gap-2">
+  //                   <label className="text-lg font-semibold">
+  //                     Chọn phương thức giao hàng:
+  //                   </label>
+  //                   <Radio.Group
+  //                     className=""
+  //                     onChange={handleDilivery}
+  //                     value={delivery}
+  //                   >
+  //                     <Radio value="fast">
+  //                       <span style={{ color: "#ea8500", fontWeight: "bold" }}>
+  //                         FAST
+  //                       </span>{" "}
+  //                       Giao hàng tiết kiệm
+  //                     </Radio>
+  //                     <Radio value="gojek">
+  //                       <span style={{ color: "#ea8500", fontWeight: "bold" }}>
+  //                         GO_JEK
+  //                       </span>{" "}
+  //                       Giao hàng tiết kiệm
+  //                     </Radio>
+  //                   </Radio.Group>
+  //                 </div>
+  //               </div>
+  //               <div className="mt-4">
+  //                 <div className="flex flex-col gap-2">
+  //                   <lable className="text-lg font-semibold">
+  //                     Chọn phương thức thanh toán:
+  //                   </lable>
+  //                   <Radio.Group
+  //                     className=""
+  //                     onChange={handlePayment}
+  //                     value={payment}
+  //                   >
+  //                     <Radio value="later_money">
+  //                       {" "}
+  //                       Thanh toán tiền mặt khi nhận hàng
+  //                     </Radio>
+  //                     <Radio value="paypal"> Thanh toán tiền bằng paypal</Radio>
+  //                   </Radio.Group>
+  //                 </div>
+  //               </div>
+  //             </div>
+  //             <div className="flex-1 w-full">
+  //               <div style={{ width: "100%" }}>
+  //                 <div className="flex items-start">
+  //                   <div className="flex-1 flex flex-col justify-end items-end">
+  //                     <div className="w-full flex justify-between items-center">
+  //                       <h5 className="font-bold text-lg">Subtotal</h5>
+  //                       <p className="text-gray-500 font-semibold">
+  //                         {convertPrice(priceMemo)}
+  //                       </p>
+  //                     </div>
+  //                     <div className="w-full flex justify-between items-center">
+  //                       <h5 className="font-bold text-lg">Shipping Cost</h5>
+  //                       <p className="text-gray-500 font-semibold">
+  //                         {convertPrice(diliveryPriceMemo)}
+  //                       </p>
+  //                     </div>
+  //                     <div className="w-full flex justify-between items-center">
+  //                       <h5 className="font-bold text-lg">Total</h5>
+  //                       <p className="text-red-500 font-semibold">
+  //                         {convertPrice(totalPriceMemo)}
+  //                       </p>
+  //                     </div>
+  //                     <span style={{ color: "#000", fontSize: "11px" }}>
+  //                       (Đã bao gồm VAT nếu có)
+  //                     </span>
+  //                     <div className="flex gap-2 items-center mt-4">
+  //                       {payment === "paypal" && sdkReady ? (
+  //                         <div style={{ width: "320px" }}>
+  //                           <div>
+  //                             <PayPalButton
+  //                               amount="0.01"
+  //                               // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
+  //                               onSuccess={onSuccessPaypal}
+  //                               onError={() => {
+  //                                 alert("Error");
+  //                               }}
+  //                             />
+  //                           </div>
+  //                         </div>
+  //                       ) : (
+  //                         <button
+  //                           className="bg-[#ff642f] px-9 py-[14px] rounded-lg font-medium text-white"
+  //                           onClick={() => handleAddOrder()}
+  //                         >
+  //                           Đặt Hàng
+  //                         </button>
+  //                       )}
+  //                     </div>
+  //                   </div>
+  //                 </div>
+  //               </div>
+  //             </div>
+  //           </div>
+  //         </div>
+  //       </div>
+  //       <ModalComponent
+  //         title="Cập nhật thông tin giao hàng"
+  //         open={isOpenModalUpdateInfo}
+  //         onCancel={handleCancleUpdate}
+  //         onOk={handleUpdateInforUser}
+  //       >
+  //         <Loading isLoading={isLoading}>
+  //           <Form
+  //             name="basic"
+  //             labelCol={{ span: 4 }}
+  //             wrapperCol={{ span: 20 }}
+  //             // onFinish={onUpdateUser}
+  //             autoComplete="on"
+  //             form={form}
+  //           >
+  //             <Form.Item
+  //               label="Name"
+  //               name="name"
+  //               rules={[{ required: true, message: "Please input your name!" }]}
+  //             >
+  //               <InputComponent
+  //                 value={stateUserDetails["name"]}
+  //                 onChange={handleOnchangeDetails}
+  //                 name="name"
+  //               />
+  //             </Form.Item>
+  //             <Form.Item
+  //               label="City"
+  //               name="city"
+  //               rules={[{ required: true, message: "Please input your city!" }]}
+  //             >
+  //               <InputComponent
+  //                 value={stateUserDetails["city"]}
+  //                 onChange={handleOnchangeDetails}
+  //                 name="city"
+  //               />
+  //             </Form.Item>
+  //             <Form.Item
+  //               label="Phone"
+  //               name="phone"
+  //               rules={[
+  //                 { required: true, message: "Please input your  phone!" },
+  //               ]}
+  //             >
+  //               <InputComponent
+  //                 value={stateUserDetails.phone}
+  //                 onChange={handleOnchangeDetails}
+  //                 name="phone"
+  //               />
+  //             </Form.Item>
 
-              <Form.Item
-                label="Adress"
-                name="address"
-                rules={[
-                  { required: true, message: "Please input your  address!" },
-                ]}
-              >
-                <InputComponent
-                  value={stateUserDetails.address}
-                  onChange={handleOnchangeDetails}
-                  name="address"
-                />
-              </Form.Item>
-            </Form>
-          </Loading>
-        </ModalComponent>
-      </Loading>
-    </div>
-  );
+  //             <Form.Item
+  //               label="Adress"
+  //               name="address"
+  //               rules={[
+  //                 { required: true, message: "Please input your  address!" },
+  //               ]}
+  //             >
+  //               <InputComponent
+  //                 value={stateUserDetails.address}
+  //                 onChange={handleOnchangeDetails}
+  //                 name="address"
+  //               />
+  //             </Form.Item>
+  //           </Form>
+  //         </Loading>
+  //       </ModalComponent>
+  //     </Loading>
+  //   </div>
+  // );
 };
 
 export default Payment;
