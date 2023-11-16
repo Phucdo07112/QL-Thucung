@@ -226,33 +226,33 @@ const AdminPet = () => {
   const { isLoading: isLoadingpets, data: pets } = queryPet;
 
   const renderAction = () => {
-    return (
-      <div>
-        <DeleteOutlined
-          style={{
-            fontSize: "20px",
-            color: "white",
-            backgroundColor: "red",
-            padding: "8px",
-            borderRadius: "10px",
-            cursor: "pointer",
-          }}
-          onClick={() => setIsModalOpenDelete(true)}
-        />
-        <EditOutlined
-          style={{
-            fontSize: "20px",
-            color: "white",
-            backgroundColor: "yellow",
-            padding: "8px",
-            borderRadius: "10px",
-            marginLeft: "10px",
-            cursor: "pointer",
-          }}
-          onClick={handleDetailsProduct}
-        />
-      </div>
-    );
+    // return (
+    //   <div>
+    //     <DeleteOutlined
+    //       style={{
+    //         fontSize: "20px",
+    //         color: "white",
+    //         backgroundColor: "red",
+    //         padding: "8px",
+    //         borderRadius: "10px",
+    //         cursor: "pointer",
+    //       }}
+    //       onClick={() => setIsModalOpenDelete(true)}
+    //     />
+    //     <EditOutlined
+    //       style={{
+    //         fontSize: "20px",
+    //         color: "white",
+    //         backgroundColor: "yellow",
+    //         padding: "8px",
+    //         borderRadius: "10px",
+    //         marginLeft: "10px",
+    //         cursor: "pointer",
+    //       }}
+    //       onClick={handleDetailsProduct}
+    //     />
+    //   </div>
+    // );
   };
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
