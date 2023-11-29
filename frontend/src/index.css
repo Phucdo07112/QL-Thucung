@@ -178,3 +178,7 @@ textarea:focus
 :where(.css-dev-only-do-not-override-190m0jy).ant-input-number-sm input.ant-input-number-input {
   text-align: center;
 }
+
+.ant-tabs.ant-tabs-top.css-dev-only-do-not-override-190m0jy {
+  flex: 1;
+}

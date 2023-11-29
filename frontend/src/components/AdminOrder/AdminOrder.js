@@ -354,6 +354,10 @@ const AdminOrder = () => {
             onChange={handleChangeSelectOrderisDelivered}
             options={[
               {
+                value: "Hủy Đơn Hàng" ,
+                label: "Hủy đơn hàng"
+              },
+              {
                 value: "Đơn Hàng Chờ Xác Nhận" ,
                 label: "Đơn Hàng Chờ Xác Nhận"
               },

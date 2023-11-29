@@ -1,6 +1,7 @@
 const Order = require("../models/Order");
 const Product = require("../models/Product");
 const Pet = require("../models/Pet");
+const User = require("../models/User");
 const EmailService = require("../services/EmailService");
 
 const createOrder = (newOrder) => {
@@ -114,6 +115,17 @@ const createOrder = (newOrder) => {
           paidAt,
         });
         if (createdOrder) {
+          const getUser = await User.findById({ _id: user})
+          let idItem = getUser.commentIdOrder
+          orderItems?.map((product) => {
+            return idItem.push(product.product)
+          })
+          orderPetItems?.map((pet) => {
+            return idItem.push(pet.pet)
+          })
+          await User.findByIdAndUpdate({_id: user}, {
+            commentIdOrder: idItem
+          }, { new: true })
           await EmailService.sendEmailCreateOrder(email, orderItems);
           resolve({
             status: "OK",

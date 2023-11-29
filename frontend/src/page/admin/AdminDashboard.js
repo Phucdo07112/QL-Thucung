@@ -19,11 +19,12 @@ import AdminPet from "../../components/AdminPet/AdminPet";
 import {MdPets} from "react-icons/md"
 import AdminOrder from "../../components/AdminOrder/AdminOrder";
 import AdminDashboards from "../../components/AdminDashboard/AdminDashboard";
+import {RiDashboard3Line} from "react-icons/ri"
 const AdminDashboard = () => {
   const user = useSelector((state) => state?.user);
 
   const items = [
-    getItem("DashBoard", "dashboard", <UserOutlined />),
+    getItem("Thống kê", "dashboard", <RiDashboard3Line />),
     getItem("Người dùng", "users", <UserOutlined />),
     getItem("Danh mục", "categories", <MdOutlineCategory />),
     getItem("Sản phẩm", "products", <AppstoreOutlined />),
