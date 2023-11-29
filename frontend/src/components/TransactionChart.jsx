@@ -4,70 +4,8 @@ import { convertPrice } from '../utils/jsonString'
 
 
 
-export default function TransactionChart({totalPrice, totalExpenses}) {
-	const data = [
-		{
-			name: 'Jan',
-			Expense: totalExpenses,
-			Income: totalPrice,
-			Date: "01/11/2023"
-		},
-		{
-			name: 'Feb',
-			Expense: 0,
-			Income: 0
-		},
-		{
-			name: 'Mar',
-			Expense: 0,
-			Income: 0
-		},
-		{
-			name: 'Apr',
-			Expense: 0,
-			Income: 0
-		},
-		{
-			name: 'May',
-			Expense: 0,
-			Income: 0
-		},
-		{
-			name: 'Jun',
-			Expense: 0,
-			Income: 0
-		},
-		{
-			name: 'July',
-			Expense: 0,
-			Income: 0
-		},
-		{
-			name: 'Aug',
-			Expense: 0,
-			Income: 0
-		},
-		{
-			name: 'Sep',
-			Expense: 0,
-			Income: 0
-		},
-		{
-			name: 'Oct',
-			Expense: 0,
-			Income: 0
-		},
-		{
-			name: 'Nov',
-			Expense: 0,
-			Income: 0
-		},
-		{
-			name: 'Dec',
-			Expense: 0,
-			Income: 0
-		}
-	]
+export default function TransactionChart({totalPrice, totalExpenses, data}) {
+	
 	return (
 		<div className="h-[22rem] bg-white p-4 rounded-sm border border-gray-200 flex flex-col flex-1">
 			<strong className="text-gray-700 font-medium">Transactions</strong>

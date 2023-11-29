@@ -134,7 +134,7 @@ const MyOrder = () => {
             {UserOrder?.map((order) => {
                 return (
                   <div
-                    className="border-2 bg-white my-3 p-5 rounded-lg"
+                    className={`border-2 bg-white my-3 p-5 rounded-lg ${order?.isDelivered === "Hủy Đơn Hàng" ? "opacity-40" : ""}`}
                     key={order?._id}
                   >
                     <div className="">
@@ -187,7 +187,7 @@ const MyOrder = () => {
                           <button
                             className="bg-red-500 px-6 py-[14px] disabled:opacity-60 rounded-lg font-medium text-white"
                             onClick={() => handleCanceOrder(order)}
-                            disabled={order?.isDelivered === "Đơn Hàng Chờ Xác Nhận" ? false : true}
+                            disabled={order?.isDelivered === "Đơn Hàng Chờ Xác Nhận" || order?.isDelivered === "Hủy Đơn Hàng" ? false : true}
                           >
                             Hủy đơn hàng
                           </button>

@@ -6,6 +6,7 @@ const productRoutes = require("../routes/productRoutes");
 const userRoutes = require("../routes/userRoutes");
 const OrderRoutes = require("../routes/OrderRoutes");
 const PaymentRoutes = require("../routes/PaymentRoutes");
+const TransactionRoutes = require("../routes/transactionRoutes");
 
 const routes = (app) => {
     app.use("/api/pets", petRoutes);
@@ -16,6 +17,7 @@ const routes = (app) => {
     app.use("/api/user", userRoutes);
     app.use("/api/order", OrderRoutes);
     app.use('/api/payment', PaymentRoutes)
+    app.use('/api/transactions', TransactionRoutes)
 }
 
 module.exports = routes

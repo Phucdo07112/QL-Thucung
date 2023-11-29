@@ -5,15 +5,19 @@ import { BsFacebook, BsTwitter, BsInstagram } from "react-icons/bs";
 import { FaPinterestP } from "react-icons/fa6";
 import { useLocation, useNavigate, useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
-import * as PetsService from "../services/PetsService"
+import * as PetsService from "../services/PetsService";
 import { useDispatch, useSelector } from "react-redux";
-import { addOrderPet, addOrderProduct, resetOrder } from "../redux/slides/orderSlice";
+import {
+  addOrderPet,
+  addOrderProduct,
+  resetOrder,
+} from "../redux/slides/orderSlice";
 import * as message from "../components/Message/Message";
 import * as ReviewService from "../services/ReviewService";
 import { PlusOutlined, MinusOutlined } from "@ant-design/icons";
 import { convertPrice } from "../utils/jsonString";
 import { useMutationHooks } from "../hooks/useMutationHook";
-import {RiDeleteBinLine} from "react-icons/ri";
+import { RiDeleteBinLine } from "react-icons/ri";
 const desc = ["Rất Tệ", "Tệ", "Bình Thường", "Tốt", "Rất Tốt"];
 const PetDetails = () => {
   const { productId } = useParams();
@@ -30,10 +34,10 @@ const PetDetails = () => {
   const dispatch = useDispatch();
 
   const getDetailPet = async (context) => {
-    const id = context.queryKey && context.queryKey[1]
-    const res = await PetsService.getDetailsPets(id)
-    return res
-  }
+    const id = context.queryKey && context.queryKey[1];
+    const res = await PetsService.getDetailsPets(id);
+    return res;
+  };
 
   const mutation = useMutationHooks((data) => {
     const res = ReviewService.createReview({ ...data });
@@ -44,9 +48,12 @@ const PetDetails = () => {
     const res = ReviewService.deleteReview(id);
     return res;
   });
-  const queryDetailPet = useQuery({ queryKey: ['pet-detail', productId], queryFn: getDetailPet })
+  const queryDetailPet = useQuery({
+    queryKey: ["pet-detail", productId],
+    queryFn: getDetailPet,
+  });
 
-  const { isLoading: isLoadingPet, data: petDetail } = queryDetailPet
+  const { isLoading: isLoadingPet, data: petDetail } = queryDetailPet;
 
   const { data: reviewData, isLoading, isSuccess, isError } = mutation;
   const {
@@ -55,7 +62,7 @@ const PetDetails = () => {
     isSuccess: isSuccessDelected,
     isError: isErrorDeleted,
   } = mutationDeletedReview;
-  const pet = petDetail?.data
+  const pet = petDetail?.data;
 
   const onChange = (value) => {
     setNumProduct(Number(value));
@@ -114,7 +121,7 @@ const PetDetails = () => {
       const orderRedux = order?.orderItems?.find(
         (item) => item?.product === petDetail?.data?._id
       );
-      console.log("orderRedux",petDetail?.data);
+      console.log("orderRedux", petDetail?.data);
       if (
         orderRedux?.amount + numProduct <= orderRedux?.countInstock ||
         (!orderRedux && petDetail?.data?.countInStock > 0)
@@ -140,7 +147,7 @@ const PetDetails = () => {
 
   const handleReview = (e) => {
     e.preventDefault();
-    
+
     const params = {
       userId: user?.id,
       username: username,
@@ -150,13 +157,12 @@ const PetDetails = () => {
       rating: rate,
       pet: pet?._id,
     };
-    setComment("")
+    setComment("");
     mutation.mutate(params, {
       onSettled: () => {
         queryDetailPet.refetch();
       },
     });
-
   };
 
   const handleOnChangUserName = (e) => {
@@ -172,8 +178,9 @@ const PetDetails = () => {
   };
 
   const handleDeleteReview = (id, userId) => {
-    if(user?.id === userId) {
-      mutationDeletedReview.mutate({id: id},
+    if (user?.id === userId) {
+      mutationDeletedReview.mutate(
+        { id: id },
         {
           onSettled: () => {
             queryDetailPet.refetch();
@@ -181,9 +188,9 @@ const PetDetails = () => {
         }
       );
     }
-  }
+  };
 
-  console.log('petDetail?.reviews',petDetail?.reviews);
+  console.log("petDetail?.reviews", petDetail?.reviews);
   return (
     <div className="pb-10 bg-white">
       <Banner title="ProductDetails" link="Home / ProductDetails" />
@@ -202,7 +209,9 @@ const PetDetails = () => {
                 <h3 className="text-[40px] font-bold text-gray-700 space-">
                   {petDetail?.data?.name}
                 </h3>
-                <p className="font-bold text-[21px] text-red-500">{convertPrice(Number(petDetail?.data?.price))}</p>
+                <p className="font-bold text-[21px] text-red-500">
+                  {convertPrice(Number(petDetail?.data?.price))}
+                </p>
               </div>
               <div className="flex items-center gap-2 mt-5 mb-5">
                 <Rate disabled defaultValue={`${petDetail?.data?.rating}`} />
@@ -281,7 +290,9 @@ const PetDetails = () => {
                   Add to wishfist
                 </button>
               </div>
-              {errorLimitOrder && <div style={{color: 'red'}}>San pham het hang</div>}
+              {errorLimitOrder && (
+                <div style={{ color: "red" }}>San pham het hang</div>
+              )}
               <div className="flex items-center gap-4 mt-11">
                 <p className="text-lg font-bold text-gray-700">
                   Share with friends
@@ -327,25 +338,24 @@ const PetDetails = () => {
                         </p>
                         <p className="text-red-600 font-medium">
                           {/* {format Date.parse(review?.createdAt)} */}
-                          {new Date(review?.createdAt).toString('yyyy-MM-dd')}
-                          
+                          {new Date(review?.createdAt).toString("yyyy-MM-dd")}
                         </p>
                       </div>
                       <div className="flex flex-col-reverse items-end gap-1">
                         <Rate disabled defaultValue={review?.rating} />
-                        {
-                          user?.id === review?.userId && (
-                            <div className="cursor-pointer bg-red-500 p-2 rounded-full text-white" onClick={() => handleDeleteReview(review?._id, review?.userId)}>
-                              <RiDeleteBinLine size={20}/>
-                            </div>
-                          )
-                        }
-                        
+                        {user?.id === review?.userId && (
+                          <div
+                            className="cursor-pointer bg-red-500 p-2 rounded-full text-white"
+                            onClick={() =>
+                              handleDeleteReview(review?._id, review?.userId)
+                            }
+                          >
+                            <RiDeleteBinLine size={20} />
+                          </div>
+                        )}
                       </div>
                     </div>
-                    <p className="text-[18px]">
-                      {review?.reviewText}
-                    </p>
+                    <p className="text-[18px]">{review?.reviewText}</p>
                   </div>
                 </div>
                 <hr />
@@ -353,52 +363,60 @@ const PetDetails = () => {
             ))}
           </div>
         </div>
-        <div className="">
-          <h4 className="text-[30px] font-bold text-gray-700 my-8">
-            Add a review
-          </h4>
-          <div className="flex items-center gap-4">
-            <p>Rate this Product?</p> <Rate tooltips={desc} onChange={setRate} defaultValue={5} value={rate} />
-            {rate ? (
-              <span className="ant-rate-text">{desc[rate - 1]}</span>
-            ) : (
-              ""
-            )}
-          </div>
-          <form
-            className="w-full flex flex-col gap-8 mt-5"
-            onSubmit={handleReview}
-          >
-            <textarea
-              className="w-full h-[150px] rounded-lg bg-[#FAF7F2] border-none p-4 "
-              placeholder="Write a comment"
-              value={comment}
-              onChange={handleOnChangComment}
-            />
-            <div className="flex items-center gap-8">
-              <input
-                className="flex-1 bg-[#FAF7F2] rounded-lg p-4 focus:outline-none focus:ring focus:ring-[#FF642F]"
-                placeholder="Your name"
-                value={username}
-                onChange={handleOnChangUserName}
-                required
+        {user?.commentIdOrder.includes(petDetail?.data?._id) && (
+          <div className="">
+            <h4 className="text-[30px] font-bold text-gray-700 my-8">
+              Add a review
+            </h4>
+            <div className="flex items-center gap-4">
+              <p>Rate this Product?</p>{" "}
+              <Rate
+                tooltips={desc}
+                onChange={setRate}
+                defaultValue={5}
+                value={rate}
               />
-              <input
-                className="flex-1 bg-[#FAF7F2] rounded-lg  p-4 focus:outline-none focus:ring focus:ring-[#FF642F]"
-                placeholder="Email address"
-                value={email}
-                onChange={handleOnChangEmail}
-                required
-              />
+              {rate ? (
+                <span className="ant-rate-text">{desc[rate - 1]}</span>
+              ) : (
+                ""
+              )}
             </div>
-            <button
-              className="bg-[#ff642f] px-11 py-[17px] rounded-full font-medium text-white w-[200px]"
-              type="submit"
+            <form
+              className="w-full flex flex-col gap-8 mt-5"
+              onSubmit={handleReview}
             >
-              Submit a review
-            </button>
-          </form>
-        </div>
+              <textarea
+                className="w-full h-[150px] rounded-lg bg-[#FAF7F2] border-none p-4 "
+                placeholder="Write a comment"
+                value={comment}
+                onChange={handleOnChangComment}
+              />
+              <div className="flex items-center gap-8">
+                <input
+                  className="flex-1 bg-[#FAF7F2] rounded-lg p-4 focus:outline-none focus:ring focus:ring-[#FF642F]"
+                  placeholder="Your name"
+                  value={username}
+                  onChange={handleOnChangUserName}
+                  required
+                />
+                <input
+                  className="flex-1 bg-[#FAF7F2] rounded-lg  p-4 focus:outline-none focus:ring focus:ring-[#FF642F]"
+                  placeholder="Email address"
+                  value={email}
+                  onChange={handleOnChangEmail}
+                  required
+                />
+              </div>
+              <button
+                className="bg-[#ff642f] px-11 py-[17px] rounded-full font-medium text-white w-[200px]"
+                type="submit"
+              >
+                Submit a review
+              </button>
+            </form>
+          </div>
+        )}
       </div>
     </div>
   );
