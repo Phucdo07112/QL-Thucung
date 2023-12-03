@@ -1,6 +1,7 @@
 const Order = require("../models/Order");
 const Product = require("../models/Product");
 const Pet = require("../models/Pet");
+const User = require("../models/User");
 const EmailService = require("../services/EmailService");
 
 const createOrder = (newOrder) => {
@@ -114,6 +115,7 @@ const createOrder = (newOrder) => {
           paidAt,
         });
         if (createdOrder) {
+          
           await EmailService.sendEmailCreateOrder(email, orderItems);
           resolve({
             status: "OK",
@@ -160,6 +162,27 @@ const getAllOrderDetails = (id) => {
           message: "The order is not defined",
         });
       }
+      console.log('order',order);
+      const idItem = []
+      order?.map(async (or) => {
+        if(or?.isDelivered === "Đơn Hàng Đã Hoàn Thành") {
+          // const getUser = await User.findById({ _id: id})
+          or?.orderItems?.map((product) => {
+            return idItem.push(product.product)
+          })
+          or?.orderPetItems?.map((pet) => {
+            return idItem.push(pet.pet)
+          })
+          await User.findByIdAndUpdate({_id: id}, {
+            commentIdOrder: idItem
+          }, { new: true })
+        } else {
+          await User.findByIdAndUpdate({_id: id}, {
+            commentIdOrder: []
+          }, { new: true })
+        }
+      })
+      
 
       resolve({
         status: "OK",

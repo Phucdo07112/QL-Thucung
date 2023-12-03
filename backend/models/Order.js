@@ -44,7 +44,7 @@ const orderSchema = new mongoose.Schema({
     paidAt: { type: Date },
     isDelivered: {
         type: String,
-        enum: ["Đơn Hàng Chờ Xác Nhận", "Đã Xác Nhận Thông Tin", "Đã Giao Cho ĐVVC", "Đã Nhận Được Hàng", "Đơn Hàng Đã Hoàn Thành"],
+        enum: ["Hủy Đơn Hàng","Đơn Hàng Chờ Xác Nhận", "Đã Xác Nhận Thông Tin", "Đã Giao Cho ĐVVC", "Đã Nhận Được Hàng", "Đơn Hàng Đã Hoàn Thành"],
         default: "Đơn Hàng Chờ Xác Nhận",
     },
     deliveredAt: { type: Date },

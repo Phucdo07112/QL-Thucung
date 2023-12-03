@@ -48,7 +48,7 @@ const AdminOrder = () => {
     const res = await OrderService.getAllOrder(user?.access_token);
     return res.data;
   };
-  const queryOrder = useQuery({ queryKey: ["orders"], queryFn: getAllOrder });
+  const queryOrder = useQuery({ queryKey: ["adorders"], queryFn: getAllOrder });
   const { isLoading: isLoadingOrders, data: orders } = queryOrder;
 
   const {
@@ -353,6 +353,10 @@ const AdminOrder = () => {
             value={order?.isDelivered}
             onChange={handleChangeSelectOrderisDelivered}
             options={[
+              {
+                value: "Hủy Đơn Hàng" ,
+                label: "Hủy đơn hàng"
+              },
               {
                 value: "Đơn Hàng Chờ Xác Nhận" ,
                 label: "Đơn Hàng Chờ Xác Nhận"
