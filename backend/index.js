@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(morgan("tiny")); // ghi log
 app.use(cookieParser())
 
-app.use("/public", express.static(path.join(__dirname, "public")));
+app.use("/public", express.static(path.join(__dirname, "public")));// kết nối đến file tĩnh là public
 routes(app)
 
 const mongodbUri = "mongodb+srv://qlthucung1:2Kwhm2YTFYnPwkz7@cluster0.d0zaumm.mongodb.net/?retryWrites=true&w=majority";
