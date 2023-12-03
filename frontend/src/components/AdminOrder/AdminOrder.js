@@ -48,7 +48,7 @@ const AdminOrder = () => {
     const res = await OrderService.getAllOrder(user?.access_token);
     return res.data;
   };
-  const queryOrder = useQuery({ queryKey: ["orders"], queryFn: getAllOrder });
+  const queryOrder = useQuery({ queryKey: ["adorders"], queryFn: getAllOrder });
   const { isLoading: isLoadingOrders, data: orders } = queryOrder;
 
   const {

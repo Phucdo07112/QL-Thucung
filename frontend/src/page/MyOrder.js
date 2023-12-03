@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import Loading from "../components/LoadingComponent/Loading";
 import { convertPrice } from "../utils/jsonString";
 import ButtonComponent from "../components/ButtonComponent/ButtonComponent";
+import { IoIosCloseCircle } from "react-icons/io";
 const MyOrder = () => {
   const location = useLocation();
   const { state } = location;
@@ -19,7 +20,7 @@ const MyOrder = () => {
   const user = useSelector((state) => state.user);
 
   const queryOrder = useQuery(
-    { queryKey: ["orders"], queryFn: fetchMyOrder },
+    { queryKey: ["myorders"], queryFn: fetchMyOrder },
     {
       enabled: state?.id && state?.token,
     }
@@ -133,70 +134,77 @@ const MyOrder = () => {
           <div className="">
             {UserOrder?.map((order) => {
                 return (
-                  <div
-                    className={`border-2 bg-white my-3 p-5 rounded-lg ${order?.isDelivered === "Hủy Đơn Hàng" ? "opacity-40" : ""}`}
-                    key={order?._id}
-                  >
-                    <div className="">
-                      <span
-                        className=""
-                        style={{ fontSize: "18px", fontWeight: "bold" }}
-                      >
-                        Trạng thái
-                      </span>
-                      <div className="flex items-center gap-2 mt-2">
-                        <div className="bg-[#222222] p-2 rounded-lg">
-                          <span
-                            style={{
-                              fontWeight: "bold",
-                            }}
-                            className="text-sky-600"
-                          >{`${order?.isDelivered && order?.isDelivered}`}</span>
-                        </div>
-                        <div className="bg-[#222222] p-2 rounded-lg">
-                          <span style={{ color: "white" }}>Thanh toán: </span>
-                          <span
-                            style={{
-                              fontWeight: "bold",
-                            }}
-                            className="text-sky-600"
-                          >{`${
-                            order?.isPaid ? "Đã thanh toán" : "Chưa thanh toán"
-                          }`}</span>
-                        </div>
-                      </div>
-                    </div>
-                    {order?.orderItems && renderProduct(order?.orderItems)}
-                    {order?.orderPetItems && renderProduct(order?.orderPetItems)}
-                    <div className="flex items-end flex-col gap-2 mt-2">
-                      <div>
-                        <span style={{ color: "rgb(255, 66, 78)" }}>
-                          Tổng tiền:{" "}
-                        </span>
+                  <div className="relative">
+                    {order?.isDelivered === "Hủy Đơn Hàng" ? (
+                        <div onClick={() => handleCanceOrder(order)} className="absolute top-7 z-10 cursor-pointer right-10"><IoIosCloseCircle size={25} color="red"/></div>
+                      ) : ""}
+                    <div
+                      className={`border-2 bg-white my-3 p-5 rounded-lg ${order?.isDelivered === "Hủy Đơn Hàng" ? "opacity-40" : ""}`}
+                      key={order?._id}
+                    >
+                      
+                      <div className="">
                         <span
-                          style={{
-                            fontSize: "15px",
-                            color: "rgb(56, 56, 61)",
-                            fontWeight: 700,
-                          }}
+                          className=""
+                          style={{ fontSize: "18px", fontWeight: "bold" }}
                         >
-                          {convertPrice(order?.totalPrice)}
+                          Trạng thái
                         </span>
+                        <div className="flex items-center gap-2 mt-2">
+                          <div className="bg-[#222222] p-2 rounded-lg">
+                            <span
+                              style={{
+                                fontWeight: "bold",
+                              }}
+                              className="text-sky-600"
+                            >{`${order?.isDelivered === "Hủy Đơn Hàng" ? "Đơn Hàng Đã Bị Hủy" : order?.isDelivered}`}</span>
+                          </div>
+                          <div className="bg-[#222222] p-2 rounded-lg">
+                            <span style={{ color: "white" }}>Thanh toán: </span>
+                            <span
+                              style={{
+                                fontWeight: "bold",
+                              }}
+                              className="text-sky-600"
+                            >{`${
+                              order?.isPaid ? "Đã thanh toán" : "Chưa thanh toán"
+                            }`}</span>
+                          </div>
+                        </div>
                       </div>
-                      <div style={{ display: "flex", gap: "10px" }}>
-                          <button
-                            className="bg-red-500 px-6 py-[14px] disabled:opacity-60 rounded-lg font-medium text-white"
-                            onClick={() => handleCanceOrder(order)}
-                            disabled={order?.isDelivered === "Đơn Hàng Chờ Xác Nhận" || order?.isDelivered === "Hủy Đơn Hàng" ? false : true}
+                      {order?.orderItems && renderProduct(order?.orderItems)}
+                      {order?.orderPetItems && renderProduct(order?.orderPetItems)}
+                      <div className="flex items-end flex-col gap-2 mt-2">
+                        <div>
+                          <span style={{ color: "rgb(255, 66, 78)" }}>
+                            Tổng tiền:{" "}
+                          </span>
+                          <span
+                            style={{
+                              fontSize: "15px",
+                              color: "rgb(56, 56, 61)",
+                              fontWeight: 700,
+                            }}
                           >
-                            Hủy đơn hàng
+                            {convertPrice(order?.totalPrice)}
+                          </span>
+                        </div>
+                        <div style={{ display: "flex", gap: "10px" }}>
+                            <button
+                              className="bg-red-500 px-6 py-[14px] disabled:opacity-60 rounded-lg font-medium text-white"
+                              onClick={() => handleCanceOrder(order)}
+                              disabled={order?.isDelivered === "Đơn Hàng Chờ Xác Nhận" ? false : true}
+                            >
+                              Hủy đơn hàng
+                            </button>
+                          <button
+                            className="bg-[#ffbc3e] px-6 py-[14px] rounded-lg font-medium text-white"
+                            onClick={() => handleDetailsOrder(order?._id)}
+                            disabled={order?.isDelivered === "Hủy Đơn Hàng" ? true : false}
+                          >
+                            Xem chi tiết
                           </button>
-                        <button
-                          className="bg-[#ffbc3e] px-6 py-[14px] rounded-lg font-medium text-white"
-                          onClick={() => handleDetailsOrder(order?._id)}
-                        >
-                          Xem chi tiết
-                        </button>
+                        </div>
                       </div>
                     </div>
                   </div>

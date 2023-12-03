@@ -57,12 +57,14 @@ const AdminDashboard = () => {
 
   const { isLoading: isLoadingUser, data: users } = queryUser;
 
-  console.log("products", products);
+  console.log("products", orders);
 
   const totalPriceMemo = useMemo(() => {
     let total = 0;
     orders?.data?.map((order) => {
-      total = total + order?.totalPrice;
+      if(order?.isDelivered === "Đơn Hàng Đã Hoàn Thành"){
+        total = total + order?.totalPrice;
+      }
     });
     return total;
   }, [orders?.data]);
