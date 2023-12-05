@@ -1,72 +1,72 @@
 const UserService = require("../services/UserService");
 const JwtService = require("../services/JwtService");
 
-// const createUser = async (req, res) => {
-//   try {
-//     const { email, password, confirmPassword } = req.body;
+const createUser = async (req, res) => {
+  try {
+    const { email, password, confirmPassword } = req.body;
 
-//     const reg =
-//       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/; // validate email
-//     const isCheckEmail = reg.test(email);
-//     if (!email || !password) {
-//       return res.status(200).json({
-//         status: "ERR",
-//         message: "The input is required",
-//       });
-//     } else if (!isCheckEmail) {
-//       return res.status(200).json({
-//         status: "ERR",
-//         message: "The input is email",
-//       });
-//     } else if (password !== confirmPassword) {
-//       return res.status(200).json({
-//         status: "ERR",
-//         message: "The input is equal confirmPassword",
-//       });
-//     }
+    const reg =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/; // validate email
+    const isCheckEmail = reg.test(email);
+    if (!email || !password) {
+      return res.status(200).json({
+        status: "ERR",
+        message: "The input is required",
+      });
+    } else if (!isCheckEmail) {
+      return res.status(200).json({
+        status: "ERR",
+        message: "The input is email",
+      });
+    } else if (password !== confirmPassword) {
+      return res.status(200).json({
+        status: "ERR",
+        message: "The input is equal confirmPassword",
+      });
+    }
 
-//     const response = await UserService.createUser(req.body);
-//     return res.status(200).json(response);
-//   } catch (e) {
-//     return res.status(404).json({
-//       message: e,
-//     });
-//   }
-// };
+    const response = await UserService.createUser(req.body);
+    return res.status(200).json(response);
+  } catch (e) {
+    return res.status(404).json({
+      message: e,
+    });
+  }
+};
 
-// const loginUser = async (req, res) => {
-//   try {
-//     const { email, password } = req.body;
-//     const reg =
-//       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/; // validate email
-//     const isCheckEmail = reg.test(email);
-//     if (!email || !password) {
-//       return res.status(200).json({
-//         status: "ERR",
-//         message: "The input is required",
-//       });
-//     } else if (!isCheckEmail) {
-//       return res.status(200).json({
-//         status: "ERR",
-//         message: "The input is email",
-//       });
-//     }
+const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const reg =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/; // validate email
+    const isCheckEmail = reg.test(email);
+    if (!email || !password) {
+      return res.status(200).json({
+        status: "ERR",
+        message: "The input is required",
+      });
+    } else if (!isCheckEmail) {
+      return res.status(200).json({
+        status: "ERR",
+        message: "The input is email",
+      });
+    }
 
-//     const response = await UserService.loginUser(req.body);
-//     const { refresh_token, ...newResponse } = response;
-//     res.cookie("refreshToken_dog", refresh_token, {
-//       httpOnly: true, // chỉ lấy only này qua thằng cookie và ko lấy được bằng js
-//       secure: false, // kiêm những cái bảo mật ở phải client
-//       samesite: "strict",
-//       path: "/",
-//     });
-//     return res.status(200).json({...newResponse, refresh_token});
-//   } catch (e) {
-//     return res.status(404).json({
-//       message: e,
-//     });
-//   }
-// };
+    const response = await UserService.loginUser(req.body);
+    const { refresh_token, ...newResponse } = response;
+    res.cookie("refreshToken_dog", refresh_token, {
+      httpOnly: true, // chỉ lấy only này qua thằng cookie và ko lấy được bằng js
+      secure: false, // kiêm những cái bảo mật ở phải client
+      samesite: "strict",
+      path: "/",
+    });
+    return res.status(200).json({...newResponse, refresh_token});
+  } catch (e) {
+    return res.status(404).json({
+      message: e,
+    });
+  }
+};
 
 const updateUser = async (req, res) => {
   try {
