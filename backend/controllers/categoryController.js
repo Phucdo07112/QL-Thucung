@@ -1,15 +1,15 @@
 const Category = require("../models/Category");
 
-exports.getAll = async (req, res) => {
-  try {
-    const categories = await Category.find();
+// exports.getAll = async (req, res) => {
+//   try {
+//     const categories = await Category.find();
 
-    res.json(categories);
-  } catch (error) {
-    console.log(error);
-    res.status(400).json(error);
-  }
-};
+//     res.json(categories);
+//   } catch (error) {
+//     console.log(error);
+//     res.status(400).json(error);
+//   }
+// };
 exports.getDetailCategory = async (req, res) => {
   try {
     const id = req.params.id;
