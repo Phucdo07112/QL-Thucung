@@ -1,19 +1,19 @@
-const express = require("express");
-const categoryController = require("../controllers/categoryController");
+// const express = require("express");
+// const categoryController = require("../controllers/categoryController");
 
-const router = express.Router();
+// const router = express.Router();
 
-//get all media
-router.get("/all", categoryController.getAll);
+// //get all media
+// router.get("/all", categoryController.getAll);
 
-router.get("/detail/:id", categoryController.getDetailCategory)
-//post create new media
-router.post("/create", categoryController.create);
+// router.get("/detail/:id", categoryController.getDetailCategory)
+// //post create new media
+// router.post("/create", categoryController.create);
 
 
-//post create new media
-router.put("/update/:id", categoryController.update);
+// //post create new media
+// router.put("/update/:id", categoryController.update);
 
-router.delete("/delete/:id", categoryController.delete);
+// router.delete("/delete/:id", categoryController.delete);
 
-module.exports = router;
+// module.exports = router;
