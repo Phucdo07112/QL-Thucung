@@ -138,24 +138,24 @@ const getAllUser = async (req, res) => {
   }
 };
 
-const getDetailsUser = async (req, res) => {
-  try {
-    const userID = req.params.id;
-    if (!userID) {
-      return res.status(200).json({
-        status: "ERR",
-        message: "The userId is required",
-      });
-    }
+// const getDetailsUser = async (req, res) => {
+//   try {
+//     const userID = req.params.id;
+//     if (!userID) {
+//       return res.status(200).json({
+//         status: "ERR",
+//         message: "The userId is required",
+//       });
+//     }
 
-    const response = await UserService.getDetailsUser(userID);
-    return res.status(200).json(response);
-  } catch (e) {
-    return res.status(404).json({
-      message: e,
-    });
-  }
-};
+//     const response = await UserService.getDetailsUser(userID);
+//     return res.status(200).json(response);
+//   } catch (e) {
+//     return res.status(404).json({
+//       message: e,
+//     });
+//   }
+// };
 
 const refreshToken = async (req, res) => {
   try {
