@@ -167,26 +167,26 @@ exports.getAllProduct = async (req, res) => {
   }
 };
 
-// exports.getProductByCategory = async (req, res) => {
+exports.getProductByCategory = async (req, res) => {
 
 
-//   try {
-//     const { categoryId } = req.params;
-//     const { limit, page, sort, filter } = req.query;
-//     const response = await ProductService.getProductByCategory(
-//       categoryId,
-//       Number(limit) || null,
-//       Number(page) || 0,
-//       sort,
-//       filter
-//     );
-//     return res.status(200).json(response);
-//   } catch (e) {
-//     return res.status(404).json({
-//       message: e,
-//     });
-//   }
-// };
+  try {
+    const { categoryId } = req.params;
+    const { limit, page, sort, filter } = req.query;
+    const response = await ProductService.getProductByCategory(
+      categoryId,
+      Number(limit) || null,
+      Number(page) || 0,
+      sort,
+      filter
+    );
+    return res.status(200).json(response);
+  } catch (e) {
+    return res.status(404).json({
+      message: e,
+    });
+  }
+};
 
 exports.getAllType = async (req, res) => {
   try {

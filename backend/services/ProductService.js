@@ -238,88 +238,88 @@ const getAllProduct = (limit, page, sort, filter) => {
   });
 };
 
-// const getProductByCategory = (categoryId, limit, page, sort, filter) => {
-//   return new Promise(async (resolve, reject) => {
-//     try {
-//       const totalProduct = await Product.count();
-//       // const categories = await Product.find({ category: categoryId }).populate(
-//       //   "category"
-//       // );
-//       console.log("limit, page, sort, filter", limit, page, sort, filter);
-//       let allCategory = [];
-//       if (filter) {
-//         const label = filter[0];
-//         const objectSort = {}
-//         objectSort[filter[0]] = filter[2]
-//         const object = objectSort.price ? objectSort : {}
-//         console.log('objectSort',objectSort);
-//         const allObjectFilter = await Product.find(
-//             {
-//               category: categoryId,
-//               [label]: { $gt: Number(filter[1]) }
-//             }
-//         )
-//           .populate("category")
-//           .limit(limit)
-//           .skip(page * limit)
-//           .sort(object)
-//           .sort({ createdAt: -1, updatedAt: -1 });
-//         resolve({
-//           status: "OK",
-//           message: "Success",
-//           data: allObjectFilter,
-//           total: totalProduct,
-//           pageCurrent: Number(page + 1),
-//           totalPage: Math.ceil(totalProduct / limit),
-//         });
-//       }
-//       if (sort) {
-//         const objectSort = {};
-//         objectSort[sort[0]] = sort[1];
+const getProductByCategory = (categoryId, limit, page, sort, filter) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const totalProduct = await Product.count();
+      // const categories = await Product.find({ category: categoryId }).populate(
+      //   "category"
+      // );
+      console.log("limit, page, sort, filter", limit, page, sort, filter);
+      let allCategory = [];
+      if (filter) {
+        const label = filter[0];
+        const objectSort = {}
+        objectSort[filter[0]] = filter[2]
+        const object = objectSort.price ? objectSort : {}
+        console.log('objectSort',objectSort);
+        const allObjectFilter = await Product.find(
+            {
+              category: categoryId,
+              [label]: { $gt: Number(filter[1]) }
+            }
+        )
+          .populate("category")
+          .limit(limit)
+          .skip(page * limit)
+          .sort(object)
+          .sort({ createdAt: -1, updatedAt: -1 });
+        resolve({
+          status: "OK",
+          message: "Success",
+          data: allObjectFilter,
+          total: totalProduct,
+          pageCurrent: Number(page + 1),
+          totalPage: Math.ceil(totalProduct / limit),
+        });
+      }
+      if (sort) {
+        const objectSort = {};
+        objectSort[sort[0]] = sort[1];
         
-//         console.log('objectSort',objectSort);
-//         const allCategorySort = await Product.find({ category: categoryId })
-//           .populate("category")
-//           .limit(limit)
-//           .skip(page * limit)
-//           .sort(objectSort)
-//           .sort({ createdAt: -1, updatedAt: -1 });
-//         resolve({
-//           status: "OK",
-//           message: "Success",
-//           data: allCategorySort,
-//           total: totalProduct,
-//           pageCurrent: Number(page + 1),
-//           totalPage: Math.ceil(totalProduct / limit),
-//         });
-//       }
-//       if (!limit) {
-//         allCategory = await Product.find({ category: categoryId })
-//           .populate("category")
-//           .sort({
-//             createdAt: -1,
-//             updatedAt: -1,
-//           });
-//       } else {
-//         allCategory = await Product.find({ category: categoryId })
-//           .populate("category")
-//           .limit(limit)
-//           .skip(page * limit)
-//           .sort({ createdAt: -1, updatedAt: -1 });
-//       }
-//       resolve({
-//         status: "OK",
-//         message: "Success",
-//         data: allCategory,
-//         total: totalProduct,
-//         pageCurrent: Number(page + 1),
-//         totalPage: Math.ceil(totalProduct / limit),
-//       });
-//     } catch (e) {
-//       reject(e);
-//     }
-//   });
-// };
+        console.log('objectSort',objectSort);
+        const allCategorySort = await Product.find({ category: categoryId })
+          .populate("category")
+          .limit(limit)
+          .skip(page * limit)
+          .sort(objectSort)
+          .sort({ createdAt: -1, updatedAt: -1 });
+        resolve({
+          status: "OK",
+          message: "Success",
+          data: allCategorySort,
+          total: totalProduct,
+          pageCurrent: Number(page + 1),
+          totalPage: Math.ceil(totalProduct / limit),
+        });
+      }
+      if (!limit) {
+        allCategory = await Product.find({ category: categoryId })
+          .populate("category")
+          .sort({
+            createdAt: -1,
+            updatedAt: -1,
+          });
+      } else {
+        allCategory = await Product.find({ category: categoryId })
+          .populate("category")
+          .limit(limit)
+          .skip(page * limit)
+          .sort({ createdAt: -1, updatedAt: -1 });
+      }
+      resolve({
+        status: "OK",
+        message: "Success",
+        data: allCategory,
+        total: totalProduct,
+        pageCurrent: Number(page + 1),
+        totalPage: Math.ceil(totalProduct / limit),
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 
 const getAllType = () => {
   return new Promise(async (resolve, reject) => {
