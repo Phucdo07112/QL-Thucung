@@ -61,25 +61,25 @@ exports.updateProduct = async (req, res) => {
   }
 };
 
-// exports.getDetailProduct = async (req, res) => {
-//   try {
-//     const product = req.params.id;
-//     console.log("product", product);
-//     if (!product) {
-//       return res.status(200).json({
-//         status: "ERR",
-//         message: "The userId is required",
-//       });
-//     }
+exports.getDetailProduct = async (req, res) => {
+  try {
+    const product = req.params.id;
+    console.log("product", product);
+    if (!product) {
+      return res.status(200).json({
+        status: "ERR",
+        message: "The userId is required",
+      });
+    }
 
-//     const response = await ProductService.getDetailProduct(product);
-//     return res.status(200).json(response);
-//   } catch (e) {
-//     return res.status(404).json({
-//       message: e,
-//     });
-//   }
-// };
+    const response = await ProductService.getDetailProduct(product);
+    return res.status(200).json(response);
+  } catch (e) {
+    return res.status(404).json({
+      message: e,
+    });
+  }
+};
 
 exports.getAllProductById = async (req, res) => {
   try {
