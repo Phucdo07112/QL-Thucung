@@ -3,22 +3,22 @@ const fs = require("fs");
 const path = require("path");
 const PetService = require("../services/petService");
 
-// exports.getAll = async (req, res) => {
-//   try {
-//     const { limit, page, sort, filter } = req.query;
-//     const response = await PetService.getAllPet(
-//       Number(limit) || null,
-//       Number(page) || 0,
-//       sort,
-//       filter
-//     );
-//     return res.status(200).json(response);
-//   } catch (e) {
-//     return res.status(404).json({
-//       message: e,
-//     });
-//   }
-// };
+exports.getAll = async (req, res) => {
+  try {
+    const { limit, page, sort, filter } = req.query;
+    const response = await PetService.getAllPet(
+      Number(limit) || null,
+      Number(page) || 0,
+      sort,
+      filter
+    );
+    return res.status(200).json(response);
+  } catch (e) {
+    return res.status(404).json({
+      message: e,
+    });
+  }
+};
 
 exports.getAllPetById = async (req, res) => {
   try {
