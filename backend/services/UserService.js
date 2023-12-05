@@ -142,20 +142,20 @@ const deleteManyUser = (ids) => {
   });
 };
 
-const getAllUser = () => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const allUser = await User.find()
-      resolve({
-        status: "OK",
-        message: "SUCCESS",
-        data: allUser
-      });
-    } catch (e) {
-      reject(e.message);
-    }
-  });
-};
+// const getAllUser = () => {
+//   return new Promise(async (resolve, reject) => {
+//     try {
+//       const allUser = await User.find()
+//       resolve({
+//         status: "OK",
+//         message: "SUCCESS",
+//         data: allUser
+//       });
+//     } catch (e) {
+//       reject(e.message);
+//     }
+//   });
+// };
 
 const getDetailsUser = (id) => {
   return new Promise(async (resolve, reject) => {
