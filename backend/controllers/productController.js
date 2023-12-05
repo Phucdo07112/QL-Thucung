@@ -167,35 +167,26 @@ exports.getAllProduct = async (req, res) => {
   }
 };
 
-exports.getProductByCategory = async (req, res) => {
-  // try {
-  //   const categories = await Product.find({ category: categoryId }).populate(
-  //     "category"
-  //   );
+// exports.getProductByCategory = async (req, res) => {
 
-  //   res.json(products);
-  // } catch (error) {
-  //   console.log(error);
-  //   res.status(400).json(error);
-  // }
 
-  try {
-    const { categoryId } = req.params;
-    const { limit, page, sort, filter } = req.query;
-    const response = await ProductService.getProductByCategory(
-      categoryId,
-      Number(limit) || null,
-      Number(page) || 0,
-      sort,
-      filter
-    );
-    return res.status(200).json(response);
-  } catch (e) {
-    return res.status(404).json({
-      message: e,
-    });
-  }
-};
+//   try {
+//     const { categoryId } = req.params;
+//     const { limit, page, sort, filter } = req.query;
+//     const response = await ProductService.getProductByCategory(
+//       categoryId,
+//       Number(limit) || null,
+//       Number(page) || 0,
+//       sort,
+//       filter
+//     );
+//     return res.status(200).json(response);
+//   } catch (e) {
+//     return res.status(404).json({
+//       message: e,
+//     });
+//   }
+// };
 
 exports.getAllType = async (req, res) => {
   try {
