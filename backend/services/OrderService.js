@@ -196,30 +196,30 @@ const getAllOrderDetails = (id) => {
   });
 };
 
-// const getOrderDetails = (id) => {
-//   return new Promise(async (resolve, reject) => {
-//     try {
-//       const order = await Order.findById({
-//         _id: id,
-//       });
-//       if (order === null) {
-//         resolve({
-//           status: "ERR",
-//           message: "The order is not defined",
-//         });
-//       }
+const getOrderDetails = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const order = await Order.findById({
+        _id: id,
+      });
+      if (order === null) {
+        resolve({
+          status: "ERR",
+          message: "The order is not defined",
+        });
+      }
 
-//       resolve({
-//         status: "OK",
-//         message: "SUCESSS orderDetails",
-//         data: order,
-//       });
-//     } catch (e) {
-//       // console.log('e', e)
-//       reject(e);
-//     }
-//   });
-// };
+      resolve({
+        status: "OK",
+        message: "SUCESSS orderDetails",
+        data: order,
+      });
+    } catch (e) {
+      // console.log('e', e)
+      reject(e);
+    }
+  });
+};
 
 const cancelOrderDetails = (id, datapro, datapet) => {
   return new Promise(async (resolve, reject) => {
