@@ -15,7 +15,6 @@ import MyOrder from "../page/MyOrder";
 import Search from "../page/search";
 import Heart from "../page/heart";
 import DetailOrder from "../page/DetailOrder";
-
 export const routes = [
   {
     path: "/",

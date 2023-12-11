@@ -1,11 +1,22 @@
 import React from "react";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import Loading from "../../components/LoadingComponent/Loading";
 import { orderContant } from "../../contant";
 import { convertPrice } from "../../utils/jsonString";
+import { useSelector } from "react-redux";
 const OrderSuccess = () => {
   const location = useLocation();
   const { state } = location;
+  const navigate = useNavigate()
+  const user = useSelector((state) => state.user);
+
+  const handleMyOrder = () => {
+    navigate('/myorder',{ state : {
+      id: user?.id,
+      token : user?.access_token
+    }
+  })
+  }
   return (
     <div className="">
       <Loading isLoading={false}>
@@ -99,7 +110,7 @@ flex: 1,
                   })}
                 </div>
                 <div className="flex items-center justify-end ">
-                  <span className="font-semibold bg-red-500 mr-4 p-4 text-lg text-white rounded-lg" >
+                  <span onClick={handleMyOrder} className="font-semibold bg-red-500 mr-4 p-4 text-lg text-white rounded-lg" >
                     Check Order
                   </span>
                   <span className="font-semibold bg-[#ffbc3e] p-4 text-lg text-white rounded-lg" >

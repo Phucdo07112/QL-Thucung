@@ -343,7 +343,7 @@ const PetDetails = () => {
                       </div>
                       <div className="flex flex-col-reverse items-end gap-1">
                         <Rate disabled defaultValue={review?.rating} />
-                        {user?.id === review?.userId && (
+                        {user?.id === review?.userId || user?.isAdmin ? (
                           <div
                             className="cursor-pointer bg-red-500 p-2 rounded-full text-white"
                             onClick={() =>
@@ -352,7 +352,7 @@ const PetDetails = () => {
                           >
                             <RiDeleteBinLine size={20} />
                           </div>
-                        )}
+                        ): null}
                       </div>
                     </div>
                     <p className="text-[18px]">{review?.reviewText}</p>

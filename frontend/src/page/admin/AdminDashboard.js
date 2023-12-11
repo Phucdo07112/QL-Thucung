@@ -20,6 +20,7 @@ import {MdPets} from "react-icons/md"
 import AdminOrder from "../../components/AdminOrder/AdminOrder";
 import AdminDashboards from "../../components/AdminDashboard/AdminDashboard";
 import {RiDashboard3Line} from "react-icons/ri"
+import Layout from "../../components/Layout/Layout";
 const AdminDashboard = () => {
   const user = useSelector((state) => state?.user);
 
@@ -100,9 +101,10 @@ const AdminDashboard = () => {
   const handleOnClick = ({ key }) => {
     setKeySelected(key);
   };
+
   return (
     <>
-      {user.isAdmin ? (
+      {user?.isAdmin ? (
         <div className="mt-24">
           <Header isHiddenSearch isHiddenCart isHiddenNav />
           <div className="mt-[100px]" style={{ display: "flex" }}>
@@ -125,7 +127,9 @@ const AdminDashboard = () => {
           </div>
         </div>
       ) : (
-        <NotFoundPage />
+        <Layout>
+          <NotFoundPage />
+        </Layout>
       )}
     </>
   );

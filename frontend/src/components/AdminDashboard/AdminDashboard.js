@@ -11,6 +11,7 @@ import * as ProductService from "../../services/ProductService";
 import * as PetsService from "../../services/PetsService";
 import PopularProducts from "../popular";
 import { Tabs } from "antd";
+import WeeklyChart from "../WeeklyChart";
 const AdminDashboard = () => {
   const user = useSelector((state) => state?.user);
   const getAllOrder = async () => {
@@ -90,11 +91,12 @@ const AdminDashboard = () => {
   }, [pets?.data]);
 
   const totalExpenses = totalExpensesProductMemo + totalExpensesPetMemo
+  const totalExpensesToString = totalExpenses.toString().slice(0,-3)
   const dataMonth = [
 		{
 			name: 'Jan',
-			Expense: totalExpenses,
-			Income: totalPriceMemo,
+			Expense: totalExpensesToString,
+			Income: totalPriceMemo.toString().slice(0,-3),
 			Date: "01/11/2023"
 		},
 		{
@@ -153,13 +155,31 @@ const AdminDashboard = () => {
 			Income: 0
 		}
 	]
+
+  const weeklyData = [
+    { name: 'Week 1', Expense: totalExpensesToString,
+    Income: totalPriceMemo.toString().slice(0,-3), },
+    { name: 'Week 2', Income: 0, Expense: 0 },
+    { name: 'Week 3', Income: 0, Expense: 0 },
+    { name: 'Week 4', Income: 0, Expense: 0 },
+    // Thêm dữ liệu cho các tuần khác
+  ];
+
+  const YearData = [
+    { name: '2023', Expense: totalExpensesToString,
+    Income: totalPriceMemo.toString().slice(0,-3), },
+    { name: '2024', Income: 0, Expense: 0 },
+    { name: '2025', Income: 0, Expense: 0 },
+    { name: '2026', Income: 0, Expense: 0 },
+    // Thêm dữ liệu cho các tuần khác
+  ];
   const items = [
     {
       key: "1",
       label: "Tuần",
       children: (
-        <TransactionChart
-        data={dataMonth}
+        <TransactionChart 
+        data={weeklyData}
         />
       ),
     },
@@ -177,7 +197,7 @@ const AdminDashboard = () => {
       label: "Năm",
       children: (
         <TransactionChart
-        data={dataMonth}
+        data={YearData}
         />
       ),
     },

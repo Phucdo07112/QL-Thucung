@@ -343,48 +343,49 @@ const AdminProduct = () => {
     {
       title: "Price",
       dataIndex: "price",
-      sorter: (a, b) => a.price - b.price,
-      filters: [
-        {
-          text: ">= 50",
-          value: ">=",
-        },
-        {
-          text: "<= 50",
-          value: "<=",
-        },
-      ],
-      onFilter: (value, record) => {
-        if (value === ">=") {
-          return record.price >= 50;
-        }
-        return record.price <= 50;
-      },
+      // sorter: (a, b) => a.price - b.price,
+      // filters: [
+      //   {
+      //     text: ">= 50",
+      //     value: ">=",
+      //   },
+      //   {
+      //     text: "<= 50",
+      //     value: "<=",
+      //   },
+      // ],
+      // onFilter: (value, record) => {
+      //   if (value === ">=") {
+      //     return record.price >= 50;
+      //   }
+      //   return record.price <= 50;
+      // },
     },
     {
       title: "Rating",
       dataIndex: "rating",
       sorter: (a, b) => a.rating - b.rating,
-      filters: [
-        {
-          text: ">= 3",
-          value: ">=",
-        },
-        {
-          text: "<= 3",
-          value: "<=",
-        },
-      ],
-      onFilter: (value, record) => {
-        if (value === ">=") {
-          return Number(record.rating) >= 3;
-        }
-        return Number(record.rating) <= 3;
-      },
+      // filters: [
+      //   {
+      //     text: ">= 3",
+      //     value: ">=",
+      //   },
+      //   {
+      //     text: "<= 3",
+      //     value: "<=",
+      //   },
+      // ],
+      // onFilter: (value, record) => {
+      //   if (value === ">=") {
+      //     return Number(record.rating) >= 3;
+      //   }
+      //   return Number(record.rating) <= 3;
+      // },
     },
     {
       title: "Type",
       dataIndex: "type",
+      ...getColumnSearchProps("type"),
     },
     {
       title: "Action",

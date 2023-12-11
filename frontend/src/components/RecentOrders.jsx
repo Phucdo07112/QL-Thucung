@@ -1,5 +1,5 @@
 import React from 'react'
-import { format } from 'date-fns'
+import { format, formatDistance, subDays } from 'date-fns'
 import { Link } from 'react-router-dom'
 import { getOrderStatus } from '../utils/helpers'
 
@@ -83,17 +83,33 @@ export default function RecentOrders({orders}) {
 						</tr>
 					</thead>
 					<tbody>
-						{orders?.data?.map((order) => (
-							<tr key={order?._id}>
-								<td>
-									<Link to={`/customer/${order.customer_id}`}>{order?.shippingAddress?.fullName}</Link>
-								</td>
-								<td>{format(new Date(order?.createdAt), 'dd MMM yyyy')}</td>
-								<td>{order?.totalPrice}</td>
-								<td>{order?.shippingAddress?.address} {order?.shippingAddress?.city}</td>
-								<td>{getOrderStatus(order?.isDelivered)}</td>
-							</tr>
-						))}
+						{orders?.data?.map((order) => {
+							// Lấy ngày hiện tại
+							const currentDate = new Date();
+
+							// Lấy ngày 7 ngày trước
+							const sevenDaysAgo = subDays(currentDate, 7);
+
+							// Format ngày thành chuỗi, ví dụ 'yyyy-MM-dd'
+							const formattedCurrentDate = format(currentDate, 'yyyy-MM-dd');
+							const formattedSevenDaysAgo = format(sevenDaysAgo, 'yyyy-MM-dd');
+							const formattedOrderDays = format(new Date(order?.createdAt), 'yyyy-MM-dd');
+
+							if(formattedOrderDays >= formattedSevenDaysAgo && formattedOrderDays <= formattedCurrentDate) {
+								return (
+									<tr key={order?._id}>
+										<td>
+											<Link to={`/customer/${order.customer_id}`}>{order?.shippingAddress?.fullName}</Link>
+										</td>
+										<td>{format(new Date(order?.createdAt), 'dd MMM yyyy')}</td>
+										<td>{order?.totalPrice}</td>
+										<td>{order?.shippingAddress?.address} {order?.shippingAddress?.city}</td>
+										<td>{getOrderStatus(order?.isDelivered)}</td>
+									</tr>
+								)
+							}
+							
+						})}
 					</tbody>
 				</table>
 			</div>

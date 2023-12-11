@@ -1,31 +1,46 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import { Divider, Radio, Table } from 'antd';
+import React, { useEffect, useMemo, useState } from "react";
+import { Divider, Radio, Table } from "antd";
 import { Excel } from "antd-table-saveas-excel";
-import Loading from '../LoadingComponent/Loading';
-import {BiSolidUserAccount} from "react-icons/bi"
-import TopAdmin from '../TopAdmin';
-const TableComponent = ({iconTitle,title, iconAdd, AddTitle,IsShowModal=null, selectionType = 'checkbox', data:dataSource = [], isLoading = false, columns= [],handleDeleteMany, ...rests}) => {
-  const [rowSelectedKeys, setRowSelectedKeys] = useState([])
+import Loading from "../LoadingComponent/Loading";
+import { BiSolidUserAccount } from "react-icons/bi";
+import TopAdmin from "../TopAdmin";
+const TableComponent = ({
+  isDownLoad,
+  iconTitle,
+  title,
+  iconAdd,
+  AddTitle,
+  IsShowModal = null,
+  selectionType = "checkbox",
+  data: dataSource = [],
+  isLoading = false,
+  columns = [],
+  handleDeleteMany,
+  ...rests
+}) => {
+  const [rowSelectedKeys, setRowSelectedKeys] = useState([]);
 
   const newColumnExport = useMemo(() => {
-    const arr = columns?.filter((col) => col.dataIndex !== 'action' && col.dataIndex !== 'image')
-    return arr
-  }, [columns])
+    const arr = columns?.filter(
+      (col) => col.dataIndex !== "action" && col.dataIndex !== "image"
+    );
+    return arr;
+  }, [columns]);
 
-    // rowSelection object indicates the need for row selection
-const rowSelection = {
+  // rowSelection object indicates the need for row selection
+  const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
-      setRowSelectedKeys(selectedRowKeys)
+      setRowSelectedKeys(selectedRowKeys);
     },
     getCheckboxProps: (record) => ({
-      disabled: record.name === 'Disabled User',
+      disabled: record.name === "Disabled User",
       // Column configuration not to be checked
       name: record.name,
     }),
   };
   const handleDeleteAll = () => {
-    handleDeleteMany(rowSelectedKeys)
-  }
+    handleDeleteMany(rowSelectedKeys);
+  };
 
   const exportExcel = () => {
     const excel = new Excel();
@@ -33,22 +48,31 @@ const rowSelection = {
       .addSheet("test")
       .addColumns(newColumnExport)
       .addDataSource(dataSource, {
-        str2Percent: true
+        str2Percent: true,
       })
       .saveAs("Excel.xlsx");
   };
   return (
     <Loading isLoading={isLoading}>
-      <TopAdmin iconTitle={iconTitle} title={title} iconAdd={iconAdd} AddTitle={AddTitle} onClickEx={exportExcel} IsShowModal={IsShowModal} />
+      <TopAdmin
+        isDownLoad={isDownLoad}
+        iconTitle={iconTitle}
+        title={title}
+        iconAdd={iconAdd}
+        AddTitle={AddTitle}
+        onClickEx={exportExcel}
+        IsShowModal={IsShowModal}
+      />
       {!!rowSelectedKeys.length && (
-        <div style={{
-          background: '#FF642F',
-          color: '#fff',
-          fontWeight: 'bold',
-          padding: '10px',
-          cursor: 'pointer'
-        }}
-        className='rounded-t-lg'
+        <div
+          style={{
+            background: "#FF642F",
+            color: "#fff",
+            fontWeight: "bold",
+            padding: "10px",
+            cursor: "pointer",
+          }}
+          className="rounded-t-lg"
           onClick={handleDeleteAll}
         >
           Xóa tất cả
@@ -64,7 +88,7 @@ const rowSelection = {
         {...rests}
       />
     </Loading>
-  )
-}
+  );
+};
 
-export default TableComponent
+export default TableComponent;
