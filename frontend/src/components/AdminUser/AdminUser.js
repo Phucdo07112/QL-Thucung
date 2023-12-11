@@ -268,7 +268,6 @@ const AdminUser = () => {
       dataIndex: "name",
       render: (text) => <a>{text}</a>,
       sorter: (a, b) => a?.name?.length - b?.name?.length,
-      ...getColumnSearchProps("name"),
     },
     {
       title: "Email",
@@ -282,33 +281,32 @@ const AdminUser = () => {
       dataIndex: "address",
       render: (text) => <a>{text}</a>,
       sorter: (a, b) => a?.address?.length - b?.address?.length,
-      ...getColumnSearchProps("address"),
     },
     {
       title: "Admin",
       dataIndex: "isAdmin",
-      filters: [
-        {
-          text: "True",
-          value: true,
-        },
-        {
-          text: "False",
-          value: false,
-        },
-      ],
-      onFilter: (value, record) => {
-        if(value === true) {
-          return record.phone === true
-        }
-        return record.phone === false
-      }
+      sorter: (a, b) => a?.isAdmin?.length - b?.isAdmin?.length,
+      // filters: [
+      //   {
+      //     text: "True",
+      //     value: true,
+      //   },
+      //   {
+      //     text: "False",
+      //     value: false,
+      //   },
+      // ],
+      // onFilter: (value, record) => {
+      //   if(value === true) {
+      //     return record.phone === true
+      //   }
+      //   return record.phone === false
+      // }
     },
     {
       title: "Phone",
       dataIndex: "phone",
       sorter: (a, b) => a.phone - b.phone,
-      ...getColumnSearchProps("phone"),
     },
     {
       title: "Action",
@@ -316,6 +314,7 @@ const AdminUser = () => {
       render: renderAction,
     },
   ];
+  console.log('users',users);
   const dataTable =
     users?.data?.length &&
     users?.data?.map((user) => {

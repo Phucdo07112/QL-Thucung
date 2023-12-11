@@ -203,31 +203,28 @@ const AdminOrder = () => {
     {
       title: "User name",
       dataIndex: "userName",
-      sorter: (a, b) => a.userName.length - b.userName.length,
-      ...getColumnSearchProps("userName"),
+      sorter: (a, b) => a?.userName?.length - b?.userName?.length,
+      // ...getColumnSearchProps("userName"),
     },
     {
       title: "Phone",
       dataIndex: "phone",
-      sorter: (a, b) => a.phone.length - b.phone.length,
-      ...getColumnSearchProps("phone"),
+      // sorter: (a, b) => a.phone.length - b.phone.length,
+      // ...getColumnSearchProps("phone"),
     },
     {
       title: "Address",
       dataIndex: "address",
-      sorter: (a, b) => a.address.length - b.address.length,
-      ...getColumnSearchProps("address"),
+      sorter: (a, b) => a?.address?.length - b?.address?.length,
+      // ...getColumnSearchProps("address"),
     },
     {
       title: "Paided",
       dataIndex: "isPaid",
-      sorter: (a, b) => a.isPaid.length - b.isPaid.length,
-      ...getColumnSearchProps("isPaid"),
     },
     {
       title: "Shipped",
       dataIndex: "isDelivered",
-      sorter: (a, b) => a.isDelivered.length - b.isDelivered.length,
       filters: [
         {
           text: "Đơn Hàng Chờ Xác Nhận",
@@ -260,14 +257,14 @@ const AdminOrder = () => {
     {
       title: "Payment method",
       dataIndex: "paymentMethod",
-      sorter: (a, b) => a.paymentMethod.length - b.paymentMethod.length,
-      ...getColumnSearchProps("paymentMethod"),
+      // sorter: (a, b) => a.paymentMethod.length - b.paymentMethod.length,
+      // ...getColumnSearchProps("paymentMethod"),
     },
     {
       title: "Total price",
       dataIndex: "totalPrice",
       sorter: (a, b) => a.totalPrice.length - b.totalPrice.length,
-      ...getColumnSearchProps("totalPrice"),
+      // ...getColumnSearchProps("totalPrice"),
     },
     {
       title: "Action",
@@ -341,6 +338,7 @@ const AdminOrder = () => {
               },
               
             ]}
+            disabled={order?.isDelivered === "Đơn Hàng Đã Hoàn Thành" || order?.isDelivered === "Hủy Đơn Hàng"}
           />
       ) ,
         isDelivered: (
@@ -389,6 +387,9 @@ const AdminOrder = () => {
       return {
         ...order,
         key: order?._id,
+        buyerName: dataOrder?.shippingAddress?.fullName,
+        address: dataOrder?.shippingAddress?.address,
+        phone: dataOrder?.shippingAddress?.phone,
         image: order?.image,
         name: order?.name,
         amount: order?.amount,
@@ -396,6 +397,7 @@ const AdminOrder = () => {
       };
     });
 
+    console.log('dataOrder',dataOrder);
   const dataTableDetailPet =
     dataOrder?.orderPetItems &&
     dataOrder?.orderPetItems?.map((order) => {
@@ -403,6 +405,9 @@ const AdminOrder = () => {
         ...order,
         key: order?._id,
         name: order?.name,
+        buyerName: dataOrder?.shippingAddress?.fullName,
+        address: dataOrder?.shippingAddress?.address,
+        phone: dataOrder?.shippingAddress?.phone,
       };
     });
 
@@ -411,6 +416,21 @@ const AdminOrder = () => {
 
   const columnsDetail = [
     {
+      title: "BuyerName",
+      dataIndex: "buyerName",
+      render: (text) => <a>{text}</a>,
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      render: (text) => <a>{text}</a>,
+    },
+    {
+      title: "Phone",
+      dataIndex: "phone",
+      render: (text) => <a>{text}</a>,
+    },
+    {
       title: "image",
       dataIndex: "image",
       render: renderImage,
@@ -418,18 +438,14 @@ const AdminOrder = () => {
     {
       title: "Name",
       dataIndex: "name",
-      sorter: (a, b) => a.name.length - b.name.length,
-      ...getColumnSearchProps("name"),
     },
     {
       title: "amount",
       dataIndex: "amount",
-      sorter: (a, b) => a.amount.length - b.amount.length,
     },
     {
       title: "price",
       dataIndex: "price",
-      sorter: (a, b) => a.price.length - b.price.length,
     },
   ];
 
@@ -445,8 +461,9 @@ const AdminOrder = () => {
         <TableComponent
           iconTitle={<BsFillCartCheckFill size={40} />}
           title="Order Lists"
-          iconAdd={<BiCartAdd size={18} />}
-          AddTitle="Create Order"
+          isDownLoad={false}
+          // iconAdd={<BiCartAdd size={18} />}
+          // AddTitle="Create Order"
           // IsShowModal={setIsModalOpen}
           // handleDeleteMany={handleDelteManyProducts}
           columns={columns}
