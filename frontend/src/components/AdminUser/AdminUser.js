@@ -286,22 +286,6 @@ const AdminUser = () => {
       title: "Admin",
       dataIndex: "isAdmin",
       sorter: (a, b) => a?.isAdmin?.length - b?.isAdmin?.length,
-      // filters: [
-      //   {
-      //     text: "True",
-      //     value: true,
-      //   },
-      //   {
-      //     text: "False",
-      //     value: false,
-      //   },
-      // ],
-      // onFilter: (value, record) => {
-      //   if(value === true) {
-      //     return record.phone === true
-      //   }
-      //   return record.phone === false
-      // }
     },
     {
       title: "Phone",

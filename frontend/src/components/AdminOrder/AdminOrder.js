@@ -292,13 +292,13 @@ const AdminOrder = () => {
   }
 
   const handleChangeSelectOrderisDelivered = (value) => {
-    console.log('dataOrder?.isDelivered',dataOrder?.isDelivered);
+    console.log('dataOrder?.isDelivered',value);
     mutationUpdate.mutate(
       {
         id: rowSelected,
         token: user?.access_token,
         ...dataOrder,
-        isPaid: value === "Đơn Hàng Đã Hoàn Thành" ? true : dataOrder?.isDelivered === "Đơn Hàng Đã Hoàn Thành" ? false : dataOrder?.isDelivered !== "Đơn Hàng Đã Hoàn Thành" && false ,
+        isPaid: value === "Đơn Hàng Đã Hoàn Thành" || dataOrder?.paymentMethod === "paypal" ? true : value === "Hủy Đơn Hàng" ? false : dataOrder?.isPaid,
         isDelivered: value,
       },
       {
@@ -338,7 +338,7 @@ const AdminOrder = () => {
               },
               
             ]}
-            disabled={order?.isDelivered === "Đơn Hàng Đã Hoàn Thành" || order?.isDelivered === "Hủy Đơn Hàng"}
+            disabled={order?.isDelivered === "Đơn Hàng Đã Hoàn Thành" || order?.isDelivered === "Hủy Đơn Hàng" || order?.paymentMethod === "paypal" }
           />
       ) ,
         isDelivered: (
@@ -387,13 +387,10 @@ const AdminOrder = () => {
       return {
         ...order,
         key: order?._id,
+        name: order?.name,
         buyerName: dataOrder?.shippingAddress?.fullName,
         address: dataOrder?.shippingAddress?.address,
-        phone: dataOrder?.shippingAddress?.phone,
-        image: order?.image,
-        name: order?.name,
-        amount: order?.amount,
-        price: order?.price,
+        phone: dataOrder?.shippingAddress?.phone.toString(),
       };
     });
 
@@ -407,7 +404,7 @@ const AdminOrder = () => {
         name: order?.name,
         buyerName: dataOrder?.shippingAddress?.fullName,
         address: dataOrder?.shippingAddress?.address,
-        phone: dataOrder?.shippingAddress?.phone,
+        phone: dataOrder?.shippingAddress?.phone.toString(),
       };
     });
 

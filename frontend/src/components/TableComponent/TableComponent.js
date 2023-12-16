@@ -22,7 +22,7 @@ const TableComponent = ({
 
   const newColumnExport = useMemo(() => {
     const arr = columns?.filter(
-      (col) => col.dataIndex !== "action" && col.dataIndex !== "image"
+      (col) => col?.dataIndex !== "action" && col?.dataIndex !== "image"
     );
     return arr;
   }, [columns]);

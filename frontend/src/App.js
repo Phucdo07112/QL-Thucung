@@ -77,7 +77,7 @@ function App() {
     let storageRefreshToken = localStorage.getItem('refreshToken-dog')
     const refreshToken = JSON.parse(storageRefreshToken)
     const res = await UserService.getDetailUser(id, access_Token);
-
+    console.log('res',res);
     dispatch(updateUser({ ...res?.data, access_Token: access_Token,refreshToken: refreshToken }));
   };
   return (

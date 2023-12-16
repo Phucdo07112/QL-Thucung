@@ -173,15 +173,17 @@ const getAllOrderDetails = (id) => {
           or?.orderPetItems?.map((pet) => {
             return idItem.push(pet.pet)
           })
-          await User.findByIdAndUpdate({_id: id}, {
-            commentIdOrder: idItem
-          }, { new: true })
-        } else {
-          await User.findByIdAndUpdate({_id: id}, {
-            commentIdOrder: []
-          }, { new: true })
         }
       })
+      if(idItem?.length > 0) {
+        await User.findByIdAndUpdate({_id: id}, {
+          commentIdOrder: idItem
+        }, { new: true })
+      } else {
+        await User.findByIdAndUpdate({_id: id}, {
+          commentIdOrder: []
+        }, { new: true })
+      }
       
 
       resolve({
