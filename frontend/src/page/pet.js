@@ -233,7 +233,7 @@ const Pet = () => {
             <div className="flex-4">
               <div className="flex  items-center justify-between">
                 <p className="text-gray-500 font-medium">
-                  Showing 1-9 of 12 results
+                  Showing 1 - {petCategorys?.data?.length} items
                 </p>
                 <Select
                   defaultValue="Mặc Định"

@@ -15,6 +15,7 @@ import MyOrder from "../page/MyOrder";
 import Search from "../page/search";
 import Heart from "../page/heart";
 import DetailOrder from "../page/DetailOrder";
+import date from "../page/date";
 export const routes = [
   {
     path: "/",
@@ -55,6 +56,11 @@ export const routes = [
   {
     path: "/order",
     page: Orders,
+    isShowHeader: true,
+  },
+  {
+    path: "/date",
+    page: date,
     isShowHeader: true,
   },
   {

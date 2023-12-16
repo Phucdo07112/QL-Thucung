@@ -111,25 +111,6 @@ const Search = () => {
                 />
               </div>
               <div className="mt-5 border-2 p-4 rounded-lg">
-                <p className="text-lg font-semibold">Price</p>
-                <div className="mt-5">
-                  <input
-                    id="minmax-range"
-                    type="range"
-                    min="0"
-                    max="10"
-                    value="5"
-                    class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
-                  />
-                </div>
-                <div className="flex items-center justify-between mt-5">
-                  <p className="text-gray-500 font-medium">$50 - $500</p>
-                  <button className="bg-[#ff642f] px-9 py-[14px] rounded-full text-[12px] font-medium text-white">
-                    FILTER
-                  </button>
-                </div>
-              </div>
-              <div className="mt-5 border-2 p-4 rounded-lg">
                 <p className="text-lg font-semibold">Categories</p>
                 <div className="mt-5 flex flex-col gap-5 text-[15px] font-medium">
                   {categorys?.map((category) => (
@@ -161,7 +142,7 @@ const Search = () => {
             <div className="flex-4">
               <div className="flex  items-center justify-between">
                 <p className="text-gray-500 font-medium">
-                  Showing 1-9 of 12 results
+                  Showing 1-{products?.data?.length + pets?.data?.length} items
                 </p>
                 <Select
                   defaultValue="Sort by Popular"

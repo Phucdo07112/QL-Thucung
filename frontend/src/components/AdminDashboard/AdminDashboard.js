@@ -58,7 +58,7 @@ const AdminDashboard = () => {
 
   const { isLoading: isLoadingUser, data: users } = queryUser;
 
-  console.log("products", orders);
+  console.log("products", products);
 
   const totalPriceMemo = useMemo(() => {
     let total = 0;
@@ -73,8 +73,9 @@ const AdminDashboard = () => {
   const totalExpensesProductMemo = useMemo(() => {
     let total = 0;
     products?.data?.map((product) => {
+
       if (product.expenses) {
-        total = total + product?.expenses * product?.countInStock;
+        total = product?.selled ? total + product?.expenses * product?.countInStock * product?.selled : total + product?.expenses * product?.countInStock ;
       }
     });
     return total;
@@ -84,7 +85,7 @@ const AdminDashboard = () => {
     let total = 0;
     pets?.data?.map((pet) => {
       if (pet.expenses) {
-        total = total + pet?.expenses * pet?.countInStock;
+        total = pet?.selled ? total + pet?.expenses * pet?.countInStock * pet?.selled : total + pet?.expenses * pet?.countInStock;
       }
     });
     return total;

@@ -386,7 +386,7 @@ const ProductDetails = () => {
               ))}
             </div>
           </div>
-          {user?.commentIdOrder.includes(productDetails?.data?._id) && (
+          {user?.commentIdOrder?.includes(productDetails?.data?._id) && (
             <div className="">
               <h4 className="text-[30px] font-bold text-gray-700 my-8">
                 Add a review
